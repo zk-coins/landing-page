@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>zkCoins — Shielded CSV Whitepaper</title>
+<meta name="description" content="Shielded CSV: Private and Efficient Client-Side Validation. The paper behind zkCoins, by Jonas Nick, Liam Eagen, Robin Linus. ePrint 2025/068." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<meta property="og:title" content="zkCoins — Shielded CSV Whitepaper" />
+<meta property="og:description" content="Private and Efficient Client-Side Validation. The paper behind zkCoins. ePrint 2025/068." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zkcoins.com" />
+<meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@zkcoinsbtc" />
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --orange: #f7931a;
+    --fg: #ffffff;
+    --muted: rgba(255,255,255,0.6);
+    --line: rgba(255,255,255,0.1);
+    --paper-bg: rgba(247,147,26,0.04);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: var(--mono); }
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+  main { flex: 1; max-width: 880px; margin: 0 auto; padding: 64px 24px 32px; width: 100%; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+  .logo { width: 56px; height: 56px; border-radius: 12px; background: var(--orange); color: var(--bg); font-weight: 800; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+  h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; color: var(--orange); }
+  .tag { color: var(--muted); font-weight: 400; font-size: 14px; }
+
+  .hero { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 16px; }
+  .lede { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 640px; margin: 0 0 56px; }
+
+  .paper { border: 1px solid var(--orange); border-radius: 16px; padding: 32px; background: var(--paper-bg); margin: 0 0 56px; }
+  .paper .eyebrow { font-size: 12px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+  .paper h2 { margin: 0 0 12px; font-size: clamp(22px, 3.5vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: var(--fg); }
+  .paper .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+  .paper .meta { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin-bottom: 28px; font-size: 14px; }
+  .paper .meta dt { color: var(--muted); }
+  .paper .meta dd { margin: 0; color: var(--fg); }
+  .paper .meta a { color: var(--orange); text-decoration: none; }
+  .paper .meta a:hover { text-decoration: underline; }
+  .abstract { font-size: 14px; line-height: 1.6; color: var(--fg); border-left: 2px solid var(--orange); padding: 4px 0 4px 16px; margin: 0 0 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; text-decoration: none; transition: transform .1s ease, opacity .15s ease; }
+  .btn-primary { background: var(--orange); color: var(--bg); }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-secondary { border: 1px solid var(--line); color: var(--fg); }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+  .btn .arrow { font-size: 12px; }
+
+  .section-title { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 20px; }
+  .concepts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 56px; }
+  .concept { border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .concept .k { font-size: 12px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 800; }
+  .concept .v { font-size: 15px; line-height: 1.5; color: var(--fg); margin: 0; }
+  .concept .v em { font-style: normal; color: var(--muted); display: block; margin-top: 6px; font-size: 13px; }
+
+  .also { border-top: 1px solid var(--line); padding-top: 32px; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 20px; text-decoration: none; color: var(--fg); transition: border-color .15s ease; }
+  .card:hover { border-color: var(--orange); }
+  .card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .card .name { font-size: 18px; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
+  .card .domain { font-size: 13px; color: var(--muted); }
+  .card .arrow { float: right; color: var(--muted); }
+
+  .footer { border-top: 1px solid var(--line); padding: 24px; text-align: center; color: var(--muted); font-size: 12px; }
+  .footer a { color: var(--muted); text-decoration: none; margin: 0 8px; }
+  .footer a:hover { color: var(--orange); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="logo">zk</div>
+    <div>
+      <h1>zkCoins</h1>
+      <div class="tag">Private Bitcoin transactions via Shielded CSV</div>
+    </div>
+  </header>
+
+  <p class="hero">The paper behind zkCoins.</p>
+  <p class="lede">zkCoins implements Shielded CSV — a privacy protocol for Bitcoin that reveals nothing on-chain beyond a 64-byte nullifier. No token. No own chain. Settled on Bitcoin.</p>
+
+  <article class="paper" aria-labelledby="paper-title">
+    <div class="eyebrow">Whitepaper · ePrint 2025/068</div>
+    <h2 id="paper-title">Shielded CSV: Private and Efficient Client-Side Validation</h2>
+    <div class="subtitle">A privacy-preserving variant of Client-Side Validation, settled directly on Bitcoin.</div>
+
+    <dl class="meta">
+      <dt>Authors</dt>
+      <dd>Jonas Nick (Blockstream) · Liam Eagen (Alpen Labs) · Robin Linus (ZeroSync)</dd>
+      <dt>Published</dt>
+      <dd>January 2025</dd>
+      <dt>Reference</dt>
+      <dd><a href="https://eprint.iacr.org/2025/068">eprint.iacr.org/2025/068</a></dd>
+    </dl>
+
+    <p class="abstract">
+      Client-Side Validation (CSV) decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and targets roughly an order of magnitude more transactions per second than the base layer alone.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">Read the paper <span class="arrow">↗</span></a>
+      <a class="btn btn-secondary" href="https://eprint.iacr.org/2025/068">Abstract on ePrint <span class="arrow">↗</span></a>
+    </div>
+  </article>
+
+  <h3 class="section-title">What Shielded CSV Changes</h3>
+  <div class="concepts">
+    <div class="concept">
+      <div class="k">On-chain footprint</div>
+      <p class="v">64 bytes per transfer.<em>A nullifier — derived from the transaction, indistinguishable from random data — replaces the full transaction payload.</em></p>
+    </div>
+    <div class="concept">
+      <div class="k">Privacy</div>
+      <p class="v">No leaked transaction graph.<em>Unlike RGB or Taproot Assets, the history is hidden under a zk-SNARK-style proof; recipients verify validity without seeing the lineage.</em></p>
+    </div>
+    <div class="concept">
+      <div class="k">Compatibility</div>
+      <p class="v">Bitcoin as-is.<em>No soft fork, no hard fork. CSV protocols coexist on the chain by using it only for ordering and double-spend prevention.</em></p>
+    </div>
+    <div class="concept">
+      <div class="k">Throughput</div>
+      <p class="v">~100 transactions per second.<em>Shrinking the on-chain footprint from ~560 WU to ~64 WU lifts Bitcoin's effective capacity by roughly an order of magnitude.</em></p>
+    </div>
+  </div>
+
+  <section class="also">
+    <h3 class="section-title">The zkCoins family</h3>
+    <div class="grid">
+      <a class="card" href="https://zkcoins.info">
+        <div class="label">Brand Hub <span class="arrow">↗</span></div>
+        <div class="name">zkCoins Info</div>
+        <div class="domain">zkcoins.info</div>
+      </a>
+      <a class="card" href="https://zkcoins.app">
+        <div class="label">Wallet <span class="arrow">↗</span></div>
+        <div class="name">zkCoins App</div>
+        <div class="domain">zkcoins.app</div>
+      </a>
+      <a class="card" href="https://zkcoins.exchange">
+        <div class="label">Exchange <span class="arrow">↗</span></div>
+        <div class="name">zkCoins Exchange</div>
+        <div class="domain">zkcoins.exchange</div>
+      </a>
+      <a class="card" href="https://zkcoins.space">
+        <div class="label">Explorer <span class="arrow">↗</span></div>
+        <div class="name">zkCoins Space</div>
+        <div class="domain">zkcoins.space</div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <a href="https://x.com/zkcoinsbtc">X</a>·
+  <a href="https://t.me/zkcoinsbtc">Telegram</a>·
+  <a href="https://github.com/zk-coins">GitHub</a>·
+  <a href="https://docs.zkcoins.app">Docs</a>
+</footer>
+</body>
+</html>
