@@ -1,0 +1,22 @@
+name: Content change
+description: Wording, structure, or new section on the landing page.
+labels: [content]
+body:
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: What should the page say or do differently?
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Reference (optional)
+      placeholder: e.g. https://eprint.iacr.org/2025/068

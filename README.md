@@ -1,5 +1,8 @@
 # zkcoins.com — Landing Page
 
+[![CI](https://github.com/zk-coins/landing-page/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/zk-coins/landing-page/actions/workflows/ci.yaml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric entry point for the Shielded CSV protocol that zkCoins is built on.
 
 ## Stack
@@ -45,6 +48,12 @@ Cloudflare Pages auto-deploys on push to `develop`.
 ```bash
 npx wrangler pages deploy . --project-name=zkcoins-com --branch=production
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for branching model, local development, CI checks, and style invariants.
+
+Security issues: see [SECURITY.md](SECURITY.md).
 
 ## Brand
 
