@@ -14,3 +14,6 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    cooldown:
+      default-days: 5
+      semver-major-days: 14
