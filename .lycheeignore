@@ -1,0 +1,5 @@
+# zkCoins family domains that are registered but not yet served.
+# Remove once they go live.
+^https?://zkcoins\.info/?$
+^https?://zkcoins\.exchange/?$
+^https?://zkcoins\.space/?$
