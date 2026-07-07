@@ -13,7 +13,7 @@
 - [zkCoins home](https://zkcoins.com/): overview, how it works, roadmap, FAQ
 - [Wallet](https://zkcoins.app): the self-custodial zkCoins wallet (web / PWA)
 - [Documentation](https://docs.zkcoins.app): architecture, protocol, privacy model, wallet guide
-- [Brand guide](https://zkcoins.com/brand): logo, color, typography, voice, design tokens
+- [Brand kit](https://github.com/zk-coins/landing-page/tree/main/brand): logo, color, typography, voice, design tokens
 
 ## Protocol
 - [Shielded CSV whitepaper — ePrint 2025/068](https://eprint.iacr.org/2025/068)
