@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>zkCoins — Private Bitcoin via Shielded CSV</title>
-<meta name="description" content="zkCoins implements Shielded CSV: private Bitcoin transfers that reveal only a 64-byte nullifier on-chain. No token, no sidechain, no soft fork. Built on the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068)." />
+<meta name="description" content="zkCoins brings true privacy to Bitcoin via Shielded CSV: amounts, sender, receiver and history stay off-chain, proven with zero-knowledge. Many spends anchor to Bitcoin as one constant 231-byte inscription per batch. No soft fork, self-custodial. Built on the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068)." />
 <meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.png" type="image/png" />
 <meta property="og:title" content="zkCoins — Private Bitcoin via Shielded CSV" />
-<meta property="og:description" content="Private Bitcoin transfers that reveal only a 64-byte nullifier on-chain. No token, no sidechain, no soft fork. Settled on Bitcoin." />
+<meta property="og:description" content="True privacy for Bitcoin via Shielded CSV — coin data stays off-chain, anchored as one constant 231-byte inscription per batch. No soft fork, self-custodial." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zkcoins.com" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
@@ -484,7 +484,7 @@
       "name": "zkCoins",
       "url": "https://zkcoins.com/",
       "logo": "https://zkcoins.com/favicon.png",
-      "description": "zkCoins is a self-custodial wallet for Shielded CSV — private Bitcoin transactions that reveal only a 64-byte nullifier on-chain.",
+      "description": "zkCoins is a self-custodial wallet for Shielded CSV — private, client-side-validated Bitcoin transactions anchored on Bitcoin L1.",
       "sameAs": [
         "https://x.com/zkcoinsbtc",
         "https://t.me/zkcoinsbtc",
@@ -497,7 +497,7 @@
       "@id": "https://zkcoins.com/#website",
       "url": "https://zkcoins.com/",
       "name": "zkCoins",
-      "description": "Private Bitcoin transactions via Shielded CSV. Send and receive real BTC while the chain reveals only a 64-byte nullifier.",
+      "description": "Private Bitcoin transactions via Shielded CSV. Coin data stays off-chain — many spends anchor to Bitcoin as one constant 231-byte inscription per batch.",
       "inLanguage": "en",
       "publisher": { "@id": "https://zkcoins.com/#organization" }
     },
@@ -533,12 +533,12 @@
         {
           "@type": "Question",
           "name": "What is zkCoins?",
-          "acceptedAnswer": { "@type": "Answer", "text": "zkCoins is a self-custodial wallet for Shielded CSV, a privacy protocol for Bitcoin. It lets you send and receive real BTC while revealing only a 64-byte nullifier on-chain. Amounts, sender, receiver and transaction history stay private, verified client-side with zero-knowledge proofs." }
+          "acceptedAnswer": { "@type": "Answer", "text": "zkCoins is a self-custodial wallet for Shielded CSV, a privacy protocol for Bitcoin. Amounts, sender, receiver and transaction history stay off-chain, proven with zero-knowledge and verified client-side. Many private spends anchor to Bitcoin as one constant 231-byte inscription per batch." }
         },
         {
           "@type": "Question",
           "name": "Is zkCoins a new token or altcoin?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. zkCoins is not a token, coin, or altcoin. It moves native Bitcoin. Shielded CSV keeps funds in BTC — there is no new asset to buy and no bridge to another chain." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No — zkCoins is not a separate blockchain, altcoin, or native protocol token. It is a client-side-validation layer anchored to Bitcoin L1; value lives in client-side-validated coins. Moving on-chain BTC in and out uses a bridge, which is on the roadmap." }
         },
         {
           "@type": "Question",
@@ -548,7 +548,7 @@
         {
           "@type": "Question",
           "name": "How does zkCoins keep transactions private?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Each transfer generates a zero-knowledge proof sent directly to the recipient off-chain. Only a 64-byte nullifier, indistinguishable from random data, is written to Bitcoin. The transaction graph, amounts and parties never touch the chain." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Each spend is proven with a zero-knowledge proof and shared off-chain. Coin data — amounts, parties and history — never touches Bitcoin. A permissionless publisher anchors a whole batch of spends as one constant 231-byte inscription; the nullifiers stay off-chain." }
         },
         {
           "@type": "Question",
@@ -558,7 +558,7 @@
         {
           "@type": "Question",
           "name": "What is Shielded CSV?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). It compresses a full Bitcoin transaction to a 64-byte nullifier and lifts throughput to roughly 100 transactions per second." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). zkCoins v1 batches many spends and anchors each batch to Bitcoin as one constant 231-byte inscription." }
         }
       ]
     }
@@ -608,13 +608,13 @@
   <!-- HERO -->
   <section class="hero">
     <span class="eyebrow">Private Bitcoin · Shielded CSV</span>
-    <h1>It's Bitcoin<br><span class="accent">Now it's private</span></h1>
-    <p class="lede">Send and receive <b>real BTC</b> — while the chain sees nothing but a <b>64-byte nullifier</b>.</p>
+    <h1>Send Bitcoin privately<br><span class="accent">nothing legible on-chain</span></h1>
+    <p class="lede">zkCoins brings <b>true privacy</b> to Bitcoin. Amounts, sender, receiver and history stay off-chain — proven with zero-knowledge and anchored to Bitcoin as one constant <b>231-byte inscription</b> per batch.</p>
     <div class="pillars">
-      <span class="pill">No new token</span>
       <span class="pill">No soft fork</span>
       <span class="pill">Self-custodial</span>
       <span class="pill">Zero-knowledge</span>
+      <span class="pill">No coordinator</span>
     </div>
     <div class="hero-cta">
       <a class="btn btn-primary" href="https://zkcoins.app">
@@ -627,10 +627,10 @@
 
   <!-- STAT BAND -->
   <section class="statband" aria-label="zkCoins at a glance">
-    <div class="stat"><span class="num">64<span class="u">B</span></span><span class="lab">on-chain per tx</span></div>
-    <div class="stat"><span class="num">~100</span><span class="lab">transactions / sec</span></div>
-    <div class="stat"><span class="num">0</span><span class="lab">new tokens</span></div>
+    <div class="stat"><span class="num">231<span class="u">B</span></span><span class="lab">on-chain per batch</span></div>
+    <div class="stat"><span class="num">~3.2<span class="u">vB</span></span><span class="lab">per spend, 100 / batch</span></div>
     <div class="stat"><span class="num">0</span><span class="lab">soft forks</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">coordinators</span></div>
   </section>
 
   <!-- COMPRESSION DIAGRAM -->
@@ -641,19 +641,19 @@
         <div class="tx-row"><span class="lbl">from</span><span class="val">bc1q7f…3k9</span></div>
         <div class="tx-row"><span class="lbl">to</span><span class="val">bc1p2m…q8x</span></div>
         <div class="tx-row"><span class="lbl">amount</span><span class="val">0.4218 BTC</span></div>
-        <div class="tx-foot">~560 weight units · fully public</div>
+        <div class="tx-foot">~140 vBytes · fully public · one per payment</div>
       </div>
       <div class="compare-arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        8.75× smaller
+        amortises to ~0
       </div>
       <div class="txbox tx-private">
-        <div class="tx-title"><span class="tx-dot"></span>zkCoins transfer</div>
-        <div class="nullifier">a3f9&nbsp;71c2&nbsp;0e4d&nbsp;bb18<br>5c9a&nbsp;44f0&nbsp;e7d3&nbsp;90ab</div>
-        <div class="tx-foot">64-byte nullifier · opaque, indistinguishable from random</div>
+        <div class="tx-title"><span class="tx-dot"></span>zkCoins batch</div>
+        <div class="nullifier">one&nbsp;231-byte<br>BatchInscription</div>
+        <div class="tx-foot">constant · covers every spend in the batch · coin data off-chain</div>
       </div>
     </div>
-    <p class="compare-cap">Same double-spend guarantee, settled on Bitcoin. <b>Everything else — amounts, parties, history — is verified client-side and never touches the chain.</b></p>
+    <p class="compare-cap">Coin data never touches the chain. <b>Many private spends anchor to Bitcoin as one constant 231-byte inscription — ~3.2 vBytes per spend at 100 per batch.</b></p>
   </section>
 
   <!-- PAPER (dominant) -->
@@ -679,7 +679,7 @@
       </dl>
 
       <p class="abstract">
-        Client-Side Validation decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and lifts effective throughput from roughly 11 to about 100 transactions per second.
+        Client-Side Validation decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and targets roughly an order of magnitude more transactions per second than the base layer alone.
       </p>
 
       <div class="actions">
@@ -696,14 +696,14 @@
   <section class="band">
     <div class="band-head">
       <span class="eyebrow">What Shielded CSV changes</span>
-      <h2>A full Bitcoin transaction, compressed to 64 bytes</h2>
-      <p>Shrinking the on-chain footprint does two things at once: it makes transfers private, and it lifts Bitcoin's effective capacity by an order of magnitude.</p>
+      <h2>Many private spends, one tiny inscription</h2>
+      <p>Coin data stays off-chain. A permissionless publisher anchors a whole batch of spends to Bitcoin with a single, constant-size inscription — so privacy and on-chain cost both win at once.</p>
     </div>
     <div class="concepts">
       <div class="concept">
         <div class="k">On-chain footprint</div>
-        <div class="h">Opaque, and tiny</div>
-        <p class="v">A <b>nullifier</b> — derived from the transaction, indistinguishable from random data — is all that replaces the full payload.</p>
+        <div class="h">One inscription per batch</div>
+        <p class="v">Coin data never touches the chain. A whole batch of spends anchors to Bitcoin as <b>one constant 231-byte inscription</b> — nothing legible.</p>
       </div>
       <div class="concept">
         <div class="k">Transaction graph</div>
@@ -716,9 +716,9 @@
         <p class="v">No soft fork, no hard fork. CSV protocols use the chain <b>only for ordering and double-spend prevention</b>.</p>
       </div>
       <div class="concept">
-        <div class="k">Throughput</div>
-        <div class="h">Higher on-chain capacity</div>
-        <p class="v">Shrinking each transfer from ~560 to ~64 weight units lifts effective throughput <b>~8.75× over base-layer Bitcoin</b>.</p>
+        <div class="k">Cost</div>
+        <div class="h">Amortises toward zero</div>
+        <p class="v">The inscription is constant no matter how many spends it covers — per-spend cost falls to <b>~3.2 vBytes at 100 per batch</b>.</p>
       </div>
     </div>
   </section>
@@ -735,9 +735,9 @@
     <ol class="steps">
       <li class="step"><span class="n">1</span><div class="body"><p class="t">Sender proves</p><p class="d">The sender creates a transfer and generates a succinct validity proof of the coin's entire history — a constant size, no matter how old the coin is.</p></div></li>
       <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof goes to the receiver</p><p class="d">The proof travels <b>directly to the receiver, off-chain</b>. Amounts, parties and history never leave the two devices.</p></div></li>
-      <li class="step"><span class="n">3</span><div class="body"><p class="t">A nullifier lands on Bitcoin</p><p class="d">Only a <code>64-byte nullifier</code> is written to the chain, as a Taproot inscription — an opaque blob that commits to the spend.</p></div></li>
+      <li class="step"><span class="n">3</span><div class="body"><p class="t">A batch is anchored on Bitcoin</p><p class="d">A permissionless <b>publisher</b> aggregates many spends and inscribes one constant <code>231-byte BatchInscription</code> — the nullifiers themselves stay off-chain.</p></div></li>
       <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver checks the zero-knowledge proof locally — one Schnorr verification — and accepts the coin without trusting any third party.</p></div></li>
-      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin prevents double-spends</p><p class="d">The chain records which nullifiers have appeared. Its single job: guarantee each coin is spent <b>exactly once</b>.</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin prevents double-spends</p><p class="d">Each batch anchors the nullifier accumulator's root transition. The chain's one job: guarantee each coin is spent <b>exactly once</b>.</p></div></li>
     </ol>
   </section>
 
@@ -752,13 +752,13 @@
     <div class="perf-wrap">
       <table class="perf">
         <thead>
-          <tr><th>Metric</th><th>Bitcoin (regular)</th><th class="zk">Shielded CSV</th></tr>
+          <tr><th>Metric</th><th>Bitcoin (regular)</th><th class="zk">zkCoins v1</th></tr>
         </thead>
         <tbody>
-          <tr><td class="metric">On-chain data / tx</td><td class="btc">~560 weight units</td><td class="zk"><b>~64 weight units</b></td></tr>
-          <tr><td class="metric">Throughput</td><td class="btc">~11 TPS</td><td class="zk"><b>~100 TPS</b></td></tr>
+          <tr><td class="metric">On-chain data</td><td class="btc">full transaction (~140 vBytes)</td><td class="zk"><b>231-byte inscription per batch</b></td></tr>
+          <tr><td class="metric">Per-spend cost</td><td class="btc">~140 vBytes</td><td class="zk"><b>~3.2 vBytes (100 / batch)</b></td></tr>
           <tr><td class="metric">Privacy</td><td class="btc">None — fully public</td><td class="zk"><b>Full — nothing leaked</b></td></tr>
-          <tr><td class="metric">Verification / tx</td><td class="btc">Full script execution</td><td class="zk">1× Schnorr signature</td></tr>
+          <tr><td class="metric">Verification</td><td class="btc">Full script per tx</td><td class="zk">1× batch proof</td></tr>
           <tr><td class="metric">Proof size</td><td class="btc">N/A</td><td class="zk">Constant, independent of history</td></tr>
         </tbody>
       </table>
@@ -778,7 +778,7 @@
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a sidechain</span><p>It uses <b>Bitcoin L1 directly</b> — no separate consensus, no bridge to a foreign chain.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no data-availability layer.</b> Proofs move peer-to-peer between sender and receiver.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — there is no anonymity set to deanonymise.</p></div>
-      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a token</span><p><b>No new asset.</b> Just a different, private way to transact native Bitcoin.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a token</span><p><b>No native protocol token to bootstrap.</b> Value lives in client-side-validated coins.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a soft fork</span><p>It works on <b>Bitcoin as it exists today</b> — no consensus change, no new opcodes.</p></div>
     </div>
   </section>
@@ -932,11 +932,11 @@
     <div class="faq">
       <details>
         <summary>What is zkCoins?</summary>
-        <p>zkCoins is a self-custodial wallet for Shielded CSV, a privacy protocol for Bitcoin. It lets you send and receive real BTC while revealing only a 64-byte nullifier on-chain. Amounts, sender, receiver and transaction history stay private, verified client-side with zero-knowledge proofs.</p>
+        <p>zkCoins is a self-custodial wallet for Shielded CSV, a privacy protocol for Bitcoin. Amounts, sender, receiver and transaction history stay off-chain, proven with zero-knowledge and verified client-side. Many private spends anchor to Bitcoin as one constant 231-byte inscription per batch.</p>
       </details>
       <details>
         <summary>Is zkCoins a new token or altcoin?</summary>
-        <p>No. zkCoins is not a token, coin, or altcoin. It moves native Bitcoin. Shielded CSV keeps funds in BTC — there is no new asset to buy and no bridge to another chain.</p>
+        <p>No — zkCoins is not a separate blockchain, altcoin, or native protocol token. It is a client-side-validation layer anchored to Bitcoin L1; value lives in client-side-validated coins. Moving on-chain BTC in and out uses a bridge, which is on the roadmap.</p>
       </details>
       <details>
         <summary>Does zkCoins require a soft fork?</summary>
@@ -944,7 +944,7 @@
       </details>
       <details>
         <summary>How does zkCoins keep transactions private?</summary>
-        <p>Each transfer generates a zero-knowledge proof sent directly to the recipient off-chain. Only a 64-byte nullifier, indistinguishable from random data, is written to Bitcoin. The transaction graph, amounts and parties never touch the chain.</p>
+        <p>Each spend is proven with a zero-knowledge proof and shared off-chain. Coin data — amounts, parties and history — never touches Bitcoin. A permissionless publisher anchors a whole batch of spends as one constant 231-byte inscription; the nullifiers stay off-chain.</p>
       </details>
       <details>
         <summary>Is zkCoins self-custodial?</summary>
@@ -952,7 +952,7 @@
       </details>
       <details>
         <summary>What is Shielded CSV?</summary>
-        <p>Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). It compresses a full Bitcoin transaction to a 64-byte nullifier and lifts throughput to roughly 100 transactions per second.</p>
+        <p>Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). zkCoins v1 batches many spends and anchors each batch to Bitcoin as one constant 231-byte inscription.</p>
       </details>
     </div>
   </section>
