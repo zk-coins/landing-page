@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 48" shape-rendering="crispEdges" role="img" aria-label="zkCoins">
+  <title>zkCoins wordmark</title>
+  <!-- Pixel monogram + name lockup for dark grounds. Outline text to paths before print. -->
+  <g transform="translate(4 4) scale(3.333)" fill="#f2efe9">
+    <rect x="3" y="1" width="6" height="1"/>
+    <rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+    <rect x="2" y="3" width="8" height="1"/>
+    <rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+    <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+    <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+    <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+    <rect x="2" y="8" width="8" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+    <rect x="3" y="10" width="6" height="1"/>
+  </g>
+  <text x="52" y="32" shape-rendering="auto" font-family="'IBM Plex Mono','SF Mono',ui-monospace,Menlo,monospace"
+        font-size="26" font-weight="600" letter-spacing="-0.5"><tspan fill="#f7931a">zk</tspan><tspan fill="#f2efe9">Coins</tspan></text>
+</svg>
