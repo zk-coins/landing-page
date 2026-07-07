@@ -354,10 +354,11 @@
   /* ─── Roadmap ─────────────────────────────────────────────────── */
   .roadmap { position: relative; }
   .roadmap-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 0 34px; flex-wrap: wrap; }
-  .roadmap-head .legend { display: flex; gap: 14px; font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em; flex-wrap: wrap; }
-  .roadmap-head .legend span { display: inline-flex; align-items: center; gap: 6px; }
-  .roadmap-head .legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-  .legend .dot-active { background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+  .roadmap-head .legend { display: inline-flex; align-items: center; gap: 2px; flex-wrap: wrap; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--card-bg); }
+  .roadmap-head .legend span { display: inline-flex; align-items: center; gap: 7px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--muted); padding: 6px 12px; border-radius: 999px; transition: color .18s var(--ease), background .18s var(--ease); }
+  .roadmap-head .legend i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .legend .is-active { color: var(--orange); background: var(--orange-soft); }
+  .legend .dot-active { background: var(--orange); box-shadow: 0 0 0 3px var(--orange-faint), 0 0 8px var(--orange); }
   .legend .dot-next { background: var(--orange-dim); }
   .legend .dot-planned { background: var(--faint); }
   .legend .dot-horizon { background: transparent; border: 1px solid var(--faint); }
@@ -466,7 +467,7 @@
     .timeline::before { left: 10px; }
     .phase::before { left: -28px; width: 12px; height: 12px; }
     .phase-card { padding: 14px 16px; }
-    .roadmap-head .legend { font-size: 10px; gap: 10px; }
+    .roadmap-head .legend span { font-size: 9.5px; padding: 5px 9px; letter-spacing: 0.08em; }
     .step { grid-template-columns: 44px 1fr; gap: 14px; padding: 18px 16px; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -793,7 +794,7 @@
         <h2 id="roadmap-title" style="margin-bottom:0;">The path to mainnet</h2>
       </div>
       <div class="legend" aria-hidden="true">
-        <span><i class="dot-active"></i>Active</span>
+        <span class="is-active"><i class="dot-active"></i>Active</span>
         <span><i class="dot-next"></i>Next</span>
         <span><i class="dot-planned"></i>Planned</span>
         <span><i class="dot-horizon"></i>Horizon</span>
