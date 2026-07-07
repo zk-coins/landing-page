@@ -1,0 +1,48 @@
+# zkCoins — https://zkcoins.com
+# Open to all crawlers, and AI answer engines are explicitly welcome:
+# being crawlable is how zkCoins gets cited in AI-generated answers.
+
+User-agent: *
+Allow: /
+
+# AI answer / assistant crawlers (search + citation)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://zkcoins.com/sitemap.xml
