@@ -3,3 +3,6 @@
 ^https?://zkcoins\.info/?$
 ^https?://zkcoins\.exchange/?$
 ^https?://zkcoins\.space/?$
+
+# zkcoins.app is intermittently returning 502 (deploy); exclude from link-check until stable.
+^https?://zkcoins\.app/?$
