@@ -37,14 +37,17 @@ If any check fails, fix the underlying problem rather than disabling the check.
 
 ## Style invariants
 
-These must not change without an explicit brand decision:
+These follow the **zkCoins Brand Guide v1.0** and must not change without an explicit brand decision:
 
-- Background `#0a0a0a`, accent `#f7931a` (Bitcoin orange), foreground `#ffffff`
-- Display name **zkCoins** (always capital C)
+- Ground `#0a0a0a`, accent `#f7931a` (Bitcoin orange); headings and the mark `#ffffff`, body text `#ece9e4`; warm-biased neutrals (never a dead grey). The espresso field `radial-gradient(120% 120% at 50% 26%, #a86a1f, #1a1005)` is the signature surface.
+- The mark is the canonical **pixel-art Z monogram** (12×12 grid, `shape-rendering:crispEdges`, monochrome via `currentColor`) — never the old orange "zk" tile, never recoloured, skewed, or anti-aliased.
+- Display name **zkCoins** (always capital C); lowercase `zkcoins` only in domains and handles.
 - Tagline: *Private Bitcoin transactions via Shielded CSV*
-- System monospace font stack only — no Google Fonts, no remote font CDN
-- No JavaScript, no analytics pixel, no third-party iframe
-- The Shielded CSV paper (ePrint 2025/068) stays the visually dominant element of the page
+- Type: **IBM Plex Mono** (wordmark, labels, data, numbers) + **IBM Plex Sans** (headings, body), each with a system fallback stack — no Google Fonts, no remote font CDN.
+- Accent buttons are **black text on orange** (white on orange is misuse).
+- Headings never end with a full stop.
+- No JavaScript **except inert structured data** (`<script type="application/ld+json">` for SEO/AEO). No analytics pixel, no remote font CDN, no third-party iframe.
+- The Shielded CSV paper (ePrint 2025/068) stays a prominent element of the page.
 
 ## Adding a new section
 

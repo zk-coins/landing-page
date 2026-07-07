@@ -3,145 +3,385 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>zkCoins — Shielded CSV Whitepaper</title>
-<meta name="description" content="Shielded CSV: Private and Efficient Client-Side Validation. The paper behind zkCoins, by Jonas Nick, Liam Eagen, Robin Linus. ePrint 2025/068." />
+<title>zkCoins — Private Bitcoin via Shielded CSV</title>
+<meta name="description" content="zkCoins brings true privacy to Bitcoin via Shielded CSV: amounts, sender, receiver and history stay off-chain, proven with zero-knowledge. Many spends anchor to Bitcoin as one constant 231-byte inscription per batch. No soft fork, self-custodial. Built on the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068)." />
 <meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.png" type="image/png" />
-<meta property="og:title" content="zkCoins — Shielded CSV Whitepaper" />
-<meta property="og:description" content="Private and Efficient Client-Side Validation. The paper behind zkCoins. ePrint 2025/068." />
+<meta property="og:title" content="zkCoins — Private Bitcoin via Shielded CSV" />
+<meta property="og:description" content="True privacy for Bitcoin via Shielded CSV — coin data stays off-chain, anchored as one constant 231-byte inscription per batch. No soft fork, self-custodial." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zkcoins.com" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@zkcoinsbtc" />
+<meta name="twitter:creator" content="@zkcoinsbtc" />
+<link rel="canonical" href="https://zkcoins.com/" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="author" content="zkCoins" />
+<meta name="application-name" content="zkCoins" />
+<meta property="og:site_name" content="zkCoins" />
+<meta property="og:locale" content="en_US" />
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 <style>
   :root {
-    --bg: #0a0a0a;
-    --orange: #f7931a;
+    /* Brand Guide v1.0 tokens */
+    --bg: #0a0a0a;              /* ground */
+    --bg-2: #141312;           /* warm ink-1 */
+    --ink-1: #141312; --ink-2: #1c1a18; --ink-3: #26231f;
+    --orange: #f7931a;         /* accent */
+    --orange-300: #ffb85c; --orange-400: #ffa333;
     --orange-dim: rgba(247,147,26,0.5);
     --orange-soft: rgba(247,147,26,0.15);
-    --fg: #ffffff;
-    --muted: rgba(255,255,255,0.6);
-    --faint: rgba(255,255,255,0.35);
-    --line: rgba(255,255,255,0.1);
+    --orange-faint: rgba(247,147,26,0.06);
+    --espresso: radial-gradient(120% 120% at 50% 26%, #a86a1f, #1a1005 82%);
+    --strong: #ffffff;         /* headings + the mark */
+    --fg: #ece9e4;             /* body — warm off-white, never dead grey */
+    --muted: #a8a29a;
+    --faint: #78726a;
+    --line: #2e2a26;
+    --line-2: #221f1b;
     --paper-bg: rgba(247,147,26,0.04);
-    --card-bg: rgba(255,255,255,0.02);
-    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --card-bg: #141312;
+    --mono: 'IBM Plex Mono', 'SF Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --maxw: 940px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: var(--mono); }
-  body { min-height: 100vh; display: flex; flex-direction: column; }
-  main { flex: 1; max-width: 880px; margin: 0 auto; padding: 64px 24px 32px; width: 100%; }
-  header { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
-  .logo { width: 56px; height: 56px; border-radius: 12px; background: var(--orange); color: var(--bg); font-weight: 800; font-size: 28px; display: flex; align-items: center; justify-content: center; }
-  h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; color: var(--orange); }
-  .tag { color: var(--muted); font-weight: 400; font-size: 14px; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--fg);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+  }
+  /* Ambient orange glow behind the hero + faint dot grid — pure CSS, no assets */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(880px 500px at 50% -70px, rgba(168,106,31,0.30), rgba(26,16,5,0) 66%),
+      radial-gradient(circle at center, rgba(247,147,26,0.05) 1px, transparent 1px);
+    background-size: auto, 26px 26px;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 62%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 30%, transparent 62%);
+  }
 
-  .hero { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 16px; }
-  .lede { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 640px; margin: 0 0 56px; }
+  a { color: inherit; }
+  ::selection { background: var(--orange); color: var(--bg); }
+  :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 4px; }
 
-  .paper { border: 1px solid var(--orange); border-radius: 16px; padding: 32px; background: var(--paper-bg); margin: 0 0 56px; }
-  .paper .eyebrow { font-size: 12px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
-  .paper h2 { margin: 0 0 12px; font-size: clamp(22px, 3.5vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: var(--fg); }
-  .paper .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
-  .paper .meta { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin-bottom: 28px; font-size: 14px; }
-  .paper .meta dt { color: var(--muted); }
-  .paper .meta dd { margin: 0; color: var(--fg); }
+  /* Headings + the mark use the strong tone */
+  h1, h2, h3, h4 { color: var(--strong); }
+  /* Mono carries the identity: wordmark, labels, data, numbers, controls */
+  .eyebrow, .kicker, .section-title, .nav-links a.link, .app-btn, .btn,
+  .brand .word, .concept .stat, .concept .k, .tx-title, .tx-row, .tx-foot, .nullifier,
+  .compare-arrow, code, table.perf, .perf th, .phase-num, .phase-status, .phase-when,
+  .step .n, .card .label, .card .name, .card .domain, .roadmap-head .legend,
+  .footer-col h4, .footer-legal, .footer-brand .tag { font-family: var(--mono); }
+
+  /* ── The mark — pixel-art Z monogram, 12×12, render crisp, never smoothed ── */
+  .mark { height: 26px; aspect-ratio: 1 / 1; width: auto; flex-shrink: 0;
+    fill: currentColor; color: var(--strong); shape-rendering: crispEdges; display: inline-block; }
+  .mark use { fill: currentColor; }
+
+  .skip {
+    position: absolute; left: -999px; top: 0;
+    background: var(--orange); color: var(--bg);
+    padding: 10px 16px; font-weight: 800; z-index: 100; border-radius: 0 0 8px 0;
+  }
+  .skip:focus { left: 0; }
+
+  /* ─── Header ─────────────────────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    background: rgba(10,10,10,0.72);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand .word { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--strong); }
+  .brand .word b { color: var(--orange); font-weight: 800; }
+  .nav-links {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-links a.link {
+    text-decoration: none; color: var(--muted);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+    padding: 8px 12px; border-radius: 8px;
+    transition: color .18s var(--ease), background .18s var(--ease);
+  }
+  .nav-links a.link:hover { color: var(--fg); background: rgba(255,255,255,0.04); }
+  .app-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none;
+    background: var(--orange); color: var(--bg);
+    font-size: 13px; font-weight: 800; letter-spacing: 0.02em;
+    padding: 9px 16px; border-radius: 9px;
+    box-shadow: 0 6px 20px rgba(247,147,26,0.30);
+    transition: transform .12s var(--ease), box-shadow .18s var(--ease), opacity .18s var(--ease);
+    white-space: nowrap;
+  }
+  .app-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(247,147,26,0.42); }
+  .app-btn:active { transform: translateY(0); }
+  .app-btn svg { width: 13px; height: 13px; }
+
+  /* ─── Layout ─────────────────────────────────────────────────── */
+  main { flex: 1; position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; width: 100%; }
+  section { scroll-margin-top: 80px; }
+  .hr { border: 0; border-top: 1px solid var(--line-2); margin: 0; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; color: var(--orange); text-transform: uppercase;
+    letter-spacing: 0.16em; font-weight: 700;
+  }
+  .eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--orange-dim); }
+  .kicker { font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin: 0 0 22px; }
+
+  /* ─── Hero ───────────────────────────────────────────────────── */
+  .hero { padding: 74px 0 40px; }
+  .hero .eyebrow { margin-bottom: 22px; }
+  .hero h1 {
+    font-size: clamp(44px, 8.6vw, 84px);
+    font-weight: 800; line-height: 0.98; letter-spacing: -0.04em;
+    margin: 0 0 22px; max-width: 15ch;
+  }
+  .hero h1 .accent { color: var(--orange); }
+  .hero .lede { color: var(--fg); font-size: clamp(16px, 2.2vw, 19px); line-height: 1.55; max-width: 52ch; margin: 0 0 26px; }
+  .hero .lede b { color: var(--strong); font-weight: 700; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+  /* Claim strip — mono spec tokens, hairline-separated */
+  .pillars { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 22px; margin: 2px 0 32px; }
+  .pill { position: relative; font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.11em; text-transform: uppercase; color: var(--muted);
+    white-space: nowrap; transition: color .18s var(--ease); cursor: default; }
+  .pill:not(:last-child)::after { content: ""; position: absolute; right: -11px; top: 50%;
+    height: 11px; width: 1px; background: var(--line); transform: translateY(-50%); }
+  .pill:hover { color: var(--orange); }
+
+  /* Stat band — hard numbers, the maxi's love language */
+  .statband { display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    background: linear-gradient(180deg, var(--ink-1), var(--bg)); margin: 4px 0; }
+  .statband .stat { padding: 26px 22px; display: flex; flex-direction: column; gap: 9px;
+    border-left: 1px solid var(--line-2); }
+  .statband .stat:first-child { border-left: 0; }
+  .statband .num { font-family: var(--mono); font-weight: 700; color: var(--orange);
+    font-size: clamp(30px, 5vw, 46px); line-height: 1; letter-spacing: -0.03em; }
+  .statband .num .u { font-size: 0.5em; color: var(--orange-dim); margin-left: 4px; letter-spacing: 0; }
+  .statband .lab { font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.09em; color: var(--muted); }
+  @media (max-width: 640px) {
+    .statband { grid-template-columns: 1fr 1fr; }
+    .statband .stat:nth-child(odd) { border-left: 0; }
+    .statband .stat:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+    .statband .stat { padding: 20px 18px; }
+  }
+  .quote {
+    margin: 40px 0 0; padding: 2px 0 2px 18px;
+    border-left: 2px solid var(--orange);
+    font-size: 14px; line-height: 1.6; color: var(--fg); max-width: 62ch;
+  }
+  .quote cite { display: block; margin-top: 8px; color: var(--faint); font-style: normal; font-size: 12.5px; }
+  .quote-lead { margin: 0 0 30px; padding-left: 20px; font-size: clamp(17px, 2.4vw, 23px); line-height: 1.4; color: var(--strong); max-width: 46ch; font-weight: 500; }
+  .quote-lead cite { font-size: 13px; margin-top: 12px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 10px;
+    font-weight: 800; font-size: 14px; text-decoration: none;
+    transition: transform .12s var(--ease), border-color .18s var(--ease), color .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease);
+  }
+  .btn svg { width: 14px; height: 14px; }
+  .btn-primary { background: var(--orange); color: var(--bg); box-shadow: 0 8px 24px rgba(247,147,26,0.28); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(247,147,26,0.4); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--fg); }
+  .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* ─── Compression diagram (CSS only) ─────────────────────────── */
+  .compare { margin: 8px 0 4px; }
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
+  }
+  .txbox {
+    border-radius: 14px; padding: 18px 18px 16px;
+    position: relative; min-height: 172px;
+    display: flex; flex-direction: column;
+  }
+  .txbox .tx-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .txbox .tx-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .tx-public { border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); }
+  .tx-public .tx-title { color: var(--muted); }
+  .tx-public .tx-dot { background: var(--faint); }
+  .tx-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; padding: 6px 0; border-bottom: 1px dashed var(--line-2); }
+  .tx-row:last-of-type { border-bottom: 0; }
+  .tx-row .lbl { color: var(--faint); }
+  .tx-row .val { color: var(--muted); text-align: right; word-break: break-all; }
+  .tx-foot { margin-top: auto; padding-top: 12px; font-size: 11px; color: var(--faint); letter-spacing: 0.04em; }
+
+  .tx-private { border: 1px solid var(--orange); background: linear-gradient(160deg, var(--orange-soft), var(--orange-faint)); box-shadow: 0 0 0 1px rgba(247,147,26,0.08), 0 18px 50px -22px rgba(247,147,26,0.5); }
+  .tx-private .tx-title { color: var(--orange); }
+  .tx-private .tx-dot { background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+  .nullifier {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 12.5px; line-height: 1.7; color: var(--orange);
+    letter-spacing: 0.06em; word-break: break-all; text-align: center;
+    opacity: 0.92; padding: 6px 2px;
+  }
+  .tx-private .tx-foot { color: var(--orange-dim); }
+  .compare-arrow {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--faint); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .compare-arrow svg { width: 30px; height: 30px; color: var(--orange); }
+  .compare-cap { margin: 18px 0 0; font-size: 13px; color: var(--muted); line-height: 1.55; text-align: center; }
+  .compare-cap b { color: var(--orange); font-weight: 800; }
+
+  /* ─── Paper (visually dominant) ──────────────────────────────── */
+  .paper {
+    border: 1px solid var(--orange); border-radius: 18px;
+    padding: 34px; background: var(--paper-bg);
+    position: relative; overflow: hidden;
+    box-shadow: 0 30px 80px -40px rgba(247,147,26,0.6);
+  }
+  .paper::after {
+    content: ""; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(247,147,26,0.16), transparent 70%);
+    pointer-events: none;
+  }
+  .paper .eyebrow { margin-bottom: 18px; }
+  .paper h2 { margin: 0 0 12px; font-size: clamp(22px, 3.6vw, 32px); font-weight: 800; line-height: 1.18; letter-spacing: -0.02em; color: var(--fg); position: relative; }
+  .paper .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 26px; position: relative; }
+  .paper .meta { display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; margin-bottom: 26px; font-size: 13.5px; position: relative; }
+  .paper .meta dt { color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; padding-top: 2px; }
+  .paper .meta dd { margin: 0; color: var(--fg); line-height: 1.5; }
   .paper .meta a { color: var(--orange); text-decoration: none; }
   .paper .meta a:hover { text-decoration: underline; }
-  .abstract { font-size: 14px; line-height: 1.6; color: var(--fg); border-left: 2px solid var(--orange); padding: 4px 0 4px 16px; margin: 0 0 28px; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 8px; font-weight: 800; font-size: 14px; text-decoration: none; transition: transform .1s ease, opacity .15s ease; }
-  .btn-primary { background: var(--orange); color: var(--bg); }
-  .btn-primary:hover { opacity: 0.9; }
-  .btn-secondary { border: 1px solid var(--line); color: var(--fg); }
-  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
-  .btn .arrow { font-size: 12px; }
+  .abstract { font-size: 14px; line-height: 1.65; color: var(--fg); border-left: 2px solid var(--orange); padding: 6px 0 6px 18px; margin: 0 0 26px; position: relative; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; position: relative; }
 
-  .section-title { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 20px; }
-  .concepts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 56px; }
-  .concept { border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
-  .concept .k { font-size: 12px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 800; }
-  .concept .v { font-size: 15px; line-height: 1.5; color: var(--fg); margin: 0; }
-  .concept .v em { font-style: normal; color: var(--muted); display: block; margin-top: 6px; font-size: 13px; }
+  /* ─── Section heads ──────────────────────────────────────────── */
+  .band { padding: 64px 0; }
+  .band-head { margin: 0 0 34px; }
+  .band-head h2 { margin: 10px 0 10px; font-size: clamp(24px, 4vw, 34px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+  .band-head p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 62ch; }
 
-  .also { border-top: 1px solid var(--line); padding-top: 32px; margin-bottom: 32px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .card { border: 1px solid var(--line); border-radius: 12px; padding: 20px; text-decoration: none; color: var(--fg); transition: border-color .15s ease; }
-  .card:hover { border-color: var(--orange); }
-  .card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-  .card .name { font-size: 18px; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
-  .card .domain { font-size: 13px; color: var(--muted); }
-  .card .arrow { float: right; color: var(--muted); }
+  /* ─── Concepts ───────────────────────────────────────────────── */
+  .concepts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 560px) { .concepts { grid-template-columns: 1fr; } }
+  .concept {
+    border: 1px solid var(--line); border-radius: 14px; padding: 22px;
+    background: var(--card-bg); position: relative; overflow: hidden;
+    transition: border-color .2s var(--ease), transform .2s var(--ease), background .2s var(--ease);
+  }
+  .concept:hover { border-color: var(--orange-dim); transform: translateY(-2px); }
+  .concept .k { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; font-weight: 700; }
+  .concept .h { font-size: 18px; font-weight: 700; color: var(--strong); letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 10px; }
+  .concept .v { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0; }
+  .concept .v b { color: var(--fg); font-weight: 700; }
 
-  .footer { border-top: 1px solid var(--line); padding: 24px; text-align: center; color: var(--muted); font-size: 12px; }
-  .footer a { color: var(--muted); text-decoration: none; margin: 0 8px; }
-  .footer a:hover { color: var(--orange); }
+  /* ─── How it works (connected stepper) ───────────────────────── */
+  .steps { list-style: none; margin: 0; padding: 0; position: relative; }
+  .step { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 24px; padding: 0 0 30px; }
+  .step:last-child { padding-bottom: 0; }
+  /* the connecting spine, masked behind each node */
+  .step::after {
+    content: ""; position: absolute; left: 19px; top: 42px; bottom: -4px; width: 1px;
+    background: linear-gradient(180deg, var(--orange-dim), var(--line) 60%);
+  }
+  .step:last-child::after { display: none; }
+  .step .n {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: var(--orange);
+    background: var(--orange-faint); border: 1px solid var(--orange-dim);
+    position: relative; z-index: 1;
+    box-shadow: 0 0 0 5px var(--bg);
+    transition: border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .step:hover .n { border-color: var(--orange); background: var(--orange-soft); box-shadow: 0 0 0 5px var(--bg), 0 0 16px rgba(247,147,26,0.35); }
+  .step .body { padding-top: 5px; }
+  .step .t { font-size: 16px; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.01em; transition: color .2s var(--ease); }
+  .step:hover .t { color: var(--orange); }
+  .step .d { font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0; max-width: 66ch; }
+  .step .d b { color: var(--fg); font-weight: 700; }
+  .step .d code { color: var(--orange); background: var(--orange-faint); padding: 1px 6px; border-radius: 5px; font-size: 13px; }
+
+  /* ─── Performance table ──────────────────────────────────────── */
+  .perf-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
+  table.perf { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 460px; }
+  table.perf th, table.perf td { padding: 15px 20px; text-align: left; border-bottom: 1px solid var(--line-2); }
+  table.perf thead th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); font-weight: 700; background: rgba(255,255,255,0.015); }
+  table.perf thead th.zk { color: var(--orange); }
+  table.perf tbody tr:last-child td { border-bottom: 0; }
+  table.perf td.metric { color: var(--muted); }
+  table.perf td.btc { color: var(--faint); }
+  table.perf td.zk { color: var(--fg); font-weight: 700; }
+  table.perf td.zk b { color: var(--orange); }
+
+  /* ─── NOT chips ──────────────────────────────────────────────── */
+  .nots { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+  .not {
+    border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px;
+    background: var(--card-bg); transition: border-color .2s var(--ease);
+  }
+  .not:hover { border-color: var(--line); }
+  .not .x { display: inline-flex; align-items: center; gap: 8px; color: var(--orange); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .not .x svg { width: 13px; height: 13px; }
+  .not p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .not p b { color: var(--fg); font-weight: 700; }
 
   /* ─── Roadmap ─────────────────────────────────────────────────── */
-  .roadmap { margin: 0 0 64px; position: relative; }
-  .roadmap-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 0 32px; flex-wrap: wrap; }
-  .roadmap-head h3 { margin: 0; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 800; }
-  .roadmap-head .legend { display: flex; gap: 14px; font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em; flex-wrap: wrap; }
-  .roadmap-head .legend span { display: inline-flex; align-items: center; gap: 6px; }
-  .roadmap-head .legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-  .legend .dot-active { background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+  .roadmap { position: relative; }
+  .roadmap-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0 0 34px; flex-wrap: wrap; }
+  .roadmap-head .legend { display: inline-flex; align-items: center; gap: 2px; flex-wrap: wrap; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--card-bg); }
+  .roadmap-head .legend span { display: inline-flex; align-items: center; gap: 7px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--muted); padding: 6px 12px; border-radius: 999px; transition: color .18s var(--ease), background .18s var(--ease); }
+  .roadmap-head .legend i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .legend .is-active { color: var(--orange); background: var(--orange-soft); }
+  .legend .dot-active { background: var(--orange); box-shadow: 0 0 0 3px var(--orange-faint), 0 0 8px var(--orange); }
   .legend .dot-next { background: var(--orange-dim); }
   .legend .dot-planned { background: var(--faint); }
   .legend .dot-horizon { background: transparent; border: 1px solid var(--faint); }
 
-  .timeline { position: relative; padding-left: 44px; }
-  /* The spine */
+  .timeline { position: relative; padding-left: 44px; margin: 0; list-style: none; }
   .timeline::before {
-    content: "";
-    position: absolute;
-    left: 15px;
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: linear-gradient(180deg,
-      var(--orange) 0%,
-      var(--orange-dim) 22%,
-      rgba(255,255,255,0.2) 45%,
-      rgba(255,255,255,0.1) 70%,
-      transparent 100%);
+    content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px; width: 1px;
+    background: linear-gradient(180deg, var(--orange) 0%, var(--orange-dim) 22%, rgba(255,255,255,0.2) 45%, rgba(255,255,255,0.1) 70%, transparent 100%);
   }
-
   .phase { position: relative; padding: 0 0 36px; }
   .phase:last-child { padding-bottom: 8px; }
-
-  /* The phase node (dot) */
   .phase::before {
-    content: "";
-    position: absolute;
-    left: -36px;
-    top: 14px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--faint);
-    z-index: 2;
+    content: ""; position: absolute; left: -36px; top: 14px; width: 14px; height: 14px;
+    border-radius: 50%; background: var(--bg); border: 2px solid var(--faint); z-index: 2;
   }
-  .phase.active::before {
-    border-color: var(--orange);
-    background: var(--orange);
-    box-shadow: 0 0 0 4px var(--orange-soft), 0 0 20px var(--orange);
-    animation: pulse 2.4s ease-in-out infinite;
-  }
-  .phase.next::before {
-    border-color: var(--orange-dim);
-    background: var(--bg);
-    box-shadow: 0 0 0 3px rgba(247,147,26,0.06);
-  }
+  .phase.active::before { border-color: var(--orange); background: var(--orange); box-shadow: 0 0 0 4px var(--orange-soft), 0 0 20px var(--orange); animation: pulse 2.4s ease-in-out infinite; }
+  .phase.next::before { border-color: var(--orange-dim); background: var(--bg); box-shadow: 0 0 0 3px rgba(247,147,26,0.06); }
   .phase.planned::before { border-color: rgba(255,255,255,0.4); background: var(--bg); }
   .phase.horizon::before { border-color: var(--faint); background: var(--bg); width: 12px; height: 12px; top: 15px; }
-
   @keyframes pulse {
     0%, 100% { box-shadow: 0 0 0 4px var(--orange-soft), 0 0 20px var(--orange); }
     50%      { box-shadow: 0 0 0 8px rgba(247,147,26,0.04), 0 0 28px var(--orange); }
   }
-
   .phase-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 14px; margin: 0 0 4px; line-height: 1.3; }
   .phase-num { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 800; }
   .phase-title { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; margin: 0; color: var(--fg); }
@@ -152,114 +392,409 @@
   .phase.next .phase-status     { color: var(--orange-dim); border-color: var(--orange-dim); }
   .phase.planned .phase-status  { color: var(--muted); border-color: var(--line); }
   .phase.horizon .phase-status  { color: var(--faint); border-color: var(--line); }
-
   .phase-lede { color: var(--muted); font-size: 14px; line-height: 1.55; margin: 6px 0 16px; max-width: 640px; }
-
-  .phase-card {
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 18px 20px;
-    background: var(--card-bg);
-    transition: border-color .2s ease, transform .2s ease, background .2s ease;
-  }
-  .phase.active .phase-card {
-    border-color: var(--orange-dim);
-    background: linear-gradient(135deg, var(--orange-soft) 0%, var(--card-bg) 55%);
-  }
-  .phase-card:hover {
-    border-color: var(--orange);
-    transform: translateX(2px);
-  }
+  .phase-card { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: var(--card-bg); transition: border-color .2s var(--ease), transform .2s var(--ease), background .2s var(--ease); }
+  .phase.active .phase-card { border-color: var(--orange-dim); background: linear-gradient(135deg, var(--orange-soft) 0%, var(--card-bg) 55%); }
+  .phase-card:hover { border-color: var(--orange); transform: translateX(2px); }
   .phase-card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
   .phase-card li { position: relative; padding-left: 22px; font-size: 14px; line-height: 1.5; color: var(--fg); }
-  .phase-card li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.7em;
-    width: 12px;
-    height: 1px;
-    background: var(--orange-dim);
-  }
-  .phase.planned .phase-card li::before,
-  .phase.horizon .phase-card li::before { background: var(--faint); }
+  .phase-card li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 12px; height: 1px; background: var(--orange-dim); }
+  .phase.planned .phase-card li::before, .phase.horizon .phase-card li::before { background: var(--faint); }
   .phase-card li .what { font-weight: 800; color: var(--fg); }
   .phase-card li .why { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
-
   .roadmap-note { margin-top: 28px; padding: 16px 20px; border: 1px solid var(--line); border-left: 2px solid var(--orange-dim); border-radius: 0 8px 8px 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
   .roadmap-note strong { color: var(--orange); font-weight: 800; }
 
+  /* ─── FAQ (native details, no JS) ────────────────────────────── */
+  .faq { display: grid; gap: 10px; }
+  .faq details { border: 1px solid var(--line); border-radius: 12px; background: var(--card-bg); transition: border-color .18s var(--ease); }
+  .faq details[open] { border-color: var(--orange-dim); }
+  .faq summary { cursor: pointer; padding: 18px 20px; font-weight: 700; font-size: 15px; color: var(--strong); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--mono); color: var(--orange); font-size: 20px; line-height: 1; flex-shrink: 0; }
+  .faq details[open] summary { color: var(--orange); }
+  .faq details[open] summary::after { content: "\2212"; }
+  .faq details p { margin: 0; padding: 0 20px 20px; color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 70ch; }
+
+  /* ─── Family ─────────────────────────────────────────────────── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+  .card {
+    border: 1px solid var(--line); border-radius: 14px; padding: 22px;
+    text-decoration: none; color: var(--fg); background: var(--card-bg);
+    transition: border-color .18s var(--ease), transform .18s var(--ease), background .18s var(--ease);
+    display: block;
+  }
+  .card:hover { border-color: var(--orange); transform: translateY(-2px); }
+  .card .label { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .card .label svg { width: 12px; height: 12px; color: var(--muted); transition: color .18s var(--ease); }
+  .card:hover .label svg { color: var(--orange); }
+  .card .name { font-size: 18px; font-weight: 800; color: var(--orange); margin-bottom: 4px; letter-spacing: -0.01em; }
+  .card .domain { font-size: 12.5px; color: var(--muted); }
+
+  /* ─── CTA strip ──────────────────────────────────────────────── */
+  .cta {
+    margin: 8px 0 0; border: 1px solid var(--orange); border-radius: 18px;
+    padding: 40px 34px; text-align: center; position: relative; overflow: hidden;
+    background: linear-gradient(180deg, var(--orange-faint), transparent);
+  }
+  .cta h2 { margin: 0 0 12px; font-size: clamp(22px, 3.6vw, 30px); font-weight: 800; letter-spacing: -0.02em; }
+  .cta p { margin: 0 auto 26px; color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 52ch; }
+  .cta .actions { justify-content: center; }
+
+  /* ─── Footer ─────────────────────────────────────────────────── */
+  footer.footer { position: relative; z-index: 1; border-top: 1px solid var(--line-2); margin-top: 64px; }
+  .footer-inner { max-width: var(--maxw); margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-start; }
+  .footer-brand { display: flex; flex-direction: column; gap: 10px; max-width: 300px; }
+  .footer-brand .tag { color: var(--faint); font-size: 12.5px; line-height: 1.5; }
+  .footer-cols { display: flex; gap: 48px; flex-wrap: wrap; }
+  .footer-col h4 { margin: 0 0 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); font-weight: 700; }
+  .footer-col a { display: block; color: var(--muted); text-decoration: none; font-size: 13px; padding: 5px 0; transition: color .15s var(--ease); }
+  .footer-col a:hover { color: var(--orange); }
+  .footer-legal { max-width: var(--maxw); margin: 0 auto; padding: 20px 24px; border-top: 1px solid var(--line-2); display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; color: var(--faint); font-size: 12px; }
+
+  /* ─── Responsive ─────────────────────────────────────────────── */
+  @media (max-width: 720px) {
+    .nav-links a.link { display: none; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .compare-arrow { flex-direction: row; padding: 4px 0; }
+    .compare-arrow svg { transform: rotate(90deg); }
+    .paper { padding: 26px 22px; }
+    .hero { padding: 52px 0 32px; }
+    .band { padding: 52px 0; }
+  }
   @media (max-width: 560px) {
     .timeline { padding-left: 32px; }
     .timeline::before { left: 10px; }
     .phase::before { left: -28px; width: 12px; height: 12px; }
     .phase-card { padding: 14px 16px; }
-    .roadmap-head .legend { font-size: 10px; gap: 10px; }
+    .roadmap-head .legend span { font-size: 9.5px; padding: 5px 9px; letter-spacing: 0.08em; }
+    .step { grid-template-columns: 44px 1fr; gap: 14px; padding: 18px 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://zkcoins.com/#organization",
+      "name": "zkCoins",
+      "url": "https://zkcoins.com/",
+      "logo": "https://zkcoins.com/favicon.png",
+      "description": "zkCoins is a self-custodial wallet for Shielded CSV — private, client-side-validated Bitcoin transactions anchored on Bitcoin L1.",
+      "sameAs": [
+        "https://x.com/zkcoinsbtc",
+        "https://t.me/zkcoinsbtc",
+        "https://github.com/zk-coins",
+        "https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://zkcoins.com/#website",
+      "url": "https://zkcoins.com/",
+      "name": "zkCoins",
+      "description": "Private Bitcoin transactions via Shielded CSV. Coin data stays off-chain — many spends anchor to Bitcoin as one constant 231-byte inscription per batch.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://zkcoins.com/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://zkcoins.com/#wallet",
+      "name": "zkCoins Wallet",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web, iOS, Android (PWA)",
+      "url": "https://zkcoins.app",
+      "description": "Self-custodial wallet for sending and receiving private Bitcoin via the Shielded CSV protocol. Keys are generated and stored locally in the browser.",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@id": "https://zkcoins.com/#organization" }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Shielded CSV: Private and Efficient Client-Side Validation",
+      "url": "https://eprint.iacr.org/2025/068",
+      "identifier": "IACR ePrint 2025/068",
+      "datePublished": "2025-01",
+      "author": [
+        { "@type": "Person", "name": "Jonas Nick" },
+        { "@type": "Person", "name": "Liam Eagen" },
+        { "@type": "Person", "name": "Robin Linus" }
+      ],
+      "about": { "@id": "https://zkcoins.com/#organization" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://zkcoins.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is zkCoins?",
+          "acceptedAnswer": { "@type": "Answer", "text": "zkCoins is a self-custodial wallet for Shielded CSV, a privacy protocol for Bitcoin. Amounts, sender, receiver and transaction history stay off-chain, proven with zero-knowledge and verified client-side. Many private spends anchor to Bitcoin as one constant 231-byte inscription per batch." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is zkCoins a new token or altcoin?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No — zkCoins is not a separate blockchain, altcoin, or native protocol token. It is a client-side-validation layer anchored to Bitcoin L1; value lives in client-side-validated coins. Moving on-chain BTC in and out uses a bridge, which is on the roadmap." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does zkCoins require a soft fork?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Shielded CSV works on Bitcoin as it exists today — no soft fork, no hard fork, no new opcodes. The chain is used only for ordering commitments and preventing double-spends." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does zkCoins keep transactions private?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Each spend is proven with a zero-knowledge proof and shared off-chain. Coin data — amounts, parties and history — never touches Bitcoin. A permissionless publisher anchors a whole batch of spends as one constant 231-byte inscription; the nullifiers stay off-chain." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is zkCoins self-custodial?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Keys are generated and stored locally in your browser and never leave your device. zkCoins is peer-to-peer with no coordinator or custodian that can freeze funds or shut the network down." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Shielded CSV?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). zkCoins v1 batches many spends and anchors each batch to Bitcoin as one constant 231-byte inscription." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
-<main>
-  <header>
-    <div class="logo">zk</div>
-    <div>
-      <h1>zkCoins</h1>
-      <div class="tag">Private Bitcoin transactions via Shielded CSV</div>
-    </div>
-  </header>
+<!-- zkCoins mark — canonical 12×12 pixel monogram (Brand Guide v1.0) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="zk" viewBox="0 0 12 12">
+    <rect x="3" y="1" width="6" height="1"/>
+    <rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+    <rect x="2" y="3" width="8" height="1"/>
+    <rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+    <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+    <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+    <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+    <rect x="2" y="8" width="8" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+    <rect x="3" y="10" width="6" height="1"/>
+  </symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
 
-  <p class="hero">The paper behind zkCoins.</p>
-  <p class="lede">zkCoins implements Shielded CSV — a privacy protocol for Bitcoin that reveals nothing on-chain beyond a 64-byte nullifier. No token. No own chain. Settled on Bitcoin.</p>
-
-  <article class="paper" aria-labelledby="paper-title">
-    <div class="eyebrow">Whitepaper · ePrint 2025/068</div>
-    <h2 id="paper-title">Shielded CSV: Private and Efficient Client-Side Validation</h2>
-    <div class="subtitle">A privacy-preserving variant of Client-Side Validation, settled directly on Bitcoin.</div>
-
-    <dl class="meta">
-      <dt>Authors</dt>
-      <dd>Jonas Nick (Blockstream) · Liam Eagen (Alpen Labs) · Robin Linus (ZeroSync)</dd>
-      <dt>Published</dt>
-      <dd>January 2025</dd>
-      <dt>Reference</dt>
-      <dd><a href="https://eprint.iacr.org/2025/068">eprint.iacr.org/2025/068</a></dd>
-    </dl>
-
-    <p class="abstract">
-      Client-Side Validation (CSV) decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and targets roughly an order of magnitude more transactions per second than the base layer alone.
-    </p>
-
-    <div class="actions">
-      <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">Read the paper <span class="arrow">↗</span></a>
-      <a class="btn btn-secondary" href="https://eprint.iacr.org/2025/068">Abstract on ePrint <span class="arrow">↗</span></a>
-    </div>
-  </article>
-
-  <h3 class="section-title">What Shielded CSV Changes</h3>
-  <div class="concepts">
-    <div class="concept">
-      <div class="k">On-chain footprint</div>
-      <p class="v">64 bytes per transfer.<em>A nullifier — derived from the transaction, indistinguishable from random data — replaces the full transaction payload.</em></p>
-    </div>
-    <div class="concept">
-      <div class="k">Privacy</div>
-      <p class="v">No leaked transaction graph.<em>Unlike RGB or Taproot Assets, the history is hidden under a zk-SNARK-style proof; recipients verify validity without seeing the lineage.</em></p>
-    </div>
-    <div class="concept">
-      <div class="k">Compatibility</div>
-      <p class="v">Bitcoin as-is.<em>No soft fork, no hard fork. CSV protocols coexist on the chain by using it only for ordering and double-spend prevention.</em></p>
-    </div>
-    <div class="concept">
-      <div class="k">Throughput</div>
-      <p class="v">~100 transactions per second.<em>Shrinking the on-chain footprint from ~560 WU to ~64 WU lifts Bitcoin's effective capacity by roughly an order of magnitude.</em></p>
-    </div>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/" aria-label="zkCoins home">
+      <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+      <span class="word"><b>zk</b>Coins</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="link" href="#paper">Whitepaper</a>
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#roadmap">Roadmap</a>
+      <a class="link" href="https://docs.zkcoins.app">Docs</a>
+      <a class="app-btn" href="https://zkcoins.app">
+        Open Wallet
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </nav>
   </div>
+</header>
 
-  <section class="roadmap" aria-labelledby="roadmap-title">
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">Private Bitcoin · Shielded CSV</span>
+    <h1>Send Bitcoin privately<br><span class="accent">nothing legible on-chain</span></h1>
+    <p class="lede">zkCoins brings <b>true privacy</b> to Bitcoin. Amounts, sender, receiver and history stay off-chain — proven with zero-knowledge and anchored to Bitcoin as one constant <b>231-byte inscription</b> per batch.</p>
+    <div class="pillars">
+      <span class="pill">No soft fork</span>
+      <span class="pill">Self-custodial</span>
+      <span class="pill">Zero-knowledge</span>
+      <span class="pill">No coordinator</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://zkcoins.app">
+        Open the wallet
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#paper">Read the whitepaper</a>
+    </div>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="statband" aria-label="zkCoins at a glance">
+    <div class="stat"><span class="num">231<span class="u">B</span></span><span class="lab">on-chain per batch</span></div>
+    <div class="stat"><span class="num">~3.2<span class="u">vB</span></span><span class="lab">per spend, 100 / batch</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">soft forks</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">coordinators</span></div>
+  </section>
+
+  <!-- COMPRESSION DIAGRAM -->
+  <section class="compare band" aria-label="On-chain footprint comparison">
+    <div class="compare-grid">
+      <div class="txbox tx-public">
+        <div class="tx-title"><span class="tx-dot"></span>Regular Bitcoin transfer</div>
+        <div class="tx-row"><span class="lbl">from</span><span class="val">bc1q7f…3k9</span></div>
+        <div class="tx-row"><span class="lbl">to</span><span class="val">bc1p2m…q8x</span></div>
+        <div class="tx-row"><span class="lbl">amount</span><span class="val">0.4218 BTC</span></div>
+        <div class="tx-foot">~140 vBytes · fully public · one per payment</div>
+      </div>
+      <div class="compare-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        amortises to ~0
+      </div>
+      <div class="txbox tx-private">
+        <div class="tx-title"><span class="tx-dot"></span>zkCoins batch</div>
+        <div class="nullifier">one&nbsp;231-byte<br>BatchInscription</div>
+        <div class="tx-foot">constant · covers every spend in the batch · coin data off-chain</div>
+      </div>
+    </div>
+    <p class="compare-cap">Coin data never touches the chain. <b>Many private spends anchor to Bitcoin as one constant 231-byte inscription — ~3.2 vBytes per spend at 100 per batch.</b></p>
+  </section>
+
+  <!-- PAPER (dominant) -->
+  <section id="paper" style="padding-bottom: 8px;">
+    <blockquote class="quote quote-lead">
+      "Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."
+      <cite>— Robin Linus, co-author of Shielded CSV</cite>
+    </blockquote>
+    <article class="paper" aria-labelledby="paper-title">
+      <div class="eyebrow">Whitepaper · ePrint 2025/068</div>
+      <h2 id="paper-title">Shielded CSV: Private and Efficient Client-Side Validation</h2>
+      <div class="subtitle">A privacy-preserving variant of Client-Side Validation, settled directly on Bitcoin.</div>
+
+      <dl class="meta">
+        <dt>Authors</dt>
+        <dd>Jonas Nick (Blockstream) · Liam Eagen (Alpen Labs) · Robin Linus (ZeroSync)</dd>
+        <dt>Published</dt>
+        <dd>January 2025 (ePrint) · September 2024 (whitepaper)</dd>
+        <dt>Reference</dt>
+        <dd><a href="https://eprint.iacr.org/2025/068">eprint.iacr.org/2025/068</a></dd>
+        <dt>Predecessor</dt>
+        <dd>zkCoins (Robin Linus, 2023) · builds on the <a href="https://github.com/ZeroSync/ZKCoins">ZeroSync prototype</a></dd>
+      </dl>
+
+      <p class="abstract">
+        Client-Side Validation decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and targets roughly an order of magnitude more transactions per second than the base layer alone.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
+          Read the paper
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://eprint.iacr.org/2025/068">Abstract on ePrint</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- WHAT CHANGES -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">What Shielded CSV changes</span>
+      <h2>Many private spends, one tiny inscription</h2>
+      <p>Coin data stays off-chain. A permissionless publisher anchors a whole batch of spends to Bitcoin with a single, constant-size inscription — so privacy and on-chain cost both win at once.</p>
+    </div>
+    <div class="concepts">
+      <div class="concept">
+        <div class="k">On-chain footprint</div>
+        <div class="h">One inscription per batch</div>
+        <p class="v">Coin data never touches the chain. A whole batch of spends anchors to Bitcoin as <b>one constant 231-byte inscription</b> — nothing legible.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Transaction graph</div>
+        <div class="h">Nothing linkable</div>
+        <p class="v">Unlike RGB or Taproot Assets, history stays hidden under a zero-knowledge proof. Recipients verify validity <b>without ever seeing the lineage</b>.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Compatibility</div>
+        <div class="h">Bitcoin, unchanged</div>
+        <p class="v">No soft fork, no hard fork. CSV protocols use the chain <b>only for ordering and double-spend prevention</b>.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Cost</div>
+        <div class="h">Amortises toward zero</div>
+        <p class="v">The inscription is constant no matter how many spends it covers — per-spend cost falls to <b>~3.2 vBytes at 100 per batch</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="band">
+    <div class="band-head">
+      <span class="eyebrow">How it works</span>
+      <h2>The chain orders, the recipient validates</h2>
+      <p>Traditional blockchains ask every node to validate every transaction. Shielded CSV inverts that — validation moves to the recipient, and Bitcoin does only what it is uniquely good at.</p>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="n">1</span><div class="body"><p class="t">Sender proves</p><p class="d">The sender creates a transfer and generates a succinct validity proof of the coin's entire history — a constant size, no matter how old the coin is.</p></div></li>
+      <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof goes to the receiver</p><p class="d">The proof travels <b>directly to the receiver, off-chain</b>. Amounts, parties and history never leave the two devices.</p></div></li>
+      <li class="step"><span class="n">3</span><div class="body"><p class="t">A batch is anchored on Bitcoin</p><p class="d">A permissionless <b>publisher</b> aggregates many spends and inscribes one constant <code>231-byte BatchInscription</code> — the nullifiers themselves stay off-chain.</p></div></li>
+      <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver checks the zero-knowledge proof locally — one Schnorr verification — and accepts the coin without trusting any third party.</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin prevents double-spends</p><p class="d">Each batch anchors the nullifier accumulator's root transition. The chain's one job: guarantee each coin is spent <b>exactly once</b>.</p></div></li>
+    </ol>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- PERFORMANCE -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">By the numbers</span>
+      <h2>Bitcoin, next to Shielded CSV</h2>
+    </div>
+    <div class="perf-wrap">
+      <table class="perf">
+        <thead>
+          <tr><th>Metric</th><th>Bitcoin (regular)</th><th class="zk">zkCoins v1</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="metric">On-chain data</td><td class="btc">full transaction (~140 vBytes)</td><td class="zk"><b>231-byte inscription per batch</b></td></tr>
+          <tr><td class="metric">Per-spend cost</td><td class="btc">~140 vBytes</td><td class="zk"><b>~3.2 vBytes (100 / batch)</b></td></tr>
+          <tr><td class="metric">Privacy</td><td class="btc">None — fully public</td><td class="zk"><b>Full — nothing leaked</b></td></tr>
+          <tr><td class="metric">Verification</td><td class="btc">Full script per tx</td><td class="zk">1× batch proof</td></tr>
+          <tr><td class="metric">Proof size</td><td class="btc">N/A</td><td class="zk">Constant, independent of history</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- WHAT IT IS NOT -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">Boundaries</span>
+      <h2>What Shielded CSV is not</h2>
+      <p>Privacy here is structural, not a bolt-on. It is worth being precise about what this protocol deliberately is not.</p>
+    </div>
+    <div class="nots">
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a sidechain</span><p>It uses <b>Bitcoin L1 directly</b> — no separate consensus, no bridge to a foreign chain.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no data-availability layer.</b> Proofs move peer-to-peer between sender and receiver.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — there is no anonymity set to deanonymise.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a token</span><p><b>No native protocol token to bootstrap.</b> Value lives in client-side-validated coins.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a soft fork</span><p>It works on <b>Bitcoin as it exists today</b> — no consensus change, no new opcodes.</p></div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- ROADMAP -->
+  <section id="roadmap" class="roadmap band" aria-labelledby="roadmap-title">
     <div class="roadmap-head">
-      <h3 id="roadmap-title">Roadmap to mainnet</h3>
+      <div class="band-head" style="margin:0;">
+        <span class="eyebrow">Roadmap</span>
+        <h2 id="roadmap-title" style="margin-bottom:0;">The path to mainnet</h2>
+      </div>
       <div class="legend" aria-hidden="true">
-        <span><i class="dot-active"></i>Active</span>
+        <span class="is-active"><i class="dot-active"></i>Active</span>
         <span><i class="dot-next"></i>Next</span>
         <span><i class="dot-planned"></i>Planned</span>
         <span><i class="dot-horizon"></i>Horizon</span>
@@ -267,20 +802,19 @@
     </div>
 
     <ol class="timeline">
-
       <li class="phase active">
         <div class="phase-head">
           <span class="phase-num">Phase 01</span>
-          <h4 class="phase-title">Foundation</h4>
+          <h3 class="phase-title">Foundation</h3>
           <span class="phase-when">Q2 2026</span>
           <span class="phase-status">Active</span>
         </div>
-        <p class="phase-lede">The proving stack and the wallet-server boundary. Everything downstream depends on this.</p>
+        <p class="phase-lede">The proving stack and the wallet–server boundary. Everything downstream depends on this.</p>
         <div class="phase-card">
           <ul>
             <li><span class="what">Zero-knowledge circuit migration.</span><span class="why">Move the state-transition circuit onto a recursion-native proving system with a Bitcoin-friendly hash.</span></li>
             <li><span class="what">Server-side proving on commodity hardware.</span><span class="why">Single-host Apple Silicon target — no GPU farms, no cloud proving service. The wallet holds only the private key.</span></li>
-            <li><span class="what">Wallet boundary via BIP-340 Schnorr.</span><span class="why">The wallet signs a SHA256 digest of the server-computed state. No in-browser zero-knowledge.</span></li>
+            <li><span class="what">Wallet boundary via BIP-340 Schnorr.</span><span class="why">The wallet signs a SHA-256 digest of the server-computed state. No in-browser zero-knowledge.</span></li>
             <li><span class="what">End-to-end roundtrip on signet.</span><span class="why">Create account, mint, send, receive — the full user loop runs on a public Bitcoin testnet.</span></li>
           </ul>
         </div>
@@ -289,7 +823,7 @@
       <li class="phase next">
         <div class="phase-head">
           <span class="phase-num">Phase 02</span>
-          <h4 class="phase-title">Pre-mainnet hardening</h4>
+          <h3 class="phase-title">Pre-mainnet hardening</h3>
           <span class="phase-when">Q3 2026</span>
           <span class="phase-status">Next</span>
         </div>
@@ -307,7 +841,7 @@
       <li class="phase planned">
         <div class="phase-head">
           <span class="phase-num">Phase 03</span>
-          <h4 class="phase-title">Trustless BTC bridge</h4>
+          <h3 class="phase-title">Trustless BTC bridge</h3>
           <span class="phase-when">Q4 2026</span>
           <span class="phase-status">Planned</span>
         </div>
@@ -316,7 +850,7 @@
           <ul>
             <li><span class="what">BitVM2 / Clementine-style bridge.</span><span class="why">1-of-N honesty trust model. The same construction running on Citrea mainnet.</span></li>
             <li><span class="what">Recursive Bitcoin light client.</span><span class="why">A succinct proof that a deposit landed at depth ≥ 6 in the canonical chain.</span></li>
-            <li><span class="what">Plonky2 → Groth16 wrapping.</span><span class="why">Bridge our recursion-friendly proofs into a verifier that Bitcoin script can check.</span></li>
+            <li><span class="what">Recursion → Groth16 wrapping.</span><span class="why">Bridge our recursion-friendly proofs into a verifier that Bitcoin script can check.</span></li>
             <li><span class="what">Federation scaling: N=3 → N=100.</span><span class="why">Start with a single-operator federation; grow to one hundred independent members, where one honest key deletion is enough.</span></li>
             <li><span class="what">Signet integration run.</span><span class="why">Full peg-in / peg-out roundtrip including a deliberately malicious operator scenario.</span></li>
           </ul>
@@ -326,7 +860,7 @@
       <li class="phase planned">
         <div class="phase-head">
           <span class="phase-num">Phase 04</span>
-          <h4 class="phase-title">Lightning atomic swap</h4>
+          <h3 class="phase-title">Lightning atomic swap</h3>
           <span class="phase-when">Q1 2027</span>
           <span class="phase-status">Planned</span>
         </div>
@@ -344,7 +878,7 @@
       <li class="phase horizon">
         <div class="phase-head">
           <span class="phase-num">Phase 05</span>
-          <h4 class="phase-title">Long-term positioning</h4>
+          <h3 class="phase-title">Long-term positioning</h3>
           <span class="phase-when">2027 +</span>
           <span class="phase-status">Horizon</span>
         </div>
@@ -358,44 +892,125 @@
           </ul>
         </div>
       </li>
-
     </ol>
 
     <p class="roadmap-note"><strong>Note.</strong> Dates indicate target windows for the engineering work, not a guaranteed mainnet date. zkCoins runs in a closed test environment until pre-mainnet hardening completes; no real Bitcoin is at risk before then.</p>
   </section>
 
-  <section class="also">
-    <h3 class="section-title">The zkCoins family</h3>
+  <hr class="hr" />
+
+  <!-- FAMILY -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">Ecosystem</span>
+      <h2>The zkCoins family</h2>
+    </div>
     <div class="grid">
-      <a class="card" href="https://zkcoins.info">
-        <div class="label">Brand Hub <span class="arrow">↗</span></div>
-        <div class="name">zkCoins Info</div>
-        <div class="domain">zkcoins.info</div>
-      </a>
       <a class="card" href="https://zkcoins.app">
-        <div class="label">Wallet <span class="arrow">↗</span></div>
-        <div class="name">zkCoins App</div>
+        <div class="label">Wallet <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">zkCoins Wallet</div>
         <div class="domain">zkcoins.app</div>
       </a>
-      <a class="card" href="https://zkcoins.exchange">
-        <div class="label">Exchange <span class="arrow">↗</span></div>
-        <div class="name">zkCoins Exchange</div>
-        <div class="domain">zkcoins.exchange</div>
+      <a class="card" href="https://docs.zkcoins.app">
+        <div class="label">Documentation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">zkCoins Docs</div>
+        <div class="domain">docs.zkcoins.app</div>
       </a>
-      <a class="card" href="https://zkcoins.space">
-        <div class="label">Explorer <span class="arrow">↗</span></div>
-        <div class="name">zkCoins Space</div>
-        <div class="domain">zkcoins.space</div>
+      <a class="card" href="https://github.com/zk-coins">
+        <div class="label">Source <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">GitHub</div>
+        <div class="domain">github.com/zk-coins</div>
       </a>
     </div>
   </section>
+
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <div class="band-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>What is zkCoins?</summary>
+        <p>zkCoins is a self-custodial wallet for Shielded CSV, a privacy protocol for Bitcoin. Amounts, sender, receiver and transaction history stay off-chain, proven with zero-knowledge and verified client-side. Many private spends anchor to Bitcoin as one constant 231-byte inscription per batch.</p>
+      </details>
+      <details>
+        <summary>Is zkCoins a new token or altcoin?</summary>
+        <p>No — zkCoins is not a separate blockchain, altcoin, or native protocol token. It is a client-side-validation layer anchored to Bitcoin L1; value lives in client-side-validated coins. Moving on-chain BTC in and out uses a bridge, which is on the roadmap.</p>
+      </details>
+      <details>
+        <summary>Does zkCoins require a soft fork?</summary>
+        <p>No. Shielded CSV works on Bitcoin as it exists today — no soft fork, no hard fork, no new opcodes. The chain is used only for ordering commitments and preventing double-spends.</p>
+      </details>
+      <details>
+        <summary>How does zkCoins keep transactions private?</summary>
+        <p>Each spend is proven with a zero-knowledge proof and shared off-chain. Coin data — amounts, parties and history — never touches Bitcoin. A permissionless publisher anchors a whole batch of spends as one constant 231-byte inscription; the nullifiers stay off-chain.</p>
+      </details>
+      <details>
+        <summary>Is zkCoins self-custodial?</summary>
+        <p>Yes. Keys are generated and stored locally in your browser and never leave your device. zkCoins is peer-to-peer with no coordinator or custodian that can freeze funds or shut the network down.</p>
+      </details>
+      <details>
+        <summary>What is Shielded CSV?</summary>
+        <p>Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). zkCoins v1 batches many spends and anchors each batch to Bitcoin as one constant 231-byte inscription.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band" style="padding-top:8px;">
+    <div class="cta">
+      <h2>Try private Bitcoin today</h2>
+      <p>The zkCoins wallet runs in your browser. Keys are generated and stored locally — they never leave your device. Currently on a public test network; no real Bitcoin is at risk.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://zkcoins.app">
+          Open the wallet
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://docs.zkcoins.app">Read the docs</a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="footer">
-  <a href="https://x.com/zkcoinsbtc">X</a>·
-  <a href="https://t.me/zkcoinsbtc">Telegram</a>·
-  <a href="https://github.com/zk-coins">GitHub</a>·
-  <a href="https://docs.zkcoins.app">Docs</a>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="/" aria-label="zkCoins home">
+        <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+        <span class="word"><b>zk</b>Coins</span>
+      </a>
+      <span class="tag">Private Bitcoin transactions via Shielded CSV. Settled on Bitcoin, verified client-side.</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Protocol</h4>
+        <a href="#paper">Whitepaper</a>
+        <a href="#how">How it works</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
+      </div>
+      <div class="footer-col">
+        <h4>Build</h4>
+        <a href="https://zkcoins.app">Wallet</a>
+        <a href="https://docs.zkcoins.app">Documentation</a>
+        <a href="https://github.com/zk-coins">GitHub</a>
+        <a href="https://github.com/zk-coins/landing-page/tree/HEAD/brand">Brand kit</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://x.com/zkcoinsbtc">X / Twitter</a>
+        <a href="https://t.me/zkcoinsbtc">Telegram</a>
+        <a href="https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m" title="zkcoins@zkcoins.com — NIP-05 verified">Nostr</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>© 2026 zkCoins · MIT-licensed</span>
+    <span>Not investment advice · Testnet software</span>
+  </div>
 </footer>
 </body>
 </html>
