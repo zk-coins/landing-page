@@ -41,6 +41,10 @@ const errors = [];
 const fail = (message) => errors.push(message);
 const read = (file) => readFileSync(join(root, file), 'utf8');
 
+if (!existsSync(join(root, 'index.html'))) {
+  console.error('error    index.html: missing');
+  process.exit(1);
+}
 const index = read('index.html');
 const ids = extractIds(index);
 
@@ -50,10 +54,16 @@ const ids = extractIds(index);
 const canonicalHref = extractCanonical(index);
 const ogUrlHref = extractOgUrl(index);
 const originSource = canonicalHref !== null ? canonicalHref : ogUrlHref;
+let ORIGIN = null;
 if (originSource === null) {
   fail('index.html: no canonical or og:url to derive the site origin from');
+} else {
+  try {
+    ORIGIN = new URL(originSource).origin;
+  } catch {
+    fail(`index.html: canonical/og:url "${originSource}" is not an absolute URL`);
+  }
 }
-const ORIGIN = originSource !== null ? new URL(originSource).origin : null;
 
 // --- file resolution ---------------------------------------------------------
 function resolvesToFile(pathname) {
@@ -85,16 +95,20 @@ if (!existsSync(join(root, NOSTR_FILE))) {
   fail(`${NOSTR_FILE}: missing`);
 } else {
   let nostr;
+  let parsed = false;
   try {
     nostr = JSON.parse(read(NOSTR_FILE));
+    parsed = true;
   } catch (error) {
     fail(`${NOSTR_FILE}: invalid JSON — ${error.message}`);
   }
-  if (nostr) {
-    if (!nostr.names || typeof nostr.names !== 'object') {
+  if (parsed) {
+    const names =
+      nostr && typeof nostr === 'object' && !Array.isArray(nostr) ? nostr.names : undefined;
+    if (!names || typeof names !== 'object') {
       fail(`${NOSTR_FILE}: no "names" object`);
     } else {
-      const entries = Object.entries(nostr.names);
+      const entries = Object.entries(names);
       if (entries.length === 0) fail(`${NOSTR_FILE}: "names" is empty`);
       for (const [name, pubkey] of entries) {
         if (typeof pubkey !== 'string' || !/^[0-9a-f]{64}$/.test(pubkey)) {
@@ -156,9 +170,13 @@ if (visibleFaq.length === 0) {
 }
 
 // --- 5. sitemap consistency --------------------------------------------------
-const sitemap = read('sitemap.xml');
-const sitemapLocs = extractSitemapLocs(sitemap);
-if (sitemapLocs.length === 0) fail('sitemap.xml: no <loc> entries');
+let sitemapLocs = [];
+if (!existsSync(join(root, 'sitemap.xml'))) {
+  fail('sitemap.xml: missing');
+} else {
+  sitemapLocs = extractSitemapLocs(read('sitemap.xml'));
+  if (sitemapLocs.length === 0) fail('sitemap.xml: no <loc> entries');
+}
 const sitemapPathnames = new Set();
 for (const loc of sitemapLocs) {
   let url;

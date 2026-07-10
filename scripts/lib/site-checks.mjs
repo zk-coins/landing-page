@@ -13,6 +13,36 @@ export function collapseWs(text) {
   return text.replace(/\s+/g, ' ').trim();
 }
 
+const NAMED_ENTITIES = new Map([
+  ['amp', '&'],
+  ['lt', '<'],
+  ['gt', '>'],
+  ['quot', '"'],
+  ['apos', "'"],
+  ['nbsp', ' '],
+  ['mdash', '—'],
+  ['ndash', '–'],
+  ['hellip', '…'],
+  ['times', '×'],
+]);
+
+// Decode the HTML entities that can legitimately differ between the markup and
+// the JSON-LD representation of the same text (e.g. `&amp;` vs `&`), so the FAQ
+// parity check compares meaning, not encoding. An unknown/out-of-range entity is
+// left verbatim (a real drift then still surfaces).
+export function decodeEntities(text) {
+  return text.replace(/&(#x?[0-9a-f]+|[a-z][a-z0-9]*);/gi, (whole, body) => {
+    if (body[0] === '#') {
+      const isHex = body[1].toLowerCase() === 'x';
+      const code = isHex ? parseInt(body.slice(2), 16) : parseInt(body.slice(1), 10);
+      if (Number.isNaN(code) || code > 0x10ffff) return whole;
+      return String.fromCodePoint(code);
+    }
+    const named = NAMED_ENTITIES.get(body.toLowerCase());
+    return named === undefined ? whole : named;
+  });
+}
+
 // --- <head> extraction -------------------------------------------------------
 
 // Derive the value of <link rel="canonical" href="...">, or null.
@@ -78,13 +108,20 @@ export function extractSitemapLocs(xml) {
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
 }
 
-// Visible FAQ, from <details><summary>Q</summary><p>A</p></details> blocks.
+// Visible FAQ, from <details><summary>Q</summary>…answer…</details> blocks. The
+// answer is everything after the summary (all <p> merged), tag-stripped and
+// entity-decoded so it compares equal to the JSON-LD plain text.
 export function extractDetailsFaq(html) {
   const faq = [];
-  for (const m of html.matchAll(
-    /<details[^>]*>\s*<summary[^>]*>([\s\S]*?)<\/summary>\s*<p[^>]*>([\s\S]*?)<\/p>/gi,
-  )) {
-    faq.push({ question: collapseWs(stripTags(m[1])), answer: collapseWs(stripTags(m[2])) });
+  for (const block of html.matchAll(/<details[^>]*>([\s\S]*?)<\/details>/gi)) {
+    const inner = block[1];
+    const summary = inner.match(/<summary[^>]*>([\s\S]*?)<\/summary>/i);
+    if (!summary) continue;
+    const answerHtml = inner.replace(/<summary[^>]*>[\s\S]*?<\/summary>/i, '');
+    faq.push({
+      question: collapseWs(decodeEntities(stripTags(summary[1]))),
+      answer: collapseWs(decodeEntities(stripTags(answerHtml))),
+    });
   }
   return faq;
 }
@@ -98,13 +135,16 @@ export function faqFromJsonLd(parsed) {
   for (const node of graph) {
     if (!node || node['@type'] !== 'FAQPage' || !Array.isArray(node.mainEntity)) continue;
     for (const q of node.mainEntity) {
-      if (typeof q.name !== 'string') continue;
+      if (!q || typeof q.name !== 'string') continue;
       const hasText =
         q.acceptedAnswer &&
         typeof q.acceptedAnswer === 'object' &&
         typeof q.acceptedAnswer.text === 'string';
       const answer = hasText ? q.acceptedAnswer.text : '';
-      out.push({ question: collapseWs(q.name), answer: collapseWs(answer) });
+      out.push({
+        question: collapseWs(decodeEntities(q.name)),
+        answer: collapseWs(decodeEntities(answer)),
+      });
     }
   }
   return out;
@@ -153,7 +193,9 @@ export function pathnameToRelFile(pathname) {
   }
   let rel = decoded.replace(/^\/+/, '');
   if (rel === '') rel = 'index.html';
-  if (rel.split('/').includes('..')) return null;
+  // Reject a traversal segment on either separator (defensive; the deploy target
+  // is POSIX, but a bare '\' must never sneak a '..' past this).
+  if (rel.split(/[\\/]/).includes('..')) return null;
   if (rel.endsWith('/')) rel += 'index.html';
   return rel;
 }

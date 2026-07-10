@@ -5,9 +5,12 @@ const BASE_URL = `http://127.0.0.1:${PORT}`;
 
 const DEVICE_FOR = {
   'desktop-chromium': devices['Desktop Chrome'],
-  // Real tablet width: 834px sits inside the `@media (max-width: 1024px/720px)`
-  // layers and exercises the layout between the desktop and phone breakpoints.
-  'tablet-chromium': { ...devices['Desktop Chrome'], viewport: { width: 834, height: 1112 } },
+  // A mid width that actually exercises the responsive collapse: at 600px the
+  // `@media (max-width: 720px)` layer (nav links hidden, single-column compare
+  // grid, tighter hero/paper padding) and the `@media (max-width: 640px)` layer
+  // (two-column stat band) both apply — a layout distinct from the desktop shot
+  // (>720px) and the phone shot (iPhone 15, <560px).
+  'tablet-chromium': { ...devices['Desktop Chrome'], viewport: { width: 600, height: 900 } },
   'mobile-safari': devices['iPhone 15'],
 };
 

@@ -11,8 +11,9 @@ export const PORT = 4173;
 // visual suites to pick it up.
 export const PAGES = ['/'];
 
-// Viewports the visual suite renders: desktop, a real tablet width (exercises the
-// `@media (max-width: 720px/560px)` layers around the breakpoint), and a phone.
+// Viewports the visual suite renders: desktop (>720px, full layout), a mid width
+// that exercises the `@media (max-width: 720px)` and `640px` responsive layers,
+// and a phone (<560px). The exact pixel sizes live in playwright.config.mjs.
 export const PROJECTS = ['desktop-chromium', 'tablet-chromium', 'mobile-safari'];
 
 // Stable screenshot slug for a page path: '/' -> 'home', '/faq.html' -> 'faq',

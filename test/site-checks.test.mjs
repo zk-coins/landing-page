@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import {
   classifyReference,
   collapseWs,
+  decodeEntities,
   extractCanonical,
   extractDetailsFaq,
   extractHtmlLang,
@@ -26,6 +27,21 @@ describe('string utilities', () => {
 
   test('collapseWs collapses runs of whitespace and trims', () => {
     expect(collapseWs('  a\n  b   c  ')).toBe('a b c');
+  });
+});
+
+describe('decodeEntities', () => {
+  test('decodes named entities and leaves unknown ones verbatim', () => {
+    expect(decodeEntities('a &amp; b, &lt;tag&gt; &mdash; &bogus;')).toBe('a & b, <tag> — &bogus;');
+  });
+
+  test('decodes decimal and hex numeric entities', () => {
+    expect(decodeEntities('&#39;quote&#39; dash&#x2014;end')).toBe("'quote' dash—end");
+  });
+
+  test('leaves malformed or out-of-range numeric entities verbatim', () => {
+    expect(decodeEntities('&#abc;')).toBe('&#abc;');
+    expect(decodeEntities('&#999999999;')).toBe('&#999999999;');
   });
 });
 
@@ -97,13 +113,14 @@ describe('structured content extraction', () => {
     ).toEqual(['https://zkcoins.com/', 'https://zkcoins.com/a']);
   });
 
-  test('extractDetailsFaq reads question/answer pairs', () => {
+  test('extractDetailsFaq merges answer <p>s, decodes entities, skips summary-less blocks', () => {
     const html =
       '<details><summary>What is <b>zkCoins</b>?</summary><p>A wallet.</p></details>' +
-      '<details open><summary>Why?</summary><p>Privacy.</p></details>';
+      '<details open><summary>Fast &amp; private?</summary><p>Yes.</p>\n<p>Very.</p></details>' +
+      '<details><p>orphan paragraph, no summary</p></details>';
     expect(extractDetailsFaq(html)).toEqual([
       { question: 'What is zkCoins?', answer: 'A wallet.' },
-      { question: 'Why?', answer: 'Privacy.' },
+      { question: 'Fast & private?', answer: 'Yes. Very.' },
     ]);
   });
 });
@@ -138,18 +155,21 @@ describe('faqFromJsonLd', () => {
     expect(faqFromJsonLd({ '@type': 'FAQPage', mainEntity: 'nope' })).toEqual([]);
   });
 
-  test('skips a question with a non-string name and defaults a missing answer to ""', () => {
+  test('skips null / non-string-name questions and defaults a missing or non-string answer to ""', () => {
     const parsed = {
       '@type': 'FAQPage',
       mainEntity: [
+        null,
         { name: 123, acceptedAnswer: { text: 'ignored' } },
         { name: 'NoAnswer' },
         { name: 'StrAnswer', acceptedAnswer: 'not-an-object' },
+        { name: 'ObjNoStringText', acceptedAnswer: { text: 123 } },
       ],
     };
     expect(faqFromJsonLd(parsed)).toEqual([
       { question: 'NoAnswer', answer: '' },
       { question: 'StrAnswer', answer: '' },
+      { question: 'ObjNoStringText', answer: '' },
     ]);
   });
 });
@@ -211,6 +231,10 @@ describe('pathnameToRelFile', () => {
 
   test('rejects a path that escapes the root', () => {
     expect(pathnameToRelFile('/../secret')).toBeNull();
+  });
+
+  test('rejects a traversal segment written with a backslash', () => {
+    expect(pathnameToRelFile('/..\\secret')).toBeNull();
   });
 
   test('rejects a path that does not decode', () => {

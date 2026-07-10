@@ -1,8 +1,9 @@
 // Minimal static file server used by the Playwright suite (and `npm run serve`).
-// Serves the repo root exactly as Cloudflare Pages does for this no-build site:
-// '/' -> index.html, a directory -> its index.html, everything else by path.
-// Path resolution and MIME lookup live in the unit-tested scripts/lib helpers so
-// the server itself stays a thin, side-effecting shell.
+// Serves the repo root for the local test suite: '/' -> index.html, a directory
+// -> its index.html, everything else by path. (It does not apply the Cloudflare
+// Pages .assetsignore exclusions — the tests only ever request the deployed
+// pages.) Path resolution and MIME lookup live in the unit-tested scripts/lib
+// helpers so the server itself stays a thin, side-effecting shell.
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { join, resolve } from 'node:path';
