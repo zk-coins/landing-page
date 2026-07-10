@@ -148,7 +148,9 @@ if (visibleFaq.length === 0) {
       );
     }
     if (visibleFaq[i].answer !== jsonLdFaq[i].answer) {
-      fail(`FAQ parity: answer for "${visibleFaq[i].question}" differs between the page and JSON-LD`);
+      fail(
+        `FAQ parity: answer for "${visibleFaq[i].question}" differs between the page and JSON-LD`,
+      );
     }
   }
 }

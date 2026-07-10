@@ -100,7 +100,9 @@ export function faqFromJsonLd(parsed) {
     for (const q of node.mainEntity) {
       if (typeof q.name !== 'string') continue;
       const hasText =
-        q.acceptedAnswer && typeof q.acceptedAnswer === 'object' && typeof q.acceptedAnswer.text === 'string';
+        q.acceptedAnswer &&
+        typeof q.acceptedAnswer === 'object' &&
+        typeof q.acceptedAnswer.text === 'string';
       const answer = hasText ? q.acceptedAnswer.text : '';
       out.push({ question: collapseWs(q.name), answer: collapseWs(answer) });
     }

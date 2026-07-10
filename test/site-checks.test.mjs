@@ -59,9 +59,9 @@ describe('head extraction', () => {
   });
 
   test('extractOgImage reads the content and returns null otherwise', () => {
-    expect(extractOgImage('<meta property="og:image" content="https://zkcoins.com/favicon.png">')).toBe(
-      'https://zkcoins.com/favicon.png',
-    );
+    expect(
+      extractOgImage('<meta property="og:image" content="https://zkcoins.com/favicon.png">'),
+    ).toBe('https://zkcoins.com/favicon.png');
     expect(extractOgImage('<meta property="og:image">')).toBeNull();
     expect(extractOgImage('<meta name="theme-color" content="#000">')).toBeNull();
   });
@@ -92,9 +92,9 @@ describe('structured content extraction', () => {
   });
 
   test('extractSitemapLocs reads and trims <loc> entries', () => {
-    expect(extractSitemapLocs('<loc> https://zkcoins.com/ </loc><loc>https://zkcoins.com/a</loc>')).toEqual(
-      ['https://zkcoins.com/', 'https://zkcoins.com/a'],
-    );
+    expect(
+      extractSitemapLocs('<loc> https://zkcoins.com/ </loc><loc>https://zkcoins.com/a</loc>'),
+    ).toEqual(['https://zkcoins.com/', 'https://zkcoins.com/a']);
   });
 
   test('extractDetailsFaq reads question/answer pairs', () => {
@@ -125,7 +125,10 @@ describe('faqFromJsonLd', () => {
   });
 
   test('reads a single-node FAQPage (no @graph)', () => {
-    const parsed = { '@type': 'FAQPage', mainEntity: [{ name: 'Q', acceptedAnswer: { text: 'A' } }] };
+    const parsed = {
+      '@type': 'FAQPage',
+      mainEntity: [{ name: 'Q', acceptedAnswer: { text: 'A' } }],
+    };
     expect(faqFromJsonLd(parsed)).toEqual([{ question: 'Q', answer: 'A' }]);
   });
 
@@ -153,7 +156,15 @@ describe('faqFromJsonLd', () => {
 
 describe('classifyReference', () => {
   test('skips empty, mailto, tel, javascript, data and protocol-relative', () => {
-    for (const raw of ['', '   ', 'mailto:a@b.c', 'tel:+1', 'javascript:void(0)', 'data:x', '//cdn/x.js']) {
+    for (const raw of [
+      '',
+      '   ',
+      'mailto:a@b.c',
+      'tel:+1',
+      'javascript:void(0)',
+      'data:x',
+      '//cdn/x.js',
+    ]) {
       expect(classifyReference(raw, ORIGIN).kind).toBe('skip');
     }
   });
