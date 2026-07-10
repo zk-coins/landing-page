@@ -441,6 +441,33 @@
   .cta p { margin: 0 auto 26px; color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 52ch; }
   .cta .actions { justify-content: center; }
 
+  /* ─── Investors ──────────────────────────────────────────────── */
+  .investor {
+    border: 1px solid var(--line); border-radius: 18px;
+    padding: 34px; background: var(--card-bg);
+    display: grid; gap: 22px;
+  }
+  .investor .band-head { margin: 0; }
+  .investor-body { display: grid; gap: 18px; max-width: 62ch; }
+  .investor-body p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+  .investor-body p b { color: var(--fg); font-weight: 700; }
+  .investor-mail {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: clamp(15px, 2.4vw, 18px);
+    font-weight: 700; color: var(--orange); text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color .18s var(--ease);
+  }
+  .investor-mail:hover { color: var(--orange-300); }
+  .investor-mail svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .investor-links { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+  .investor-links a {
+    font-family: var(--mono); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--faint); text-decoration: none;
+    transition: color .18s var(--ease);
+  }
+  .investor-links a:hover { color: var(--orange); }
+
   /* ─── Footer ─────────────────────────────────────────────────── */
   footer.footer { position: relative; z-index: 1; border-top: 1px solid var(--line-2); margin-top: 64px; }
   .footer-inner { max-width: var(--maxw); margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-start; }
@@ -491,6 +518,15 @@
         "https://t.me/zkcoinsbtc",
         "https://github.com/zk-coins",
         "https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "investor relations",
+          "email": "investors@zkcoins.com",
+          "url": "https://zkcoins.com/#investors",
+          "availableLanguage": ["en", "de"]
+        }
       ]
     },
     {
@@ -924,6 +960,30 @@
     </div>
   </section>
 
+  <!-- INVESTORS -->
+  <section id="investors" class="band" aria-labelledby="investors-title">
+    <div class="investor">
+      <div class="band-head">
+        <span class="eyebrow">Investors</span>
+        <h2 id="investors-title">Direct channel for funds and angels</h2>
+        <p>zkCoins brings Shielded CSV to a self-custodial wallet — private Bitcoin on L1, no soft fork. We keep an open line for venture funds, family offices and strategic angels evaluating the project.</p>
+      </div>
+      <div class="investor-body">
+        <p>The protocol is peer-reviewed (<b>ePrint 2025/068</b>), the stack is open source, and the roadmap is public. We are not actively raising — but we are open to conversations ahead of mainnet.</p>
+        <a class="investor-mail" href="mailto:investors@zkcoins.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          investors@zkcoins.com
+        </a>
+        <div class="investor-links" aria-label="Due diligence links">
+          <a href="https://github.com/zk-coins">GitHub</a>
+          <a href="#paper">Whitepaper</a>
+          <a href="#roadmap">Roadmap</a>
+          <a href="https://docs.zkcoins.app">Documentation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="band" id="faq">
     <div class="band-head">
@@ -1004,6 +1064,12 @@
         <a href="https://x.com/zkcoinsbtc">X / Twitter</a>
         <a href="https://t.me/zkcoinsbtc">Telegram</a>
         <a href="https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m" title="zkcoins@zkcoins.com — NIP-05 verified">Nostr</a>
+      </div>
+      <div class="footer-col">
+        <h4>Investors</h4>
+        <a href="#investors">Investor relations</a>
+        <a href="mailto:investors@zkcoins.com">investors@zkcoins.com</a>
+        <a href="https://github.com/zk-coins">Source code</a>
       </div>
     </div>
   </div>

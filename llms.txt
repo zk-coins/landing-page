@@ -25,3 +25,9 @@
 - [X / Twitter](https://x.com/zkcoinsbtc)
 - [Telegram](https://t.me/zkcoinsbtc)
 - [Nostr](https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m)
+
+## Investors
+- Direct contact: [investors@zkcoins.com](mailto:investors@zkcoins.com)
+- Investor section on the home page: [zkcoins.com/#investors](https://zkcoins.com/#investors)
+- Open source: [github.com/zk-coins](https://github.com/zk-coins)
+- Protocol whitepaper: [ePrint 2025/068](https://eprint.iacr.org/2025/068)
