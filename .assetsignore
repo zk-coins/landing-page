@@ -1,0 +1,24 @@
+# Files excluded from the Cloudflare Pages deployment.
+# Pages uploads the whole directory and does NOT honour .gitignore, so the test /
+# tooling assets must be listed here to keep them off the public CDN. The deployed
+# site stays exactly what it was: index.html, favicon.*, robots.txt, sitemap.xml,
+# llms.txt, .well-known/ and brand/.
+
+# Build / test / tooling
+node_modules/
+scripts/
+test/
+tests/
+coverage/
+playwright-report/
+test-results/
+*.mjs
+package.json
+package-lock.json
+
+# Tooling config
+.htmlvalidate.json
+.prettierrc.json
+.prettierignore
+.assetsignore
+.lycheeignore
