@@ -1,9 +1,13 @@
 # zkCoins — https://zkcoins.com
 # Open to all crawlers, and AI answer engines are explicitly welcome:
 # being crawlable is how zkCoins gets cited in AI-generated answers.
+#
+# Content signals: all uses are granted — search, AI input / retrieval-augmented
+# generation, and AI training. We deliberately do NOT signal ai-train=no.
 
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 
 # AI answer / assistant crawlers (search + citation)
 User-agent: GPTBot
@@ -43,6 +47,16 @@ User-agent: Amazonbot
 Allow: /
 
 User-agent: cohere-ai
+Allow: /
+
+# AI training / dataset crawlers
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: meta-externalagent
 Allow: /
 
 Sitemap: https://zkcoins.com/sitemap.xml
