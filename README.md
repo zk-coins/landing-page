@@ -7,25 +7,46 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 
 ## Stack
 
-- Plain HTML + inline CSS
-- No JavaScript, no build step, no dependencies
-- System monospace font stack (no external font load)
+- Plain HTML + inline CSS — the **deployed page** has no build step and no runtime dependencies
+- No runtime JavaScript (only inert `application/ld+json` structured data)
+- System font stack (no external font load)
+- Dev-only test tooling (Playwright + Vitest) — never shipped, kept off the CDN by `.assetsignore`
 
 ## Structure
 
 ```
 .
-├── index.html       — Single-page whitepaper landing
-├── favicon.png      — 192×192 zkCoins avatar
-└── LICENSE          — MIT
+├── index.html            — Single-page whitepaper landing (HTML + inline CSS)
+├── favicon.svg / .png    — zkCoins mark
+├── robots.txt            — crawler policy (AI answer engines welcome)
+├── sitemap.xml           — single-URL sitemap
+├── llms.txt              — LLM-oriented site summary
+├── .well-known/nostr.json — NIP-05 identity
+├── brand/                — brand kit (logos, tokens)
+├── scripts/              — dev server + check/test tooling (scripts/lib/** is unit-tested)
+├── tests/                — Playwright specs + committed screenshot baselines
+├── test/                 — Vitest unit tests
+└── LICENSE               — MIT
 ```
 
 ## Local preview
 
 ```bash
-python3 -m http.server 8080
+python3 -m http.server 8080        # or: npm run serve   (http://127.0.0.1:4173)
 # open http://localhost:8080
 ```
+
+## Testing
+
+```bash
+npm ci
+npm run check              # prettier + html-validate + site completeness + 100% unit coverage
+npm run e2e:docker         # Playwright screenshots vs. the committed baselines (pinned container)
+```
+
+Screenshot baselines are regenerated with `npm run e2e:docker:update`. See
+[CONTRIBUTING.md](CONTRIBUTING.md#testing) for the full rig (what each gate covers,
+how the baselines stay reproducible, and the 100% coverage rule).
 
 ## Deploy — Cloudflare Pages
 
