@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" shape-rendering="crispEdges" role="img" aria-label="zkCoins">
+  <defs>
+    <radialGradient id="esp" cx="50%" cy="26%" r="78%">
+      <stop offset="0" stop-color="#a86a1f"/>
+      <stop offset="0.82" stop-color="#1a1005"/>
+    </radialGradient>
+  </defs>
+  <rect width="12" height="12" fill="url(#esp)"/>
+  <g fill="#f5f1ea">
+    <rect x="3" y="1" width="6" height="1"/>
+    <rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+    <rect x="2" y="3" width="8" height="1"/>
+    <rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+    <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+    <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+    <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+    <rect x="2" y="8" width="8" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+    <rect x="3" y="10" width="6" height="1"/>
+  </g>
+</svg>

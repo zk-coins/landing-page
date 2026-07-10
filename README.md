@@ -1,4 +1,4 @@
-# zkcoins.com — Landing Page
+# zkCoins — Landing Page (zkcoins.com)
 
 [![CI](https://github.com/zk-coins/landing-page/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/zk-coins/landing-page/actions/workflows/ci.yaml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
