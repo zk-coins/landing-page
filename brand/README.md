@@ -98,7 +98,7 @@ privacy than the protocol delivers.
 
 **The name — always exactly `zkCoins`** (lowercase `zk`, capital `C`, one word).
 Not `ZKCoins` / `Zkcoins` / `zk coins` / `ZK Coins`. Lowercase `zkcoins` only in domains
-and handles (`zkcoins.com`, `@zkcoins`).
+and handles (`zkcoins.com`, `@zkcoinsbtc`).
 
 **Tagline:** Private Bitcoin transactions via Shielded CSV.
 
