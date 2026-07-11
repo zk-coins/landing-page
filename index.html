@@ -621,7 +621,7 @@
         {
           "@type": "Question",
           "name": "What if off-chain batch data becomes unavailable?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, replicated to at least three independent holders. If every replica of a bundle vanished, that batch could no longer be verified — it stays pending and is never silently accepted, so verification halts rather than lies. This is a liveness risk, not a custody risk: an unavailable bundle can never move coins or forge a payment. The Shielded CSV paper avoids this tradeoff by writing each 64-byte nullifier to Bitcoin; zkCoins v1 accepts it in exchange for a constant on-chain footprint. Full breakdown on the docs' Risks page." }
+          "acceptedAnswer": { "@type": "Answer", "text": "The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, held by independent nodes rather than guaranteed by Bitcoin. If a bundle became unreachable, a fresh verifier could not confirm that batch — and, because batches chain one after another, nothing built on top of it either. It stays pending, never silently accepted: verification halts rather than lies, and no coin can move or be forged on data no one can read. This is a liveness risk, never a custody one. It is the real price of the constant on-chain footprint — the Shielded CSV paper instead writes each 64-byte nullifier to Bitcoin, so the chain itself guarantees the data is always there. How retention is enforced, and its limits, are laid out on the docs' Risks page." }
         }
       ]
     }
@@ -1048,7 +1048,7 @@
       </details>
       <details>
         <summary>What if off-chain batch data becomes unavailable?</summary>
-        <p>The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, replicated to at least three independent holders. If every replica of a bundle vanished, that batch could no longer be verified — it stays pending and is never silently accepted, so verification halts rather than lies. This is a liveness risk, not a custody risk: an unavailable bundle can never move coins or forge a payment. The Shielded CSV paper avoids this tradeoff by writing each 64-byte nullifier to Bitcoin; zkCoins v1 accepts it in exchange for a constant on-chain footprint. Full breakdown on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
+        <p>The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, held by independent nodes rather than guaranteed by Bitcoin. If a bundle became unreachable, a fresh verifier could not confirm that batch — and, because batches chain one after another, nothing built on top of it either. It stays pending, never silently accepted: verification halts rather than lies, and no coin can move or be forged on data no one can read. This is a liveness risk, never a custody one. It is the real price of the constant on-chain footprint — the Shielded CSV paper instead writes each 64-byte nullifier to Bitcoin, so the chain itself guarantees the data is always there. How retention is enforced, and its limits, are laid out on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
       </details>
     </div>
   </section>
