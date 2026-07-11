@@ -89,7 +89,7 @@ Security issues: see [SECURITY.md](SECURITY.md).
 
 Follows the zkCoins brand kit. Key invariants:
 
-- Background `#0a0a0a`, accent `#f7931a` (Bitcoin orange), foreground `#ffffff`
+- Background `#0a0a0a`, accent `#f7931a` (Bitcoin orange), body `#ece9e4`, headings/mark `#ffffff`
 - Display name **zkCoins** (always capital C)
 - Tagline: *Private Bitcoin transactions via Shielded CSV*
 

@@ -49,13 +49,13 @@ Reproduce everything except the screenshots locally with:
 
 ```bash
 npm ci
-npm run check   # prettier + html-validate + check:site + unit coverage
+npm run check   # prettier + html-validate + i18n:check + check:site + unit coverage
 ```
 
 ## Testing
 
-The **deployed page stays plain HTML + inline CSS with no build step and no
-runtime JavaScript** (see the style invariants above). Everything under this
+The **deployed site stays plain HTML + shared `/styles.css` with no build step and
+no runtime JavaScript** (see the style invariants above). Everything under this
 section is *dev-only tooling*: it lives in `devDependencies`, never ships, and is
 kept off the public CDN by `.assetsignore`. It exists so a whitespace slip, a
 dead internal link, a broken structured-data block or an unintended visual change
@@ -66,6 +66,8 @@ can't reach production unnoticed.
 | `npm run serve` | Serve the site on `http://127.0.0.1:4173` (same routing the tests use) |
 | `npm run format` / `format:check` | Prettier over the tooling sources (the page + content files are left as authored) |
 | `npm run validate:html` | `html-validate` over every locale page |
+| `npm run i18n:generate` | Rebuild every locale home + sitemap from `scripts/i18n/` |
+| `npm run i18n:check` | Regenerate and fail if committed HTML/sitemap drifted from the sources |
 | `npm run check:site` | Static-completeness gate (see below) |
 | `npm run test` / `test:coverage` | Vitest unit tests / with the enforced 100% coverage gate |
 | `npm run test:e2e` | Playwright visual + smoke suite against local browsers |

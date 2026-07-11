@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Test tooling for the zkcoins.com landing page. Dev-only — the deployed site stays plain HTML + inline CSS with no build step (see .assetsignore).",
+  "description": "Test tooling for the zkcoins.com landing page. Dev-only — the deployed site stays plain HTML + shared styles.css with no build step (see .assetsignore).",
   "engines": {
     "node": ">=22"
   },
@@ -12,6 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate:html": "html-validate \"*.html\" \"de/**/*.html\" \"fr/**/*.html\" \"it/**/*.html\" \"es/**/*.html\"",
+    "i18n:generate": "python3 scripts/i18n/generate.py",
+    "i18n:check": "python3 scripts/i18n/generate.py && git diff --exit-code -- index.html de/ fr/ it/ es/ sitemap.xml",
     "check:site": "node scripts/check-site.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -19,7 +21,7 @@
     "check:visual": "node scripts/check-visual.mjs",
     "e2e:docker": "bash scripts/e2e-docker.sh",
     "e2e:docker:update": "bash scripts/e2e-docker.sh --update-snapshots",
-    "check": "npm run format:check && npm run validate:html && npm run check:site && npm run test:coverage"
+    "check": "npm run format:check && npm run validate:html && npm run i18n:check && npm run check:site && npm run test:coverage"
   },
   "devDependencies": {
     "@playwright/test": "1.61.1",
