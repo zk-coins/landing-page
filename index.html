@@ -11,7 +11,7 @@
 <meta property="og:title" content="zkCoins — Private Bitcoin via Shielded CSV" />
 <meta property="og:description" content="True privacy for Bitcoin via Shielded CSV — coin data stays off-chain, anchored as one constant 231-byte inscription per batch. No soft fork, self-custodial." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://zkcoins.com" />
+<meta property="og:url" content="https://zkcoins.com/" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@zkcoinsbtc" />
@@ -89,7 +89,7 @@
   .brand .word, .concept .stat, .concept .k, .tx-title, .tx-row, .tx-foot, .nullifier,
   .compare-arrow, code, table.perf, .perf th, .phase-num, .phase-status, .phase-when,
   .step .n, .card .label, .card .name, .card .domain, .roadmap-head .legend,
-  .footer-col h4, .footer-legal, .footer-brand .tag { font-family: var(--mono); }
+  .footer-col h3, .footer-legal, .footer-brand .tag { font-family: var(--mono); }
 
   /* ── The mark — pixel-art Z monogram, 12×12, render crisp, never smoothed ── */
   .mark { height: 26px; aspect-ratio: 1 / 1; width: auto; flex-shrink: 0;
@@ -278,6 +278,8 @@
   .paper .meta a { color: var(--orange); text-decoration: none; }
   .paper .meta a:hover { text-decoration: underline; }
   .abstract { font-size: 14px; line-height: 1.65; color: var(--fg); border-left: 2px solid var(--orange); padding: 6px 0 6px 18px; margin: 0 0 26px; position: relative; }
+  .paper-note { font-size: 12.5px; line-height: 1.55; color: var(--muted); margin: 0 0 24px; position: relative; }
+  .paper-note b { color: var(--fg); font-weight: 700; }
   .actions { display: flex; flex-wrap: wrap; gap: 12px; position: relative; }
 
   /* ─── Section heads ──────────────────────────────────────────── */
@@ -474,7 +476,7 @@
   .footer-brand { display: flex; flex-direction: column; gap: 10px; max-width: 300px; }
   .footer-brand .tag { color: var(--faint); font-size: 12.5px; line-height: 1.5; }
   .footer-cols { display: flex; gap: 48px; flex-wrap: wrap; }
-  .footer-col h4 { margin: 0 0 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); font-weight: 700; }
+  .footer-col h3 { margin: 0 0 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); font-weight: 700; }
   .footer-col a { display: block; color: var(--muted); text-decoration: none; font-size: 13px; padding: 5px 0; transition: color .15s var(--ease); }
   .footer-col a:hover { color: var(--orange); }
   .footer-legal { max-width: var(--maxw); margin: 0 auto; padding: 20px 24px; border-top: 1px solid var(--line-2); display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; color: var(--faint); font-size: 12px; }
@@ -548,10 +550,12 @@
       "description": "Self-custodial wallet for sending and receiving private Bitcoin via the Shielded CSV protocol. Keys are generated and stored locally in the browser.",
       "isAccessibleForFree": true,
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "isBasedOn": { "@id": "https://zkcoins.com/#paper" },
       "publisher": { "@id": "https://zkcoins.com/#organization" }
     },
     {
       "@type": "ScholarlyArticle",
+      "@id": "https://zkcoins.com/#paper",
       "name": "Shielded CSV: Private and Efficient Client-Side Validation",
       "url": "https://eprint.iacr.org/2025/068",
       "identifier": "IACR ePrint 2025/068",
@@ -560,8 +564,7 @@
         { "@type": "Person", "name": "Jonas Nick" },
         { "@type": "Person", "name": "Liam Eagen" },
         { "@type": "Person", "name": "Robin Linus" }
-      ],
-      "about": { "@id": "https://zkcoins.com/#organization" }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -645,7 +648,7 @@
   <!-- HERO -->
   <section class="hero">
     <span class="eyebrow">Private Bitcoin · Shielded CSV</span>
-    <h1>Send Bitcoin privately<br><span class="accent">nothing legible on-chain</span></h1>
+    <h1>Private payments on Bitcoin<br><span class="accent">nothing legible on-chain</span></h1>
     <p class="lede">zkCoins brings <b>true privacy</b> to Bitcoin. Amounts, sender, receiver and history stay off-chain — proven with zero-knowledge and anchored to Bitcoin as one constant <b>231-byte inscription</b> per batch.</p>
     <div class="pillars">
       <span class="pill">No soft fork</span>
@@ -690,7 +693,7 @@
         <div class="tx-foot">constant · covers every spend in the batch · coin data off-chain</div>
       </div>
     </div>
-    <p class="compare-cap">Coin data never touches the chain. <b>Many private spends anchor to Bitcoin as one constant 231-byte inscription — ~3.2 vBytes per spend at 100 per batch.</b></p>
+    <p class="compare-cap">Coin data never touches the chain. <b>Many private spends anchor to Bitcoin as one constant 231-byte inscription; the publisher's ~318-vByte commit+reveal pair amortises to ~3.2 vBytes per spend at 100 per batch.</b></p>
   </section>
 
   <!-- PAPER (dominant) -->
@@ -718,6 +721,7 @@
       <p class="abstract">
         Client-Side Validation decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and targets roughly an order of magnitude more transactions per second than the base layer alone.
       </p>
+      <p class="paper-note"><b>zkCoins v1 goes further:</b> the nullifier never touches Bitcoin at all — a permissionless publisher batches many spends into one constant 231-byte BatchInscription, beyond the paper's per-transaction 64-byte on-chain figure.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -755,7 +759,7 @@
       <div class="concept">
         <div class="k">Cost</div>
         <div class="h">Amortises toward zero</div>
-        <p class="v">The inscription is constant no matter how many spends it covers — per-spend cost falls to <b>~3.2 vBytes at 100 per batch</b>.</p>
+        <p class="v">The inscription is constant no matter how many spends it covers — the publisher's ~318-vByte commit+reveal pair amortises to <b>~3.2 vBytes per spend at 100 per batch</b>.</p>
       </div>
     </div>
   </section>
@@ -771,9 +775,9 @@
     </div>
     <ol class="steps">
       <li class="step"><span class="n">1</span><div class="body"><p class="t">Sender proves</p><p class="d">The sender creates a transfer and generates a succinct validity proof of the coin's entire history — a constant size, no matter how old the coin is.</p></div></li>
-      <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof goes to the receiver</p><p class="d">The proof travels <b>directly to the receiver, off-chain</b>. Amounts, parties and history never leave the two devices.</p></div></li>
+      <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof goes to the receiver</p><p class="d">The proof travels <b>directly to the receiver, off-chain</b>. Only sender and receiver ever see the amounts, parties and history — nothing is written to the chain.</p></div></li>
       <li class="step"><span class="n">3</span><div class="body"><p class="t">A batch is anchored on Bitcoin</p><p class="d">A permissionless <b>publisher</b> aggregates many spends and inscribes one constant <code>231-byte BatchInscription</code> — the nullifiers themselves stay off-chain.</p></div></li>
-      <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver checks the zero-knowledge proof locally — one Schnorr verification — and accepts the coin without trusting any third party.</p></div></li>
+      <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver re-verifies the coin's full zero-knowledge proof locally — a single constant-time check, no matter how long the coin's history — and accepts it without trusting any third party.</p></div></li>
       <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin prevents double-spends</p><p class="d">Each batch anchors the nullifier accumulator's root transition. The chain's one job: guarantee each coin is spent <b>exactly once</b>.</p></div></li>
     </ol>
   </section>
@@ -794,7 +798,7 @@
         <tbody>
           <tr><td class="metric">On-chain data</td><td class="btc">full transaction (~140 vBytes)</td><td class="zk"><b>231-byte inscription per batch</b></td></tr>
           <tr><td class="metric">Per-spend cost</td><td class="btc">~140 vBytes</td><td class="zk"><b>~3.2 vBytes (100 / batch)</b></td></tr>
-          <tr><td class="metric">Privacy</td><td class="btc">None — fully public</td><td class="zk"><b>Full — nothing leaked</b></td></tr>
+          <tr><td class="metric">Privacy</td><td class="btc">None — fully public</td><td class="zk"><b>Full — nothing on-chain</b></td></tr>
           <tr><td class="metric">Verification</td><td class="btc">Full script per tx</td><td class="zk">1× batch proof</td></tr>
           <tr><td class="metric">Proof size</td><td class="btc">N/A</td><td class="zk">Constant, independent of history</td></tr>
         </tbody>
@@ -814,7 +818,7 @@
     <div class="nots">
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a sidechain</span><p>It uses <b>Bitcoin L1 directly</b> — no separate consensus, no bridge to a foreign chain.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no data-availability layer.</b> Proofs move peer-to-peer between sender and receiver.</p></div>
-      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — there is no anonymity set to deanonymise.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — a global anonymity set of every coin, not a small per-round pool.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a token</span><p><b>No native protocol token to bootstrap.</b> Value lives in client-side-validated coins.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a soft fork</span><p>It works on <b>Bitcoin as it exists today</b> — no consensus change, no new opcodes.</p></div>
     </div>
@@ -848,7 +852,7 @@
         <p class="phase-lede">The proving stack and the wallet–server boundary. Everything downstream depends on this.</p>
         <div class="phase-card">
           <ul>
-            <li><span class="what">Zero-knowledge circuit migration.</span><span class="why">Move the state-transition circuit onto a recursion-native proving system with a Bitcoin-friendly hash.</span></li>
+            <li><span class="what">Zero-knowledge circuit migration.</span><span class="why">Move the state-transition circuit onto a recursion-native proving system with a SNARK-friendly hash.</span></li>
             <li><span class="what">Server-side proving on commodity hardware.</span><span class="why">Single-host Apple Silicon target — no GPU farms, no cloud proving service. The wallet holds only the private key.</span></li>
             <li><span class="what">Wallet boundary via BIP-340 Schnorr.</span><span class="why">The wallet signs a SHA-256 digest of the server-computed state. No in-browser zero-knowledge.</span></li>
             <li><span class="what">End-to-end roundtrip on signet.</span><span class="why">Create account, mint, send, receive — the full user loop runs on a public Bitcoin testnet.</span></li>
@@ -924,13 +928,13 @@
             <li><span class="what">Next-generation proving system.</span><span class="why">Port to a smaller field with a faster hash once the upstream stack stabilises. Algorithmic structure stays.</span></li>
             <li><span class="what">Bridge construction upgrade.</span><span class="why">Drop-in successors to BitVM2 (Glock, Mosaic) cut on-chain dispute cost by two orders of magnitude. Circuit contract unchanged.</span></li>
             <li><span class="what">Federation diversity.</span><span class="why">Recruit independent organisations as federation members until one-honest-deletion is a meaningful assumption.</span></li>
-            <li><span class="what">Production trusted setup.</span><span class="why">A 30–60 contributor ceremony replaces the single-contributor parameter set used for testing.</span></li>
+            <li><span class="what">Bridge-verifier trusted setup.</span><span class="why">A 30–60 contributor ceremony replaces the single-contributor Groth16 parameter set used to test the bridge verifier — zkCoins' own proofs are transparent (FRI) and need no setup.</span></li>
           </ul>
         </div>
       </li>
     </ol>
 
-    <p class="roadmap-note"><strong>Note.</strong> Dates indicate target windows for the engineering work, not a guaranteed mainnet date. zkCoins runs in a closed test environment until pre-mainnet hardening completes; no real Bitcoin is at risk before then.</p>
+    <p class="roadmap-note"><strong>Note.</strong> Dates indicate target windows for the engineering work, not a guaranteed mainnet date. zkCoins runs in a public test environment until pre-mainnet hardening completes; no real Bitcoin is at risk before then.</p>
   </section>
 
   <hr class="hr" />
@@ -969,7 +973,7 @@
         <p>zkCoins brings Shielded CSV to a self-custodial wallet — private Bitcoin on L1, no soft fork. We keep an open line for venture funds, family offices and strategic angels evaluating the project.</p>
       </div>
       <div class="investor-body">
-        <p>The protocol is peer-reviewed (<b>ePrint 2025/068</b>), the stack is open source, and the roadmap is public. We are not actively raising — but we are open to conversations ahead of mainnet.</p>
+        <p>The protocol is built on published research (<b>ePrint 2025/068</b>), the stack is open source, and the roadmap is public. We are not actively raising — but we are open to conversations ahead of mainnet.</p>
         <a class="investor-mail" href="mailto:investors@zkcoins.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
           investors@zkcoins.com
@@ -1046,27 +1050,27 @@
     </div>
     <div class="footer-cols">
       <div class="footer-col">
-        <h4>Protocol</h4>
+        <h3>Protocol</h3>
         <a href="#paper">Whitepaper</a>
         <a href="#how">How it works</a>
         <a href="#roadmap">Roadmap</a>
         <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
       </div>
       <div class="footer-col">
-        <h4>Build</h4>
+        <h3>Build</h3>
         <a href="https://zkcoins.app">Wallet</a>
         <a href="https://docs.zkcoins.app">Documentation</a>
         <a href="https://github.com/zk-coins">GitHub</a>
         <a href="https://github.com/zk-coins/landing-page/tree/HEAD/brand">Brand kit</a>
       </div>
       <div class="footer-col">
-        <h4>Community</h4>
+        <h3>Community</h3>
         <a href="https://x.com/zkcoinsbtc">X / Twitter</a>
         <a href="https://t.me/zkcoinsbtc">Telegram</a>
         <a href="https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m" title="zkcoins@zkcoins.com — NIP-05 verified">Nostr</a>
       </div>
       <div class="footer-col">
-        <h4>Investors</h4>
+        <h3>Investors</h3>
         <a href="#investors">Investor relations</a>
         <a href="mailto:investors@zkcoins.com">investors@zkcoins.com</a>
         <a href="https://github.com/zk-coins">Source code</a>
