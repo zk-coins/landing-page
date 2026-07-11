@@ -33,6 +33,7 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.ref_name }}
           token: ${{ secrets.BASELINE_PAT || github.token }}
+          persist-credentials: false
 
       - name: Mark workspace safe for git
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -54,14 +55,19 @@ jobs:
         run: npx playwright test --update-snapshots
 
       - name: Commit and push baselines
+        env:
+          # Pass through as env so the shell never interpolates untrusted template text.
+          TARGET_REF: ${{ inputs.ref || github.ref_name }}
+          PUSH_TOKEN: ${{ secrets.BASELINE_PAT || github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git add tests/__screenshots__
           if git diff --cached --quiet; then
             echo "Baselines already up to date — nothing to commit." >> "$GITHUB_STEP_SUMMARY"
           else
             git commit -m "test: regenerate visual baselines for multilingual matrix"
-            git push origin "HEAD:${{ inputs.ref || github.ref_name }}"
-            echo "Updated baselines pushed to \`${{ inputs.ref || github.ref_name }}\`." >> "$GITHUB_STEP_SUMMARY"
+            git push origin "HEAD:${TARGET_REF}"
+            echo "Updated baselines pushed to \`${TARGET_REF}\`." >> "$GITHUB_STEP_SUMMARY"
           fi

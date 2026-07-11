@@ -293,7 +293,7 @@ def build_sitemap() -> str:
 
 
 def main() -> int:
-    template_path = I18N_DIR / "template.html"
+    template_path = I18N_DIR / "page.template"
     if not template_path.is_file():
         print(f"error: missing {template_path}", file=sys.stderr)
         return 1

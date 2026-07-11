@@ -4,7 +4,7 @@ Thanks for thinking about contributing to `zkcoins.com`.
 
 This repo is a **static multilingual landing page**: one home page per language (`index.html`, `de/`, `fr/`, `it/`, `es/`), shared `/styles.css`, no runtime JavaScript, no build step for the deployed site. Keep it that way unless you have a very good reason.
 
-Locale pages are generated from `scripts/i18n/` (`template.html` + `strings/*.json`). After editing strings, run:
+Locale pages are generated from `scripts/i18n/` (`page.template` + `strings/*.json`). After editing strings, run:
 
 ```bash
 python3 scripts/i18n/generate.py
@@ -130,7 +130,7 @@ These follow the **zkCoins Brand Guide v1.0** and must not change without an exp
 
 ## Adding a new section
 
-Prefer extending the i18n template (`scripts/i18n/template.html`) and every
+Prefer extending the i18n template (`scripts/i18n/page.template`) and every
 `strings/*.json` over adding a new file. A second page should only exist if it
 cannot reasonably live inline.
 
