@@ -11,16 +11,21 @@ import {
 } from '../scripts/lib/pages.mjs';
 
 describe('constants', () => {
-  test('PORT is a number and PAGES/PROJECTS are non-empty', () => {
+  test('PORT is a number and PAGES/PROJECTS cover the locale matrix', () => {
     expect(typeof PORT).toBe('number');
-    expect(PAGES.length).toBeGreaterThan(0);
+    expect(PAGES).toEqual(['/', '/de/', '/fr/', '/it/', '/es/']);
     expect(PROJECTS).toEqual(['desktop-chromium', 'tablet-chromium', 'mobile-safari']);
   });
 });
 
 describe('screenshotName', () => {
-  test('maps the home path to "home.png"', () => {
+  test('maps the English home path to "home.png"', () => {
     expect(screenshotName('/')).toBe('home.png');
+  });
+
+  test('maps locale homes to home-<code>.png', () => {
+    expect(screenshotName('/de/')).toBe('home-de.png');
+    expect(screenshotName('/fr/')).toBe('home-fr.png');
   });
 
   test('strips the leading slash and .html extension', () => {
@@ -30,22 +35,30 @@ describe('screenshotName', () => {
   test('replaces nested slashes with dashes', () => {
     expect(screenshotName('/a/b.html')).toBe('a-b.png');
   });
+
+  test('falls back to home.png when the path collapses to an empty slug', () => {
+    expect(screenshotName('/.html')).toBe('home.png');
+  });
 });
 
 describe('slugFor', () => {
   test('drops the .png extension', () => {
     expect(slugFor('/')).toBe('home');
+    expect(slugFor('/de/')).toBe('home-de');
     expect(slugFor('/faq.html')).toBe('faq');
   });
 });
 
 describe('VIEWS', () => {
-  test('has a unique slug per view and includes the FAQ-open state', () => {
+  test('has a unique slug per view and includes FAQ-open for every locale', () => {
     const slugs = VIEWS.map((v) => v.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
     expect(slugs).toContain('home');
-    const faqView = VIEWS.find((v) => v.slug === 'home-faq-open');
-    expect(faqView).toMatchObject({ path: '/', state: 'faqOpen' });
+    expect(slugs).toContain('home-de');
+    expect(slugs).toContain('home-faq-open');
+    expect(slugs).toContain('home-de-faq-open');
+    // default load + faq-open for each of 5 locales
+    expect(VIEWS).toHaveLength(10);
   });
 });
 

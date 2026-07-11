@@ -11,7 +11,7 @@
     "serve": "node scripts/dev-server.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "validate:html": "html-validate \"*.html\"",
+    "validate:html": "html-validate \"*.html\" \"de/**/*.html\" \"fr/**/*.html\" \"it/**/*.html\" \"es/**/*.html\"",
     "check:site": "node scripts/check-site.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

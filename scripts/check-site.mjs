@@ -14,12 +14,27 @@
  *     malformed <html lang>
  *   - a robots.txt Sitemap: line that is off-origin or does not resolve
  *   - drift between the visible FAQ and the FAQPage JSON-LD (question or answer)
+ *   - i18n: missing locale pages, wrong lang/hreflang/og:url, incomplete
+ *     language switcher, or structural drift across locales
  *
- * The parsing/classification logic lives in scripts/lib/site-checks.mjs and is
- * unit-tested to 100%; this file wires it to the filesystem.
+ * The parsing/classification logic lives in scripts/lib/site-checks.mjs and
+ * scripts/lib/i18n.mjs and is unit-tested to 100%; this file wires it to the
+ * filesystem.
  */
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import {
+  DEFAULT_LANG,
+  LANGS,
+  expectedHreflangMap,
+  expectedSwitcherPaths,
+  extractHreflangMap,
+  extractSwitcherHrefs,
+  fileForLang,
+  pathForLang,
+  structuralFingerprint,
+  urlForLang,
+} from './lib/i18n.mjs';
 import { PAGES } from './lib/pages.mjs';
 import {
   classifyReference,
@@ -45,12 +60,13 @@ if (!existsSync(join(root, 'index.html'))) {
   console.error('error    index.html: missing');
   process.exit(1);
 }
+if (!existsSync(join(root, 'styles.css'))) {
+  fail('styles.css: missing — shared stylesheet required for all locales');
+}
+
 const index = read('index.html');
-const ids = extractIds(index);
 
 // --- origin ------------------------------------------------------------------
-// Derive the canonical origin from index.html rather than hard-coding it, so the
-// gate follows the site if the domain ever moves.
 const canonicalHref = extractCanonical(index);
 const ogUrlHref = extractOgUrl(index);
 const originSource = canonicalHref !== null ? canonicalHref : ogUrlHref;
@@ -119,63 +135,187 @@ if (!existsSync(join(root, NOSTR_FILE))) {
   }
 }
 
-// --- 2. JSON-LD validity -----------------------------------------------------
-const jsonLdBlocks = extractJsonLdBlocks(index);
-if (jsonLdBlocks.length === 0) fail('index.html: no JSON-LD structured data found');
-const parsedJsonLd = [];
-for (const block of jsonLdBlocks) {
-  try {
-    parsedJsonLd.push(JSON.parse(block));
-  } catch (error) {
-    fail(`index.html: invalid JSON-LD — ${error.message}`);
+// --- 2. Per-locale page checks -----------------------------------------------
+const fingerprints = {};
+let totalJsonLd = 0;
+let totalFaq = 0;
+const expectedHl = ORIGIN !== null ? expectedHreflangMap(ORIGIN) : null;
+const expectedSwitcher = expectedSwitcherPaths();
+
+for (const lang of LANGS) {
+  const rel = fileForLang(lang.code);
+  if (!existsSync(join(root, rel))) {
+    fail(`${rel}: missing — every language must ship a home page`);
+    continue;
+  }
+  const html = read(rel);
+  const ids = extractIds(html);
+
+  // 2a. html lang
+  const htmlLang = extractHtmlLang(html);
+  if (htmlLang === null) {
+    fail(`${rel}: <html> has no lang attribute`);
+  } else if (htmlLang !== lang.code) {
+    fail(`${rel}: <html lang="${htmlLang}"> should be "${lang.code}"`);
+  } else if (!/^[a-z]{2}(-[A-Z]{2})?$/.test(htmlLang)) {
+    fail(`${rel}: <html lang="${htmlLang}"> is not a plausible BCP-47 language tag`);
+  }
+
+  // 2b. canonical + og:url
+  const canonical = extractCanonical(html);
+  const ogUrl = extractOgUrl(html);
+  const expectedUrl = ORIGIN !== null ? urlForLang(ORIGIN, lang.code) : null;
+  if (canonical === null) {
+    fail(`${rel}: missing <link rel="canonical">`);
+  } else {
+    checkSameOriginHttps(`${rel}: canonical`, canonical);
+    if (expectedUrl !== null && canonical !== expectedUrl) {
+      fail(`${rel}: canonical should be ${expectedUrl}, got ${canonical}`);
+    }
+  }
+  if (ogUrl === null) {
+    fail(`${rel}: missing <meta property="og:url">`);
+  } else {
+    checkSameOriginHttps(`${rel}: og:url`, ogUrl);
+    if (expectedUrl !== null && ogUrl !== expectedUrl) {
+      fail(`${rel}: og:url should be ${expectedUrl}, got ${ogUrl}`);
+    }
+  }
+
+  const ogImage = extractOgImage(html);
+  if (ogImage !== null) {
+    checkSameOriginHttps(`${rel}: og:image`, ogImage);
+    const ref = classifyReference(ogImage, ORIGIN);
+    if (ref.kind === 'internal' && !resolvesToFile(ref.pathname)) {
+      fail(`${rel}: og:image "${ogImage}" does not resolve to a file`);
+    }
+  }
+
+  // 2c. hreflang complete + exact
+  if (expectedHl !== null) {
+    const map = extractHreflangMap(html);
+    for (const [hl, href] of Object.entries(expectedHl)) {
+      if (map[hl] !== href) {
+        fail(`${rel}: hreflang "${hl}" should point to ${href}, got ${map[hl] ?? '(missing)'}`);
+      }
+    }
+    for (const hl of Object.keys(map)) {
+      if (!(hl in expectedHl)) fail(`${rel}: unexpected hreflang "${hl}"`);
+    }
+  }
+
+  // 2d. language switcher
+  const switcher = extractSwitcherHrefs(html);
+  const missingLinks = expectedSwitcher.filter((p) => !switcher.includes(p));
+  if (missingLinks.length) {
+    fail(`${rel}: language switcher missing link(s): ${missingLinks.join(', ')}`);
+  }
+  const extraLinks = switcher.filter((p) => !expectedSwitcher.includes(p));
+  if (extraLinks.length) {
+    fail(`${rel}: language switcher has unexpected link(s): ${extraLinks.join(', ')}`);
+  }
+
+  // 2e. shared stylesheet
+  if (!html.includes('href="/styles.css"') && !html.includes("href='/styles.css'")) {
+    fail(`${rel}: missing root-absolute /styles.css link`);
+  }
+
+  // 2f. JSON-LD + FAQ parity
+  const jsonLdBlocks = extractJsonLdBlocks(html);
+  if (jsonLdBlocks.length === 0) fail(`${rel}: no JSON-LD structured data found`);
+  const parsedJsonLd = [];
+  for (const block of jsonLdBlocks) {
+    try {
+      parsedJsonLd.push(JSON.parse(block));
+    } catch (error) {
+      fail(`${rel}: invalid JSON-LD — ${error.message}`);
+    }
+  }
+  totalJsonLd += jsonLdBlocks.length;
+
+  const visibleFaq = extractDetailsFaq(html);
+  const jsonLdFaq = parsedJsonLd.flatMap((doc) => faqFromJsonLd(doc));
+  if (visibleFaq.length === 0) {
+    fail(`${rel}: no visible FAQ <details> found`);
+  } else if (jsonLdFaq.length !== visibleFaq.length) {
+    fail(
+      `${rel}: FAQ parity: ${visibleFaq.length} visible <details> but ${jsonLdFaq.length} FAQPage entries in JSON-LD`,
+    );
+  } else {
+    for (let i = 0; i < visibleFaq.length; i += 1) {
+      if (visibleFaq[i].question !== jsonLdFaq[i].question) {
+        fail(
+          `${rel}: FAQ parity: question ${i + 1} differs — visible "${visibleFaq[i].question}" vs JSON-LD "${jsonLdFaq[i].question}"`,
+        );
+      }
+      if (visibleFaq[i].answer !== jsonLdFaq[i].answer) {
+        fail(
+          `${rel}: FAQ parity: answer for "${visibleFaq[i].question}" differs between the page and JSON-LD`,
+        );
+      }
+    }
+  }
+  totalFaq += visibleFaq.length;
+
+  // 2g. internal references
+  for (const raw of extractReferences(html)) {
+    const ref = classifyReference(raw, ORIGIN);
+    if (ref.kind === 'anchor') {
+      if (!ids.has(ref.id)) fail(`${rel}: same-page anchor "#${ref.id}" has no matching id`);
+    } else if (ref.kind === 'internal') {
+      if (!resolvesToFile(ref.pathname)) {
+        fail(`${rel}: internal reference does not resolve — "${raw}"`);
+      }
+    } else if (ref.kind === 'invalid') {
+      fail(`${rel}: ${ref.reason}`);
+    }
+  }
+
+  fingerprints[lang.code] = structuralFingerprint(html);
+}
+
+// --- 3. Structural parity across languages -----------------------------------
+const refFp = fingerprints[DEFAULT_LANG];
+if (refFp) {
+  for (const lang of LANGS) {
+    if (lang.code === DEFAULT_LANG) continue;
+    const fp = fingerprints[lang.code];
+    if (!fp) continue;
+    for (const key of ['sections', 'sectionIds', 'anchors']) {
+      if (fp[key] !== refFp[key]) {
+        fail(
+          `${fileForLang(lang.code)}: structure drift: ${key} = ${fp[key]} but ${DEFAULT_LANG} has ${refFp[key]}`,
+        );
+      }
+    }
   }
 }
 
-// --- 3. references (anchors + internal links resolve) ------------------------
-for (const raw of extractReferences(index)) {
-  const ref = classifyReference(raw, ORIGIN);
-  if (ref.kind === 'anchor') {
-    if (!ids.has(ref.id)) fail(`index.html: same-page anchor "#${ref.id}" has no matching id`);
-  } else if (ref.kind === 'internal') {
-    if (!resolvesToFile(ref.pathname)) {
-      fail(`index.html: internal reference does not resolve — "${raw}"`);
-    }
-  } else if (ref.kind === 'invalid') {
-    fail(`index.html: ${ref.reason}`);
-  }
-}
-
-// --- 4. FAQ parity (visible <details> ↔ FAQPage JSON-LD) ---------------------
-const visibleFaq = extractDetailsFaq(index);
-const jsonLdFaq = parsedJsonLd.flatMap((doc) => faqFromJsonLd(doc));
-if (visibleFaq.length === 0) {
-  fail('index.html: no visible FAQ <details> found');
-} else if (jsonLdFaq.length !== visibleFaq.length) {
-  fail(
-    `FAQ parity: ${visibleFaq.length} visible <details> but ${jsonLdFaq.length} FAQPage entries in JSON-LD`,
-  );
-} else {
-  for (let i = 0; i < visibleFaq.length; i += 1) {
-    if (visibleFaq[i].question !== jsonLdFaq[i].question) {
-      fail(
-        `FAQ parity: question ${i + 1} differs — visible "${visibleFaq[i].question}" vs JSON-LD "${jsonLdFaq[i].question}"`,
-      );
-    }
-    if (visibleFaq[i].answer !== jsonLdFaq[i].answer) {
-      fail(
-        `FAQ parity: answer for "${visibleFaq[i].question}" differs between the page and JSON-LD`,
-      );
-    }
-  }
-}
-
-// --- 5. sitemap consistency --------------------------------------------------
+// --- 4. sitemap consistency --------------------------------------------------
 let sitemapLocs = [];
 if (!existsSync(join(root, 'sitemap.xml'))) {
   fail('sitemap.xml: missing');
 } else {
-  sitemapLocs = extractSitemapLocs(read('sitemap.xml'));
+  const sitemapXml = read('sitemap.xml');
+  sitemapLocs = extractSitemapLocs(sitemapXml);
   if (sitemapLocs.length === 0) fail('sitemap.xml: no <loc> entries');
+
+  // xhtml:link alternates must resolve when present
+  for (const m of sitemapXml.matchAll(/\bhref=["'](https?:\/\/[^"']+)["']/gi)) {
+    const href = m[1];
+    let url;
+    try {
+      url = new URL(href);
+    } catch {
+      fail(`sitemap.xml: unparsable alternate href "${href}"`);
+      continue;
+    }
+    if (ORIGIN !== null && url.origin !== ORIGIN) {
+      fail(`sitemap.xml: alternate "${href}" is not on ${ORIGIN}`);
+    } else if (!resolvesToFile(url.pathname)) {
+      fail(`sitemap.xml: alternate "${href}" does not resolve to a file`);
+    }
+  }
 }
 const sitemapPathnames = new Set();
 for (const loc of sitemapLocs) {
@@ -194,37 +334,21 @@ for (const loc of sitemapLocs) {
   if (!resolvesToFile(url.pathname)) fail(`sitemap.xml: <loc> "${loc}" does not resolve to a file`);
 }
 for (const page of PAGES) {
-  const expected = page === '/' ? '/' : page;
-  if (!sitemapPathnames.has(expected)) {
+  if (!sitemapPathnames.has(page)) {
     fail(`sitemap.xml: public page "${page}" is not listed`);
   }
 }
-
-// --- 6. canonical / og:url / og:image / <html lang> --------------------------
-if (canonicalHref === null) {
-  fail('index.html: missing <link rel="canonical">');
-} else {
-  checkSameOriginHttps('index.html: canonical', canonicalHref);
-}
-if (ogUrlHref !== null) checkSameOriginHttps('index.html: og:url', ogUrlHref);
-
-const ogImage = extractOgImage(index);
-if (ogImage !== null) {
-  checkSameOriginHttps('index.html: og:image', ogImage);
-  const ref = classifyReference(ogImage, ORIGIN);
-  if (ref.kind === 'internal' && !resolvesToFile(ref.pathname)) {
-    fail(`index.html: og:image "${ogImage}" does not resolve to a file`);
+// Every language root must be present
+if (ORIGIN !== null) {
+  for (const lang of LANGS) {
+    const p = pathForLang(lang.code);
+    if (!sitemapPathnames.has(p)) {
+      fail(`sitemap.xml: missing language landing page ${p}`);
+    }
   }
 }
 
-const lang = extractHtmlLang(index);
-if (lang === null) {
-  fail('index.html: <html> has no lang attribute');
-} else if (!/^[a-z]{2}(-[A-Z]{2})?$/.test(lang)) {
-  fail(`index.html: <html lang="${lang}"> is not a plausible BCP-47 language tag`);
-}
-
-// --- 7. robots.txt Sitemap line ---------------------------------------------
+// --- 5. robots.txt Sitemap line ---------------------------------------------
 if (existsSync(join(root, 'robots.txt'))) {
   const robots = read('robots.txt');
   const sitemapLine = robots.match(/^\s*Sitemap:\s*(\S+)\s*$/im);
@@ -255,6 +379,6 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `check-site: OK — ${jsonLdBlocks.length} JSON-LD block(s), ${visibleFaq.length} FAQ entries, ` +
-    `${sitemapLocs.length} sitemap entr(y/ies), all references resolve.`,
+  `check-site: OK — ${LANGS.length} languages, ${totalJsonLd} JSON-LD block(s), ` +
+    `${totalFaq} FAQ entries, ${sitemapLocs.length} sitemap entr(y/ies), all references resolve.`,
 );

@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>zkCoins — Privates Bitcoin via Shielded CSV</title>
+<meta name="description" content="zkCoins bringt echte Privatsphäre zu Bitcoin via Shielded CSV: Beträge, Sender, Empfänger und Historie bleiben off-chain, bewiesen mit Zero-Knowledge. Viele Spends verankern sich als eine konstante 231-Byte-Inscription pro Batch auf Bitcoin. Kein Soft Fork, self-custodial. Basiert auf dem Paper von Jonas Nick, Liam Eagen und Robin Linus (ePrint 2025/068)." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<meta property="og:title" content="zkCoins — Privates Bitcoin via Shielded CSV" />
+<meta property="og:description" content="Echte Privatsphäre für Bitcoin via Shielded CSV — Coin-Daten bleiben off-chain, verankert als eine konstante 231-Byte-Inscription pro Batch. Kein Soft Fork, self-custodial." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zkcoins.com/de/" />
+<meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@zkcoinsbtc" />
+<meta name="twitter:creator" content="@zkcoinsbtc" />
+<link rel="canonical" href="https://zkcoins.com/de/" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="author" content="zkCoins" />
+<meta name="application-name" content="zkCoins" />
+<meta property="og:site_name" content="zkCoins" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:locale:alternate" content="fr_FR" />
+<meta property="og:locale:alternate" content="it_IT" />
+<meta property="og:locale:alternate" content="es_ES" />
+<link rel="alternate" hreflang="en" href="https://zkcoins.com/" />
+<link rel="alternate" hreflang="de" href="https://zkcoins.com/de/" />
+<link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/" />
+<link rel="alternate" hreflang="it" href="https://zkcoins.com/it/" />
+<link rel="alternate" hreflang="es" href="https://zkcoins.com/es/" />
+<link rel="alternate" hreflang="x-default" href="https://zkcoins.com/" />
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+<link rel="stylesheet" href="/styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://zkcoins.com/#organization",
+      "name": "zkCoins",
+      "url": "https://zkcoins.com/",
+      "logo": "https://zkcoins.com/favicon.png",
+      "description": "zkCoins ist eine self-custodial Wallet für Shielded CSV — private, client-side-validierte Bitcoin-Transaktionen, verankert auf Bitcoin L1.",
+      "sameAs": [
+        "https://x.com/zkcoinsbtc",
+        "https://t.me/zkcoinsbtc",
+        "https://github.com/zk-coins",
+        "https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "investor relations",
+          "email": "investors@zkcoins.com",
+          "url": "https://zkcoins.com/de/#investors",
+          "availableLanguage": [
+            "en",
+            "de",
+            "fr",
+            "it",
+            "es"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://zkcoins.com/#website",
+      "url": "https://zkcoins.com/",
+      "name": "zkCoins",
+      "description": "Private Bitcoin-Transaktionen via Shielded CSV. Coin-Daten bleiben off-chain — viele Spends verankern sich als eine konstante 231-Byte-Inscription pro Batch auf Bitcoin.",
+      "inLanguage": [
+        "en",
+        "de",
+        "fr",
+        "it",
+        "es"
+      ],
+      "publisher": {
+        "@id": "https://zkcoins.com/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://zkcoins.com/#wallet",
+      "name": "zkCoins Wallet",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web, iOS, Android (PWA)",
+      "url": "https://zkcoins.app",
+      "description": "Self-custodial Wallet zum Senden und Empfangen von privatem Bitcoin via dem Shielded-CSV-Protokoll. Keys werden lokal im Browser erzeugt und gespeichert.",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "isBasedOn": {
+        "@id": "https://zkcoins.com/#paper"
+      },
+      "publisher": {
+        "@id": "https://zkcoins.com/#organization"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://zkcoins.com/#paper",
+      "name": "Shielded CSV: Private and Efficient Client-Side Validation",
+      "url": "https://eprint.iacr.org/2025/068",
+      "identifier": "IACR ePrint 2025/068",
+      "datePublished": "2025-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Jonas Nick"
+        },
+        {
+          "@type": "Person",
+          "name": "Liam Eagen"
+        },
+        {
+          "@type": "Person",
+          "name": "Robin Linus"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://zkcoins.com/de/#faq",
+      "inLanguage": "de",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Was ist zkCoins?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "zkCoins ist eine self-custodial Wallet für Shielded CSV, ein Privatsphäre-Protokoll für Bitcoin. Beträge, Sender, Empfänger und Transaktionshistorie bleiben off-chain, bewiesen mit Zero-Knowledge und client-seitig verifiziert. Viele private Spends verankern sich als eine konstante 231-Byte-Inscription pro Batch auf Bitcoin."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist zkCoins ein neuer Token oder Altcoin?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein — zkCoins ist keine separate Blockchain, kein Altcoin und kein natives Protokoll-Token. Es ist eine Client-Side-Validation-Layer, verankert auf Bitcoin L1; Wert lebt in client-side-validierten Coins. On-Chain-BTC rein und raus läuft über eine Bridge, die auf der Roadmap steht."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Braucht zkCoins einen Soft Fork?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Shielded CSV läuft auf Bitcoin, wie es heute existiert — kein Soft Fork, kein Hard Fork, keine neuen Opcodes. Die Chain wird nur für Ordering von Commitments und Double-Spend-Prävention genutzt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie hält zkCoins Transaktionen privat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Jeder Spend wird mit einem Zero-Knowledge-Proof bewiesen und off-chain geteilt. Coin-Daten — Beträge, Parteien und Historie — berühren Bitcoin nie. Ein permissionless Publisher verankert einen ganzen Batch von Spends als eine konstante 231-Byte-Inscription; die Nullifier bleiben off-chain."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist zkCoins self-custodial?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Keys werden lokal im Browser erzeugt und gespeichert und verlassen Ihr Gerät nie. zkCoins ist peer-to-peer ohne Coordinator oder Custodian, der Funds einfrieren oder das Netzwerk abschalten könnte."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was ist Shielded CSV?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shielded CSV (Client-Side Validation) ist ein privatsphärewahrendes Bitcoin-Protokoll aus dem Paper von Jonas Nick, Liam Eagen und Robin Linus (ePrint 2025/068). zkCoins v1 bündelt viele Spends und verankert jeden Batch als eine konstante 231-Byte-Inscription auf Bitcoin."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist die Publisher-Rolle wirklich dezentral?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Publishing ist permissionless, und jede Wallet kann den eigenen Batch zu trivialen Kosten selbst publishen — das deckelt, was ein dominanter Publisher verlangen kann. Wettbewerbswirtschaft begünstigt den schnellsten, bestkapitalisierten Operator, daher ist etwas Konzentration zu erwarten. Es ist nur ein Liveness-Risiko: ein Publisher hält nie Custody und kann höchstens zensieren oder verzögern, nie Coins stehlen oder fälschen. Ausführliche Analyse auf der Risks-Seite der Docs."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- zkCoins mark — canonical 12×12 pixel monogram (Brand Guide v1.0) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="zk" viewBox="0 0 12 12">
+    <rect x="3" y="1" width="6" height="1"/>
+    <rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+    <rect x="2" y="3" width="8" height="1"/>
+    <rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+    <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+    <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+    <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+    <rect x="2" y="8" width="8" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+    <rect x="3" y="10" width="6" height="1"/>
+  </symbol>
+</svg>
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/de/" aria-label="zkCoins Startseite">
+      <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+      <span class="word"><b>zk</b>Coins</span>
+    </a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a class="link" href="#paper">Whitepaper</a>
+      <a class="link" href="#how">So funktioniert's</a>
+      <a class="link" href="#roadmap">Roadmap</a>
+      <a class="link" href="https://docs.zkcoins.app">Docs</a>
+      <a class="app-btn" href="https://zkcoins.app">
+        Wallet öffnen
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <details class="lang">
+        <summary aria-label="Sprache">DE</summary>
+        <div class="lang__menu" role="menu">
+          <a href="/" role="menuitem">English <span>EN</span></a>
+          <a href="/de/" role="menuitem" aria-current="true">Deutsch <span>DE</span></a>
+          <a href="/fr/" role="menuitem">Français <span>FR</span></a>
+          <a href="/it/" role="menuitem">Italiano <span>IT</span></a>
+          <a href="/es/" role="menuitem">Español <span>ES</span></a>
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">Privates Bitcoin · Shielded CSV</span>
+    <h1>Private Zahlungen auf Bitcoin<br><span class="accent">nichts Lesbares on-chain</span></h1>
+    <p class="lede">zkCoins bringt <b>echte Privatsphäre</b> zu Bitcoin. Beträge, Sender, Empfänger und Historie bleiben off-chain — bewiesen mit Zero-Knowledge und als eine konstante <b>231-Byte-Inscription</b> pro Batch auf Bitcoin verankert.</p>
+    <div class="pillars">
+      <span class="pill">Kein Soft Fork</span>
+      <span class="pill">Self-custodial</span>
+      <span class="pill">Zero-Knowledge</span>
+      <span class="pill">Kein Coordinator</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://zkcoins.app">
+        Wallet öffnen
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#paper">Whitepaper lesen</a>
+    </div>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="statband" aria-label="zkCoins auf einen Blick">
+    <div class="stat"><span class="num">231<span class="u">B</span></span><span class="lab">on-chain pro Batch</span></div>
+    <div class="stat"><span class="num">~3.2<span class="u">vB</span></span><span class="lab">pro Spend, 100 / Batch</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">Soft Forks</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">Coordinators</span></div>
+  </section>
+
+  <!-- COMPRESSION DIAGRAM -->
+  <section class="compare band" aria-label="Vergleich des On-Chain-Footprints">
+    <div class="compare-grid">
+      <div class="txbox tx-public">
+        <div class="tx-title"><span class="tx-dot"></span>Regulärer Bitcoin-Transfer</div>
+        <div class="tx-row"><span class="lbl">from</span><span class="val">bc1q7f…3k9</span></div>
+        <div class="tx-row"><span class="lbl">to</span><span class="val">bc1p2m…q8x</span></div>
+        <div class="tx-row"><span class="lbl">amount</span><span class="val">0.4218 BTC</span></div>
+        <div class="tx-foot">~140 vBytes · vollständig öffentlich · eine pro Zahlung</div>
+      </div>
+      <div class="compare-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        amortisiert auf ~0
+      </div>
+      <div class="txbox tx-private">
+        <div class="tx-title"><span class="tx-dot"></span>zkCoins-Batch</div>
+        <div class="nullifier">eine&nbsp;231-Byte<br>BatchInscription</div>
+        <div class="tx-foot">konstant · deckt jeden Spend im Batch ab · Coin-Daten off-chain</div>
+      </div>
+    </div>
+    <p class="compare-cap">Coin-Daten berühren die Chain nie. <b>Viele private Spends verankern sich als eine konstante 231-Byte-Inscription auf Bitcoin; das ~318-vByte Commit+Reveal-Paar des Publishers amortisiert sich auf ~3.2 vBytes pro Spend bei 100 pro Batch.</b></p>
+  </section>
+
+  <!-- PAPER (dominant) -->
+  <section id="paper" style="padding-bottom: 8px;">
+    <blockquote class="quote quote-lead">
+      "Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."
+      <cite>— Robin Linus, Co-Autor von Shielded CSV</cite>
+    </blockquote>
+    <article class="paper" aria-labelledby="paper-title">
+      <div class="eyebrow">Whitepaper · ePrint 2025/068</div>
+      <h2 id="paper-title">Shielded CSV: Private and Efficient Client-Side Validation</h2>
+      <div class="subtitle">Eine privatsphärewahrende Variante von Client-Side Validation, direkt auf Bitcoin abgewickelt.</div>
+
+      <dl class="meta">
+        <dt>Autoren</dt>
+        <dd>Jonas Nick (Blockstream) · Liam Eagen (Alpen Labs) · Robin Linus (ZeroSync)</dd>
+        <dt>Veröffentlicht</dt>
+        <dd>Januar 2025 (ePrint) · September 2024 (Whitepaper)</dd>
+        <dt>Referenz</dt>
+        <dd><a href="https://eprint.iacr.org/2025/068">eprint.iacr.org/2025/068</a></dd>
+        <dt>Vorgänger</dt>
+        <dd>zkCoins (Robin Linus, 2023) · basiert auf dem <a href="https://github.com/ZeroSync/ZKCoins">ZeroSync-Prototyp</a></dd>
+      </dl>
+
+      <p class="abstract">
+        Client-Side Validation entkoppelt die Transaktionsvalidierung vom Bitcoin-Konsens, indem sie zum Empfänger wandert. Shielded CSV verbessert frühere CSV-Designs, indem die Transaktionshistorie vollständig verborgen bleibt: jeder Transfer leakt nur einen 64-Byte-Nullifier an die Chain, der Rest wird client-seitig über succinct Zero-Knowledge-Proofs verifiziert. Das Protokoll ist mit Bitcoin as-is kompatibel — kein Soft Fork, kein Hard Fork — und zielt auf grob eine Größenordnung mehr Transaktionen pro Sekunde als die Base Layer allein.
+      </p>
+      <p class="paper-note"><b>zkCoins v1 geht weiter:</b> der Nullifier berührt Bitcoin überhaupt nicht — ein permissionless Publisher bündelt viele Spends in eine konstante 231-Byte-BatchInscription, über die pro-Transaktion 64-Byte on-chain-Zahl des Papers hinaus.</p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
+          Paper lesen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://eprint.iacr.org/2025/068">Abstract auf ePrint</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- WHAT CHANGES -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">Was Shielded CSV verändert</span>
+      <h2>Viele private Spends, eine winzige Inscription</h2>
+      <p>Coin-Daten bleiben off-chain. Ein permissionless Publisher verankert einen ganzen Batch von Spends mit einer einzigen, konstant großen Inscription auf Bitcoin — Privatsphäre und On-Chain-Kosten gewinnen gleichzeitig.</p>
+    </div>
+    <div class="concepts">
+      <div class="concept">
+        <div class="k">On-Chain-Footprint</div>
+        <div class="h">Eine Inscription pro Batch</div>
+        <p class="v">Coin-Daten berühren die Chain nie. Ein ganzer Batch von Spends verankert sich als <b>eine konstante 231-Byte-Inscription</b> auf Bitcoin — nichts Lesbares.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Transaktionsgraph</div>
+        <div class="h">Nichts verknüpfbar</div>
+        <p class="v">Anders als bei RGB oder Taproot Assets bleibt die Historie unter einem Zero-Knowledge-Proof verborgen. Empfänger prüfen die Gültigkeit, <b>ohne je die Linie zu sehen</b>.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Kompatibilität</div>
+        <div class="h">Bitcoin, unverändert</div>
+        <p class="v">Kein Soft Fork, kein Hard Fork. CSV-Protokolle nutzen die Chain <b>nur für Ordering und Double-Spend-Prävention</b>.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Kosten</div>
+        <div class="h">Amortisiert gegen null</div>
+        <p class="v">Die Inscription ist konstant, egal wie viele Spends sie abdeckt — das ~318-vByte Commit+Reveal-Paar des Publishers amortisiert sich auf <b>~3.2 vBytes pro Spend bei 100 pro Batch</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="band">
+    <div class="band-head">
+      <span class="eyebrow">So funktioniert's</span>
+      <h2>Die Chain ordnet, der Empfänger validiert</h2>
+      <p>Klassische Blockchains verlangen, dass jeder Node jede Transaktion validiert. Shielded CSV kehrt das um — Validierung wandert zum Empfänger, und Bitcoin tut nur, wofür es einzigartig gut ist.</p>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="n">1</span><div class="body"><p class="t">Sender beweist</p><p class="d">Der Sender erzeugt einen Transfer und einen succinct Validity-Proof der gesamten Historie des Coins — konstante Größe, egal wie alt der Coin ist.</p></div></li>
+      <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof geht an den Empfänger</p><p class="d">Der Proof reist <b>direkt zum Empfänger, off-chain</b>. Nur Sender und Empfänger sehen je Beträge, Parteien und Historie — nichts wird auf die Chain geschrieben.</p></div></li>
+      <li class="step"><span class="n">3</span><div class="body"><p class="t">Ein Batch wird auf Bitcoin verankert</p><p class="d">Ein permissionless <b>Publisher</b> aggregiert viele Spends und schreibt eine konstante <code>231-byte BatchInscription</code> — die Nullifier selbst bleiben off-chain.</p></div></li>
+      <li class="step"><span class="n">4</span><div class="body"><p class="t">Empfänger verifiziert client-seitig</p><p class="d">Der Empfänger re-verifiziert den vollständigen Zero-Knowledge-Proof des Coins lokal — ein einzelner constant-time Check, egal wie lang die Historie ist — und akzeptiert ihn, ohne einer Drittpartei zu vertrauen.</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin verhindert Double-Spends</p><p class="d">Jeder Batch verankert den Root-Übergang des Nullifier-Accumulators. Die eine Aufgabe der Chain: garantieren, dass jeder Coin <b>genau einmal</b> ausgegeben wird.</p></div></li>
+    </ol>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- PERFORMANCE -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">In Zahlen</span>
+      <h2>Bitcoin, neben Shielded CSV</h2>
+    </div>
+    <div class="perf-wrap">
+      <table class="perf">
+        <thead>
+          <tr><th>Metrik</th><th>Bitcoin (regulär)</th><th class="zk">zkCoins v1</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="metric">On-Chain-Daten</td><td class="btc" data-label="Bitcoin (regulär)">volle Transaktion (~140 vBytes)</td><td class="zk" data-label="zkCoins v1"><b>231-Byte-Inscription pro Batch</b></td></tr>
+          <tr><td class="metric">Kosten pro Spend</td><td class="btc" data-label="Bitcoin (regulär)">~140 vBytes</td><td class="zk" data-label="zkCoins v1"><b>~3.2 vBytes (100 / Batch)</b></td></tr>
+          <tr><td class="metric">Privatsphäre</td><td class="btc" data-label="Bitcoin (regulär)">Keine — vollständig öffentlich</td><td class="zk" data-label="zkCoins v1"><b>Voll — nichts on-chain</b></td></tr>
+          <tr><td class="metric">Verifikation</td><td class="btc" data-label="Bitcoin (regulär)">Volles Script pro Tx</td><td class="zk" data-label="zkCoins v1">1× Batch-Proof</td></tr>
+          <tr><td class="metric">Proof-Größe</td><td class="btc" data-label="Bitcoin (regulär)">N/A</td><td class="zk" data-label="zkCoins v1">Konstant, unabhängig von der Historie</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- WHAT IT IS NOT -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">Grenzen</span>
+      <h2>Was Shielded CSV nicht ist</h2>
+      <p>Privatsphäre ist hier strukturell, kein Anbau. Es lohnt sich, präzise zu sagen, was dieses Protokoll bewusst nicht ist.</p>
+    </div>
+    <div class="nots">
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Keine Sidechain</span><p>Es nutzt <b>Bitcoin L1 direkt</b> — kein separater Konsens, keine Bridge zu einer fremden Chain.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Kein Rollup</span><p><b>Kein Sequencer, keine Data-Availability-Layer.</b> Proofs wandern peer-to-peer zwischen Sender und Empfänger.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Kein Mixer</span><p>Privatsphäre ist <b>strukturell, keine Obfuskation</b> — ein globaler Anonymity Set aller Coins, kein kleiner Pool pro Runde.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Kein Token</span><p><b>Kein natives Protokoll-Token zum Bootstrappen.</b> Wert lebt in client-side-validierten Coins.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Kein Soft Fork</span><p>Es läuft auf <b>Bitcoin, wie es heute existiert</b> — keine Konsensänderung, keine neuen Opcodes.</p></div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- ROADMAP -->
+  <section id="roadmap" class="roadmap band" aria-labelledby="roadmap-title">
+    <div class="roadmap-head">
+      <div class="band-head" style="margin:0;">
+        <span class="eyebrow">Roadmap</span>
+        <h2 id="roadmap-title" style="margin-bottom:0;">Der Weg zum Mainnet</h2>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span class="is-active"><i class="dot-active"></i>Aktiv</span>
+        <span><i class="dot-next"></i>Als Nächstes</span>
+        <span><i class="dot-planned"></i>Geplant</span>
+        <span><i class="dot-horizon"></i>Horizont</span>
+      </div>
+    </div>
+
+    <ol class="timeline">
+      <li class="phase active">
+        <div class="phase-head">
+          <span class="phase-num">Phase 01</span>
+          <h3 class="phase-title">Foundation</h3>
+          <span class="phase-when">Q2 2026</span>
+          <span class="phase-status">Aktiv</span>
+        </div>
+        <p class="phase-lede">Der Proving-Stack und die Wallet–Server-Grenze. Alles Downstream hängt davon ab.</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">Zero-Knowledge-Circuit-Migration.</span><span class="why">Den State-Transition-Circuit auf ein rekursionsfähiges Proving-System mit SNARK-freundlichem Hash bringen.</span></li>
+            <li><span class="what">Server-seitiges Proving auf Commodity-Hardware.</span><span class="why">Single-Host-Apple-Silicon-Ziel — keine GPU-Farmen, kein Cloud-Proving-Service. Die Wallet hält nur den Private Key.</span></li>
+            <li><span class="what">Wallet-Grenze via BIP-340 Schnorr.</span><span class="why">Die Wallet signiert einen SHA-256-Digest des server-berechneten States. Kein Zero-Knowledge im Browser.</span></li>
+            <li><span class="what">End-to-End-Roundtrip auf Signet.</span><span class="why">Account anlegen, minten, senden, empfangen — der volle User-Loop läuft auf einem öffentlichen Bitcoin-Testnet.</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase next">
+        <div class="phase-head">
+          <span class="phase-num">Phase 02</span>
+          <h3 class="phase-title">Pre-Mainnet-Härtung</h3>
+          <span class="phase-when">Q3 2026</span>
+          <span class="phase-status">Als Nächstes</span>
+        </div>
+        <p class="phase-lede">Die Protokoll-Lücken zwischen „läuft auf Signet“ und „sicher mit echtem Bitcoin“ schließen.</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">Recipient-Commitments verbergen.</span><span class="why">Den residualen Link zwischen Sender, Empfänger und Coin-Identifier eliminieren.</span></li>
+            <li><span class="what">Reorg-sichere Nullifier-Akkumulation.</span><span class="why">Anmutig degradieren, wenn die kanonische Chain reorganisiert — statt stecken zu bleiben.</span></li>
+            <li><span class="what">Per-Coin-Freshness-Proofs.</span><span class="why">Empfänger prüfen das Alter eines Coins lokal, ohne einer Drittpartei zu vertrauen.</span></li>
+            <li><span class="what">Paper-abgeleitete Security-Testsuite.</span><span class="why">Der volle Satz formaler Eigenschaften aus dem Shielded-CSV-Paper, kodiert als Failing-Witness-Tests.</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase planned">
+        <div class="phase-head">
+          <span class="phase-num">Phase 03</span>
+          <h3 class="phase-title">Trustless BTC-Bridge</h3>
+          <span class="phase-when">Q4 2026</span>
+          <span class="phase-status">Geplant</span>
+        </div>
+        <p class="phase-lede">Mint und Burn gegen natives BTC, ohne dem Issuer zu vertrauen. Die größte user-facing Trust-Lücke schließt sich hier.</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">BitVM2- / Clementine-artige Bridge.</span><span class="why">1-of-N Honesty Trust Model. Dieselbe Konstruktion, die auf Citrea Mainnet läuft.</span></li>
+            <li><span class="what">Rekursiver Bitcoin Light Client.</span><span class="why">Ein succinct Proof, dass ein Deposit bei Depth ≥ 6 in der kanonischen Chain gelandet ist.</span></li>
+            <li><span class="what">Rekursion → Groth16-Wrapping.</span><span class="why">Unsere rekursionsfreundlichen Proofs in einen Verifier bringen, den Bitcoin Script prüfen kann.</span></li>
+            <li><span class="what">Federation-Scaling: N=3 → N=100.</span><span class="why">Start mit einer Single-Operator-Federation; Wachstum auf hundert unabhängige Mitglieder, bei denen eine ehrliche Key-Deletion genügt.</span></li>
+            <li><span class="what">Signet-Integrationslauf.</span><span class="why">Vollständiger Peg-in- / Peg-out-Roundtrip inklusive bewusst bösartigem Operator-Szenario.</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase planned">
+        <div class="phase-head">
+          <span class="phase-num">Phase 04</span>
+          <h3 class="phase-title">Lightning Atomic Swap</h3>
+          <span class="phase-when">Q1 2027</span>
+          <span class="phase-status">Geplant</span>
+        </div>
+        <p class="phase-lede">Wert atomar zwischen Lightning und zkCoins bewegen — kein Provider-Trust, keine custodial Bridge.</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">HTLC auf der Inscription-Funding-Transaktion.</span><span class="why">Atomizität lebt auf Bitcoin Layer 1, nicht auf der privaten Coin-Layer. Standard-Primitive, kein Soft Fork.</span></li>
+            <li><span class="what">Symmetrische LN ↔ zkCoins-Flows.</span><span class="why">Mit Lightning-Sats kaufen und zurück in Lightning-Sats verkaufen — beide Richtungen trustless.</span></li>
+            <li><span class="what">Provider-frontierte Liquidität.</span><span class="why">Jeder kann einen Swap-Provider betreiben; das Protokoll erzwingt Ehrlichkeit, nicht der Operator.</span></li>
+            <li><span class="what">Privatsphärewahrendes Swap-Muster.</span><span class="why">Ein Swap-Provider lernt die LN-Seite, nie den internen zkCoins-Graphen.</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase horizon">
+        <div class="phase-head">
+          <span class="phase-num">Phase 05</span>
+          <h3 class="phase-title">Langfristige Positionierung</h3>
+          <span class="phase-when">2027 +</span>
+          <span class="phase-status">Horizont</span>
+        </div>
+        <p class="phase-lede">Die Bridge-Technologien von heute durch die von morgen ersetzen — ohne das Protokoll zu ändern.</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">Next-Generation-Proving-System.</span><span class="why">Port auf ein kleineres Field mit schnellerem Hash, sobald der Upstream-Stack stabilisiert. Algorithmische Struktur bleibt.</span></li>
+            <li><span class="what">Bridge-Construction-Upgrade.</span><span class="why">Drop-in-Nachfolger von BitVM2 (Glock, Mosaic) senken On-Chain-Dispute-Kosten um zwei Größenordnungen. Circuit-Contract unverändert.</span></li>
+            <li><span class="what">Federation-Diversity.</span><span class="why">Unabhängige Organisationen als Federation-Mitglieder gewinnen, bis one-honest-deletion eine sinnvolle Annahme ist.</span></li>
+            <li><span class="what">Bridge-Verifier Trusted Setup.</span><span class="why">Eine Ceremony mit 30–60 Contributors ersetzt den Single-Contributor-Groth16-Parametersatz zum Testen des Bridge-Verifiers — zkCoins' eigene Proofs sind transparent (FRI) und brauchen kein Setup.</span></li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+    <p class="roadmap-note"><strong>Hinweis.</strong> Daten markieren Ziel-Fenster für die Engineering-Arbeit, kein garantiertes Mainnet-Datum. zkCoins läuft in einer öffentlichen Testumgebung, bis die Pre-Mainnet-Härtung abgeschlossen ist; kein echtes Bitcoin ist bis dahin im Risiko.</p>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- FAMILY -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">Ökosystem</span>
+      <h2>Die zkCoins-Familie</h2>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://zkcoins.app">
+        <div class="label">Wallet <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">zkCoins Wallet</div>
+        <div class="domain">zkcoins.app</div>
+      </a>
+      <a class="card" href="https://docs.zkcoins.app">
+        <div class="label">Dokumentation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">zkCoins Docs</div>
+        <div class="domain">docs.zkcoins.app</div>
+      </a>
+      <a class="card" href="https://github.com/zk-coins">
+        <div class="label">Source <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">GitHub</div>
+        <div class="domain">github.com/zk-coins</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- INVESTORS -->
+  <section id="investors" class="band" aria-labelledby="investors-title">
+    <div class="investor">
+      <div class="band-head">
+        <span class="eyebrow">Investoren</span>
+        <h2 id="investors-title">Direkter Kanal für Funds und Angels</h2>
+        <p>zkCoins bringt Shielded CSV in eine self-custodial Wallet — privates Bitcoin auf L1, kein Soft Fork. Wir halten eine offene Leitung für Venture Funds, Family Offices und strategische Angels, die das Projekt evaluieren.</p>
+      </div>
+      <div class="investor-body">
+        <p>Das Protokoll basiert auf publizierter Forschung (<b>ePrint 2025/068</b>), der Stack ist Open Source, die Roadmap ist öffentlich. Wir raisen nicht aktiv — sind aber offen für Gespräche vor dem Mainnet.</p>
+        <a class="investor-mail" href="mailto:investors@zkcoins.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          investors@zkcoins.com
+        </a>
+        <div class="investor-links" role="group" aria-label="Due-Diligence-Links">
+          <a href="https://github.com/zk-coins">GitHub</a>
+          <a href="#paper">Whitepaper</a>
+          <a href="#roadmap">Roadmap</a>
+          <a href="https://docs.zkcoins.app">Dokumentation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <div class="band-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Fragen, beantwortet</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Was ist zkCoins?</summary>
+        <p>zkCoins ist eine self-custodial Wallet für Shielded CSV, ein Privatsphäre-Protokoll für Bitcoin. Beträge, Sender, Empfänger und Transaktionshistorie bleiben off-chain, bewiesen mit Zero-Knowledge und client-seitig verifiziert. Viele private Spends verankern sich als eine konstante 231-Byte-Inscription pro Batch auf Bitcoin.</p>
+      </details>
+      <details>
+        <summary>Ist zkCoins ein neuer Token oder Altcoin?</summary>
+        <p>Nein — zkCoins ist keine separate Blockchain, kein Altcoin und kein natives Protokoll-Token. Es ist eine Client-Side-Validation-Layer, verankert auf Bitcoin L1; Wert lebt in client-side-validierten Coins. On-Chain-BTC rein und raus läuft über eine Bridge, die auf der Roadmap steht.</p>
+      </details>
+      <details>
+        <summary>Braucht zkCoins einen Soft Fork?</summary>
+        <p>Nein. Shielded CSV läuft auf Bitcoin, wie es heute existiert — kein Soft Fork, kein Hard Fork, keine neuen Opcodes. Die Chain wird nur für Ordering von Commitments und Double-Spend-Prävention genutzt.</p>
+      </details>
+      <details>
+        <summary>Wie hält zkCoins Transaktionen privat?</summary>
+        <p>Jeder Spend wird mit einem Zero-Knowledge-Proof bewiesen und off-chain geteilt. Coin-Daten — Beträge, Parteien und Historie — berühren Bitcoin nie. Ein permissionless Publisher verankert einen ganzen Batch von Spends als eine konstante 231-Byte-Inscription; die Nullifier bleiben off-chain.</p>
+      </details>
+      <details>
+        <summary>Ist zkCoins self-custodial?</summary>
+        <p>Ja. Keys werden lokal im Browser erzeugt und gespeichert und verlassen Ihr Gerät nie. zkCoins ist peer-to-peer ohne Coordinator oder Custodian, der Funds einfrieren oder das Netzwerk abschalten könnte.</p>
+      </details>
+      <details>
+        <summary>Was ist Shielded CSV?</summary>
+        <p>Shielded CSV (Client-Side Validation) ist ein privatsphärewahrendes Bitcoin-Protokoll aus dem Paper von Jonas Nick, Liam Eagen und Robin Linus (ePrint 2025/068). zkCoins v1 bündelt viele Spends und verankert jeden Batch als eine konstante 231-Byte-Inscription auf Bitcoin.</p>
+      </details>
+      <details>
+        <summary>Ist die Publisher-Rolle wirklich dezentral?</summary>
+        <p>Publishing ist permissionless, und jede Wallet kann den eigenen Batch zu trivialen Kosten selbst publishen — das deckelt, was ein dominanter Publisher verlangen kann. Wettbewerbswirtschaft begünstigt den schnellsten, bestkapitalisierten Operator, daher ist etwas Konzentration zu erwarten. Es ist nur ein Liveness-Risiko: ein Publisher hält nie Custody und kann höchstens zensieren oder verzögern, nie Coins stehlen oder fälschen. Ausführliche Analyse auf der <a href="https://docs.zkcoins.app/risks">Risks-Seite</a> der Docs.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band" style="padding-top:8px;">
+    <div class="cta">
+      <h2>Privates Bitcoin heute ausprobieren</h2>
+      <p>Die zkCoins-Wallet läuft im Browser. Keys werden lokal erzeugt und gespeichert — sie verlassen Ihr Gerät nie. Derzeit auf einem öffentlichen Testnetz; kein echtes Bitcoin ist im Risiko.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://zkcoins.app">
+          Wallet öffnen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://docs.zkcoins.app">Docs lesen</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="/de/" aria-label="zkCoins Startseite">
+        <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+        <span class="word"><b>zk</b>Coins</span>
+      </a>
+      <span class="tag">Private Bitcoin-Transaktionen via Shielded CSV. Abgewickelt auf Bitcoin, client-seitig verifiziert.</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>Protokoll</h3>
+        <a href="#paper">Whitepaper</a>
+        <a href="#how">So funktioniert's</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
+      </div>
+      <div class="footer-col">
+        <h3>Build</h3>
+        <a href="https://zkcoins.app">Wallet</a>
+        <a href="https://docs.zkcoins.app">Dokumentation</a>
+        <a href="https://github.com/zk-coins">GitHub</a>
+        <a href="https://github.com/zk-coins/landing-page/tree/HEAD/brand">Brand-Kit</a>
+      </div>
+      <div class="footer-col">
+        <h3>Community</h3>
+        <a href="https://x.com/zkcoinsbtc">X / Twitter</a>
+        <a href="https://t.me/zkcoinsbtc">Telegram</a>
+        <a href="https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m" title="zkcoins@zkcoins.com — NIP-05 verifiziert">Nostr</a>
+      </div>
+      <div class="footer-col">
+        <h3>Investoren</h3>
+        <a href="#investors">Investor Relations</a>
+        <a href="mailto:investors@zkcoins.com">investors@zkcoins.com</a>
+        <a href="https://github.com/zk-coins">Quellcode</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>© 2026 zkCoins · MIT-lizenziert</span>
+    <span>Keine Anlageberatung · Testnet-Software</span>
+  </div>
+</footer>
+</body>
+</html>

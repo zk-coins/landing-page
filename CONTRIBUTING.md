@@ -2,7 +2,15 @@
 
 Thanks for thinking about contributing to `zkcoins.com`.
 
-This repo is a **single static page**: one `index.html`, inline CSS, no JavaScript, no build step. Keep it that way unless you have a very good reason.
+This repo is a **static multilingual landing page**: one home page per language (`index.html`, `de/`, `fr/`, `it/`, `es/`), shared `/styles.css`, no runtime JavaScript, no build step for the deployed site. Keep it that way unless you have a very good reason.
+
+Locale pages are generated from `scripts/i18n/` (`template.html` + `strings/*.json`). After editing strings, run:
+
+```bash
+python3 scripts/i18n/generate.py
+```
+
+Do not hand-edit only one locale copy — edit the string sources and regenerate so languages cannot drift.
 
 ## Branching model
 
@@ -18,11 +26,11 @@ All real work happens on `develop`. `main` is fed by an automatic `develop -> ma
 ```bash
 git clone https://github.com/zk-coins/landing-page.git
 cd landing-page
-python3 -m http.server 8080
-open http://localhost:8080
+npm ci
+npm run serve   # http://127.0.0.1:4173 — Cloudflare-like routing for /de/ etc.
 ```
 
-Edit `index.html` directly. No npm, no build.
+Edit `scripts/i18n/strings/<lang>.json` (and the template if structure changes), then regenerate. The deployed site has no npm runtime.
 
 ## Before you push
 
@@ -57,7 +65,7 @@ can't reach production unnoticed.
 |---|---|
 | `npm run serve` | Serve the site on `http://127.0.0.1:4173` (same routing the tests use) |
 | `npm run format` / `format:check` | Prettier over the tooling sources (the page + content files are left as authored) |
-| `npm run validate:html` | `html-validate` over `*.html` |
+| `npm run validate:html` | `html-validate` over every locale page |
 | `npm run check:site` | Static-completeness gate (see below) |
 | `npm run test` / `test:coverage` | Vitest unit tests / with the enforced 100% coverage gate |
 | `npm run test:e2e` | Playwright visual + smoke suite against local browsers |
@@ -73,8 +81,9 @@ non-hex NIP-05 pubkey in `.well-known/nostr.json`, a same-page `#anchor` with no
 target, an internal link/asset that does not resolve, a sitemap `<loc>` that is
 off-origin or does not resolve (or a public page missing from the sitemap), a
 missing/foreign/insecure canonical or `og:url`/`og:image`, a missing or malformed
-`<html lang>`, a bad `robots.txt` `Sitemap:` line, or any drift between the
-visible FAQ `<details>` and the `FAQPage` JSON-LD.
+`<html lang>`, a bad `robots.txt` `Sitemap:` line, drift between the visible FAQ
+`<details>` and the `FAQPage` JSON-LD, missing locale pages, incomplete
+`hreflang` / language switcher, or structural drift across languages.
 
 **Unit coverage.** The site ships no product JavaScript, so the 100% coverage gate
 targets the *pure logic behind the tooling* in `scripts/lib/**` (URL/reference
@@ -94,10 +103,14 @@ npm run e2e:docker:update   # regenerate after any intended visual change
 git add tests/__screenshots__
 ```
 
+Without Docker, use **Actions → Update visual baselines → Run workflow** on your
+feature branch (`.github/workflows/update-baselines.yaml`). It regenerates inside
+the same pinned container CI uses and commits the PNGs back to the branch.
+
 `scripts/check-visual.mjs` then guarantees the matrix is complete: every
 view × viewport has a baseline, there are no orphans, and every visual test
-passed. When you bump `@playwright/test`, bump the image tag in `visual.yaml` to
-match (a guard step enforces this) and regenerate the baselines.
+passed. When you bump `@playwright/test`, bump the image tag in `visual.yaml`
+and `update-baselines.yaml` together, then regenerate the baselines.
 
 ## Style invariants
 
@@ -110,17 +123,23 @@ These follow the **zkCoins Brand Guide v1.0** and must not change without an exp
 - Type: **IBM Plex Mono** (wordmark, labels, data, numbers) + **IBM Plex Sans** (headings, body), each with a system fallback stack — no Google Fonts, no remote font CDN.
 - Accent buttons are **black text on orange** (white on orange is misuse).
 - Headings never end with a full stop.
-- No JavaScript **except inert structured data** (`<script type="application/ld+json">` for SEO/AEO). No analytics pixel, no remote font CDN, no third-party iframe.
+- No JavaScript **except inert structured data** (`<script type="application/ld+json">` for SEO/AEO). No analytics pixel, no remote font CDN, no third-party iframe. Language switching is pure HTML/CSS (`<details class="lang">`) — no auto-redirect script.
+- Languages: English at `/` (default, `x-default`), plus `de/`, `fr/`, `it/`, `es/`. Every locale must ship the same section structure, a complete hreflang set, and a language switcher linking all homes.
+- Shared stylesheet is `/styles.css` (root-absolute on every page). Do not re-inline a divergent copy.
 - The Shielded CSV paper (ePrint 2025/068) stays a prominent element of the page.
 
 ## Adding a new section
 
-Prefer extending `index.html` over adding a new file. A second page should only exist if it cannot reasonably live inline.
+Prefer extending the i18n template (`scripts/i18n/template.html`) and every
+`strings/*.json` over adding a new file. A second page should only exist if it
+cannot reasonably live inline.
 
 If a second page is added, it must:
 
-- Reuse the same `:root` CSS variables and component classes
-- Be linked from the navigation/footer of `index.html`
+- Exist in every supported language (parity)
+- Reuse `/styles.css` and the same component classes
+- Carry a complete hreflang set and language switcher for that page
+- Be linked from the navigation/footer of every locale home
 - Pass the same CI checks
 
 ## Reporting a security issue
