@@ -51,7 +51,7 @@ python3 scripts/i18n/generate.py
 
 ```bash
 npm ci
-npm run check              # prettier + html-validate + site completeness + 100% unit coverage
+npm run check              # prettier + html-validate + i18n:check + check:site + 100% unit coverage
 npm run e2e:docker         # Playwright screenshots vs. the committed baselines (pinned container)
 ```
 
