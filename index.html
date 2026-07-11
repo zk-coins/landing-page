@@ -327,7 +327,7 @@
   .step:hover .t { color: var(--orange); }
   .step .d { font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0; max-width: 66ch; }
   .step .d b { color: var(--fg); font-weight: 700; }
-  .step .d code { color: var(--orange); background: var(--orange-faint); padding: 1px 6px; border-radius: 5px; font-size: 13px; }
+  .step .d code { display: inline-block; color: var(--orange); background: var(--orange-faint); padding: 1px 6px; border-radius: 5px; font-size: 13px; white-space: nowrap; }
 
   /* ─── Performance table ──────────────────────────────────────── */
   .perf-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
@@ -340,6 +340,18 @@
   table.perf td.btc { color: var(--faint); }
   table.perf td.zk { color: var(--fg); font-weight: 700; }
   table.perf td.zk b { color: var(--orange); }
+
+  @media (max-width: 640px) {
+    .perf-wrap { overflow-x: visible; }
+    table.perf { min-width: 0; }
+    table.perf thead { display: none; }
+    table.perf tbody tr { display: block; padding: 16px; border-bottom: 1px solid var(--line-2); }
+    table.perf tbody tr:last-child { border-bottom: 0; }
+    table.perf td { display: block; text-align: left; padding: 6px 0 0; border-bottom: 0; }
+    table.perf td.metric { padding: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fg); font-weight: 700; }
+    table.perf td.btc::before, table.perf td.zk::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); font-weight: 400; }
+    table.perf td.zk::before { color: var(--orange); }
+  }
 
   /* ─── NOT chips ──────────────────────────────────────────────── */
   .nots { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
@@ -417,6 +429,7 @@
   .faq details[open] summary { color: var(--orange); }
   .faq details[open] summary::after { content: "\2212"; }
   .faq details p { margin: 0; padding: 0 20px 20px; color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 70ch; }
+  .faq details p a { color: var(--orange); text-decoration: underline; text-underline-offset: 2px; }
 
   /* ─── Family ─────────────────────────────────────────────────── */
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
@@ -599,6 +612,11 @@
           "@type": "Question",
           "name": "What is Shielded CSV?",
           "acceptedAnswer": { "@type": "Answer", "text": "Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). zkCoins v1 batches many spends and anchors each batch to Bitcoin as one constant 231-byte inscription." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the publisher role actually decentralized?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Publishing is permissionless, and any wallet can self-publish its own batch at trivial cost — that caps what a dominant publisher can charge. Competitive economics do favor the fastest, best-capitalised operator, so some concentration is expected. It's a liveness risk only: a publisher never holds custody and can at most censor or delay a batch, never steal or forge coins. Full breakdown on the docs' Risks page." }
         }
       ]
     }
@@ -796,11 +814,11 @@
           <tr><th>Metric</th><th>Bitcoin (regular)</th><th class="zk">zkCoins v1</th></tr>
         </thead>
         <tbody>
-          <tr><td class="metric">On-chain data</td><td class="btc">full transaction (~140 vBytes)</td><td class="zk"><b>231-byte inscription per batch</b></td></tr>
-          <tr><td class="metric">Per-spend cost</td><td class="btc">~140 vBytes</td><td class="zk"><b>~3.2 vBytes (100 / batch)</b></td></tr>
-          <tr><td class="metric">Privacy</td><td class="btc">None — fully public</td><td class="zk"><b>Full — nothing on-chain</b></td></tr>
-          <tr><td class="metric">Verification</td><td class="btc">Full script per tx</td><td class="zk">1× batch proof</td></tr>
-          <tr><td class="metric">Proof size</td><td class="btc">N/A</td><td class="zk">Constant, independent of history</td></tr>
+          <tr><td class="metric">On-chain data</td><td class="btc" data-label="Bitcoin (regular)">full transaction (~140 vBytes)</td><td class="zk" data-label="zkCoins v1"><b>231-byte inscription per batch</b></td></tr>
+          <tr><td class="metric">Per-spend cost</td><td class="btc" data-label="Bitcoin (regular)">~140 vBytes</td><td class="zk" data-label="zkCoins v1"><b>~3.2 vBytes (100 / batch)</b></td></tr>
+          <tr><td class="metric">Privacy</td><td class="btc" data-label="Bitcoin (regular)">None — fully public</td><td class="zk" data-label="zkCoins v1"><b>Full — nothing on-chain</b></td></tr>
+          <tr><td class="metric">Verification</td><td class="btc" data-label="Bitcoin (regular)">Full script per tx</td><td class="zk" data-label="zkCoins v1">1× batch proof</td></tr>
+          <tr><td class="metric">Proof size</td><td class="btc" data-label="Bitcoin (regular)">N/A</td><td class="zk" data-label="zkCoins v1">Constant, independent of history</td></tr>
         </tbody>
       </table>
     </div>
@@ -1018,6 +1036,10 @@
       <details>
         <summary>What is Shielded CSV?</summary>
         <p>Shielded CSV (Client-Side Validation) is a privacy-preserving Bitcoin protocol from the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068). zkCoins v1 batches many spends and anchors each batch to Bitcoin as one constant 231-byte inscription.</p>
+      </details>
+      <details>
+        <summary>Is the publisher role actually decentralized?</summary>
+        <p>Publishing is permissionless, and any wallet can self-publish its own batch at trivial cost — that caps what a dominant publisher can charge. Competitive economics do favor the fastest, best-capitalised operator, so some concentration is expected. It's a liveness risk only: a publisher never holds custody and can at most censor or delay a batch, never steal or forge coins. Full breakdown on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
       </details>
     </div>
   </section>
