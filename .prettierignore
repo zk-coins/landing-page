@@ -1,0 +1,22 @@
+# Generated / binary — never hand-formatted.
+node_modules
+coverage
+playwright-report
+test-results
+tests/__screenshots__
+package-lock.json
+
+# Hand-authored page + content, kept exactly as written (the page is the product;
+# HTML validity is gated by html-validate / the html5validator CI job, not by
+# reformatting).
+*.html
+*.md
+*.txt
+*.xml
+*.svg
+.well-known/
+brand/
+
+# Workflows are gated by actionlint + zizmor, not prettier.
+*.yml
+*.yaml

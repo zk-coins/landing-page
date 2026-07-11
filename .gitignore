@@ -4,3 +4,9 @@ node_modules/
 .wrangler/
 .vscode/
 .idea/
+
+# Test tooling output (the screenshot baselines under tests/__screenshots__ ARE
+# committed; only the generated report / coverage / traces are ignored).
+coverage/
+playwright-report/
+test-results/
