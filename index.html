@@ -773,7 +773,7 @@
       <li class="step"><span class="n">1</span><div class="body"><p class="t">Sender proves</p><p class="d">The sender creates a transfer and generates a succinct validity proof of the coin's entire history — a constant size, no matter how old the coin is.</p></div></li>
       <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof goes to the receiver</p><p class="d">The proof travels <b>directly to the receiver, off-chain</b>. Amounts, parties and history never leave the two devices.</p></div></li>
       <li class="step"><span class="n">3</span><div class="body"><p class="t">A batch is anchored on Bitcoin</p><p class="d">A permissionless <b>publisher</b> aggregates many spends and inscribes one constant <code>231-byte BatchInscription</code> — the nullifiers themselves stay off-chain.</p></div></li>
-      <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver checks the zero-knowledge proof locally — one Schnorr verification — and accepts the coin without trusting any third party.</p></div></li>
+      <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver re-verifies the coin's full zero-knowledge proof locally — a single constant-time check, no matter how long the coin's history — and accepts it without trusting any third party.</p></div></li>
       <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin prevents double-spends</p><p class="d">Each batch anchors the nullifier accumulator's root transition. The chain's one job: guarantee each coin is spent <b>exactly once</b>.</p></div></li>
     </ol>
   </section>
@@ -814,7 +814,7 @@
     <div class="nots">
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a sidechain</span><p>It uses <b>Bitcoin L1 directly</b> — no separate consensus, no bridge to a foreign chain.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no data-availability layer.</b> Proofs move peer-to-peer between sender and receiver.</p></div>
-      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — there is no anonymity set to deanonymise.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — a global anonymity set of every coin, not a small per-round pool.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a token</span><p><b>No native protocol token to bootstrap.</b> Value lives in client-side-validated coins.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a soft fork</span><p>It works on <b>Bitcoin as it exists today</b> — no consensus change, no new opcodes.</p></div>
     </div>
@@ -924,13 +924,13 @@
             <li><span class="what">Next-generation proving system.</span><span class="why">Port to a smaller field with a faster hash once the upstream stack stabilises. Algorithmic structure stays.</span></li>
             <li><span class="what">Bridge construction upgrade.</span><span class="why">Drop-in successors to BitVM2 (Glock, Mosaic) cut on-chain dispute cost by two orders of magnitude. Circuit contract unchanged.</span></li>
             <li><span class="what">Federation diversity.</span><span class="why">Recruit independent organisations as federation members until one-honest-deletion is a meaningful assumption.</span></li>
-            <li><span class="what">Production trusted setup.</span><span class="why">A 30–60 contributor ceremony replaces the single-contributor parameter set used for testing.</span></li>
+            <li><span class="what">Bridge-verifier trusted setup.</span><span class="why">A 30–60 contributor ceremony replaces the single-contributor Groth16 parameter set used to test the bridge verifier — zkCoins' own proofs are transparent (FRI) and need no setup.</span></li>
           </ul>
         </div>
       </li>
     </ol>
 
-    <p class="roadmap-note"><strong>Note.</strong> Dates indicate target windows for the engineering work, not a guaranteed mainnet date. zkCoins runs in a closed test environment until pre-mainnet hardening completes; no real Bitcoin is at risk before then.</p>
+    <p class="roadmap-note"><strong>Note.</strong> Dates indicate target windows for the engineering work, not a guaranteed mainnet date. zkCoins runs in a public test environment until pre-mainnet hardening completes; no real Bitcoin is at risk before then.</p>
   </section>
 
   <hr class="hr" />
@@ -969,7 +969,7 @@
         <p>zkCoins brings Shielded CSV to a self-custodial wallet — private Bitcoin on L1, no soft fork. We keep an open line for venture funds, family offices and strategic angels evaluating the project.</p>
       </div>
       <div class="investor-body">
-        <p>The protocol is peer-reviewed (<b>ePrint 2025/068</b>), the stack is open source, and the roadmap is public. We are not actively raising — but we are open to conversations ahead of mainnet.</p>
+        <p>The protocol is built on published research (<b>ePrint 2025/068</b>), the stack is open source, and the roadmap is public. We are not actively raising — but we are open to conversations ahead of mainnet.</p>
         <a class="investor-mail" href="mailto:investors@zkcoins.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
           investors@zkcoins.com
