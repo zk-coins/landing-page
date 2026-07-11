@@ -52,7 +52,7 @@ how the baselines stay reproducible, and the 100% coverage rule).
 
 Production: [zkcoins.com](https://zkcoins.com) · Preview: [dev.zkcoins.com](https://dev.zkcoins.com)
 
-Cloudflare Pages auto-deploys on push to `develop`.
+Cloudflare Pages deploys `main` to production (zkcoins.com) and `develop` to the preview (dev.zkcoins.com). `main` is fed by an automatic `develop → main` release PR (`.github/workflows/auto-release-pr.yaml`).
 
 ### Setup (one-time)
 
@@ -61,13 +61,13 @@ Cloudflare Pages auto-deploys on push to `develop`.
    - **Framework preset:** None
    - **Build command:** *(leave empty)*
    - **Build output directory:** `/`
-   - **Production branch:** `develop`
+   - **Production branch:** `main`
 3. Custom domain: `zkcoins.com` (PRD) and `dev.zkcoins.com` (preview)
 
 ### Alternative — Wrangler CLI
 
 ```bash
-npx wrangler pages deploy . --project-name=zkcoins-com --branch=production
+npx wrangler pages deploy . --project-name=zkcoins-com --branch=main
 ```
 
 ## Contributing
@@ -80,7 +80,7 @@ Security issues: see [SECURITY.md](SECURITY.md).
 
 Follows the zkCoins brand kit. Key invariants:
 
-- Background `#0a0a0a`, accent `#f7931a` (Bitcoin orange), foreground `#ffffff`
+- Background `#0a0a0a`, accent `#f7931a` (Bitcoin orange), body text `#ece9e4`, headings/mark `#ffffff`
 - Display name **zkCoins** (always capital C)
 - Tagline: *Private Bitcoin transactions via Shielded CSV*
 
