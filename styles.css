@@ -1624,11 +1624,11 @@ footer.footer {
   color: var(--fg);
   background: rgba(255, 255, 255, 0.04);
 }
-.lang__menu a[aria-current='true'] {
+.lang__menu a[aria-current='page'] {
   color: var(--orange);
   background: var(--orange-faint);
 }
-.lang__menu a[aria-current='true'] span {
+.lang__menu a[aria-current='page'] span {
   color: var(--orange-dim);
 }
 @media (max-width: 720px) {

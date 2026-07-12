@@ -124,7 +124,7 @@
   <!-- PAPER (dominant) -->
   <section id="paper" style="padding-bottom: 8px;">
     <blockquote class="quote quote-lead">
-      {{quote_text}}
+      <span lang="en">{{quote_text}}</span>
       <cite>{{quote_cite}}</cite>
     </blockquote>
     <article class="paper" aria-labelledby="paper-title">

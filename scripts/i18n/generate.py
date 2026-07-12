@@ -14,9 +14,9 @@ from pathlib import Path
 I18N_DIR = Path(__file__).resolve().parent
 ROOT = I18N_DIR.parents[1]
 ORIGIN = "https://zkcoins.com"
-ALL_LANG_CODES = ["en", "de", "fr", "it", "es"]
 
-# Keep in sync with scripts/i18n/langs.mjs and scripts/lib/i18n.mjs
+# Keep in sync with scripts/lib/i18n.mjs and the path lists in package.json
+# (the "i18n:check" and "validate:html" scripts).
 LANGS = [
     {
         "code": "en",
@@ -59,6 +59,9 @@ LANGS = [
         "dir": "es/",
     },
 ]
+
+# Derived from LANGS so the language matrix stays a single source of truth.
+ALL_LANG_CODES = [lang["code"] for lang in LANGS]
 
 PLACEHOLDER_RE = re.compile(r"\{\{(\w+)\}\}")
 
@@ -109,7 +112,18 @@ def html_attr(value: str) -> str:
 
 def load_strings(code: str) -> dict[str, str]:
     path = I18N_DIR / "strings" / f"{code}.json"
-    data = json.loads(path.read_text(encoding="utf-8"))
+
+    def reject_duplicates(pairs: list[tuple[str, object]]) -> dict[str, object]:
+        seen: dict[str, object] = {}
+        for key, value in pairs:
+            if key in seen:
+                raise SystemExit(f"{path}: duplicate key {key!r}")
+            seen[key] = value
+        return seen
+
+    data = json.loads(
+        path.read_text(encoding="utf-8"), object_pairs_hook=reject_duplicates
+    )
     if not isinstance(data, dict):
         raise SystemExit(f"{path}: root must be a JSON object")
     for key, value in data.items():
@@ -145,14 +159,15 @@ def build_lang_switcher(current_code: str, aria_label: str) -> str:
     lines = [
         '<details class="lang">',
         f'  <summary aria-label="{html_attr(aria_label)}">{current_code.upper()}</summary>',
-        '  <div class="lang__menu" role="menu">',
+        '  <div class="lang__menu">',
     ]
     for lang in LANGS:
-        href = path_for(lang["code"])
-        current = ' aria-current="true"' if lang["code"] == current_code else ""
+        code = lang["code"]
+        href = path_for(code)
+        current = ' aria-current="page"' if code == current_code else ""
         lines.append(
-            f'    <a href="{href}" role="menuitem"{current}>{lang["nativeName"]} '
-            f'<span>{lang["code"].upper()}</span></a>'
+            f'    <a href="{href}" lang="{code}" hreflang="{code}"{current}>'
+            f'{lang["nativeName"]} <span>{code.upper()}</span></a>'
         )
     lines.append("  </div>")
     lines.append("</details>")
@@ -263,6 +278,15 @@ def render(template: str, mapping: dict[str, str]) -> str:
     leftover = PLACEHOLDER_RE.findall(out)
     if leftover:
         raise SystemExit(f"unresolved placeholders: {', '.join(sorted(set(leftover)))}")
+    # Catch malformed placeholders the well-formed regex above cannot match,
+    # e.g. "{{ nav_paper }}", "{{nav-paper}}" or a stray "{{"/"}}". The strings
+    # contain no braces, so any remaining brace pair is a template defect.
+    brace = out.find("{{")
+    if brace == -1:
+        brace = out.find("}}")
+    if brace != -1:
+        near = out[max(0, brace - 24) : brace + 40]
+        raise SystemExit(f"malformed placeholder braces in output near: {near!r}")
     return out
 
 
@@ -284,8 +308,6 @@ def build_sitemap() -> str:
         lines.append(
             f'    <xhtml:link rel="alternate" hreflang="x-default" href="{url_for("en")}"/>'
         )
-        lines.append("    <changefreq>weekly</changefreq>")
-        lines.append(f'    <priority>{"1.0" if lang["code"] == "en" else "0.9"}</priority>')
         lines.append("  </url>")
     lines.append("</urlset>")
     lines.append("")

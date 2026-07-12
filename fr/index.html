@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>zkCoins — Bitcoin privé via Shielded CSV</title>
-<meta name="description" content="zkCoins apporte une vraie confidentialité à Bitcoin via Shielded CSV : montants, expéditeur, destinataire et historique restent hors chaîne, prouvés par zero-knowledge. De nombreux spends s'ancrent sur Bitcoin comme une seule inscription constante de 231 octets par batch. Pas de soft fork, self-custodial. Basé sur le paper de Jonas Nick, Liam Eagen et Robin Linus (ePrint 2025/068)." />
+<meta name="description" content="zkCoins apporte une vraie confidentialité à Bitcoin via Shielded CSV&amp;nbsp;: montants, expéditeur, destinataire et historique restent hors chaîne, prouvés par zero-knowledge. De nombreux spends s'ancrent sur Bitcoin comme une seule inscription constante de 231 octets par batch. Pas de soft fork, self-custodial. Basé sur le paper de Jonas Nick, Liam Eagen et Robin Linus (ePrint 2025/068)." />
 <meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.png" type="image/png" />
@@ -134,7 +134,7 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Qu'est-ce que zkCoins ?",
+          "name": "Qu'est-ce que zkCoins&nbsp;?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "zkCoins est un wallet self-custodial pour Shielded CSV, un protocole de confidentialité pour Bitcoin. Montants, expéditeur, destinataire et historique de transactions restent hors chaîne, prouvés par zero-knowledge et vérifiés côté client. De nombreux spends privés s'ancrent sur Bitcoin comme une seule inscription constante de 231 octets par batch."
@@ -142,15 +142,15 @@
         },
         {
           "@type": "Question",
-          "name": "zkCoins est-il un nouveau token ou altcoin ?",
+          "name": "zkCoins est-il un nouveau token ou altcoin&nbsp;?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Non — zkCoins n'est pas une blockchain séparée, un altcoin, ni un token de protocole natif. C'est une couche de client-side-validation ancrée sur Bitcoin L1 ; la valeur vit dans des coins validés côté client. Faire entrer et sortir du BTC on-chain passe par un bridge, qui figure sur la roadmap."
+            "text": "Non — zkCoins n'est pas une blockchain séparée, un altcoin, ni un token de protocole natif. C'est une couche de client-side-validation ancrée sur Bitcoin L1&nbsp;; la valeur vit dans des coins validés côté client. Faire entrer et sortir du BTC on-chain passe par un bridge, qui figure sur la roadmap."
           }
         },
         {
           "@type": "Question",
-          "name": "zkCoins nécessite-t-il un soft fork ?",
+          "name": "zkCoins nécessite-t-il un soft fork&nbsp;?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Non. Shielded CSV fonctionne sur Bitcoin tel qu'il existe aujourd'hui — pas de soft fork, pas de hard fork, pas de nouveaux opcodes. La chaîne n'est utilisée que pour ordonner des commitments et empêcher les double-spends."
@@ -158,15 +158,15 @@
         },
         {
           "@type": "Question",
-          "name": "Comment zkCoins garde-t-il les transactions privées ?",
+          "name": "Comment zkCoins garde-t-il les transactions privées&nbsp;?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Chaque spend est prouvé avec une preuve zero-knowledge et partagé hors chaîne. Les données des coins — montants, parties et historique — ne touchent jamais Bitcoin. Un publisher permissionless ancre tout un batch de spends comme une seule inscription constante de 231 octets ; les nullifiers restent hors chaîne."
+            "text": "Chaque spend est prouvé avec une preuve zero-knowledge et partagé hors chaîne. Les données des coins — montants, parties et historique — ne touchent jamais Bitcoin. Un publisher permissionless ancre tout un batch de spends comme une seule inscription constante de 231 octets&nbsp;; les nullifiers restent hors chaîne."
           }
         },
         {
           "@type": "Question",
-          "name": "zkCoins est-il self-custodial ?",
+          "name": "zkCoins est-il self-custodial&nbsp;?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Oui. Les clés sont générées et stockées localement dans votre navigateur et ne quittent jamais votre appareil. zkCoins est peer-to-peer, sans coordinator ni custodian capable de geler des fonds ou d'arrêter le réseau."
@@ -174,7 +174,7 @@
         },
         {
           "@type": "Question",
-          "name": "Qu'est-ce que Shielded CSV ?",
+          "name": "Qu'est-ce que Shielded CSV&nbsp;?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Shielded CSV (Client-Side Validation) est un protocole Bitcoin préservant la confidentialité issu du paper de Jonas Nick, Liam Eagen et Robin Linus (ePrint 2025/068). zkCoins v1 regroupe de nombreux spends et ancre chaque batch sur Bitcoin comme une seule inscription constante de 231 octets."
@@ -182,10 +182,10 @@
         },
         {
           "@type": "Question",
-          "name": "Le rôle de publisher est-il vraiment décentralisé ?",
+          "name": "Le rôle de publisher est-il vraiment décentralisé&nbsp;?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La publication est permissionless, et tout wallet peut auto-publier son propre batch à un coût trivial — cela plafonne ce qu'un publisher dominant peut facturer. L'économie concurrentielle favorise l'opérateur le plus rapide et le mieux capitalisé, donc une certaine concentration est attendue. Ce n'est qu'un risque de liveness : un publisher ne détient jamais la custody et peut au plus censurer ou retarder un batch, jamais voler ni forger des coins. Analyse complète sur la page Risks des docs."
+            "text": "La publication est permissionless, et tout wallet peut auto-publier son propre batch à un coût trivial — cela plafonne ce qu'un publisher dominant peut facturer. L'économie concurrentielle favorise l'opérateur le plus rapide et le mieux capitalisé, donc une certaine concentration est attendue. Ce n'est qu'un risque de liveness&nbsp;: un publisher ne détient jamais la custody et peut au plus censurer ou retarder un batch, jamais voler ni forger des coins. Analyse complète sur la page Risks des docs."
           }
         }
       ]
@@ -229,12 +229,12 @@
       </a>
       <details class="lang">
         <summary aria-label="Langue">FR</summary>
-        <div class="lang__menu" role="menu">
-          <a href="/" role="menuitem">English <span>EN</span></a>
-          <a href="/de/" role="menuitem">Deutsch <span>DE</span></a>
-          <a href="/fr/" role="menuitem" aria-current="true">Français <span>FR</span></a>
-          <a href="/it/" role="menuitem">Italiano <span>IT</span></a>
-          <a href="/es/" role="menuitem">Español <span>ES</span></a>
+        <div class="lang__menu">
+          <a href="/" lang="en" hreflang="en">English <span>EN</span></a>
+          <a href="/de/" lang="de" hreflang="de">Deutsch <span>DE</span></a>
+          <a href="/fr/" lang="fr" hreflang="fr" aria-current="page">Français <span>FR</span></a>
+          <a href="/it/" lang="it" hreflang="it">Italiano <span>IT</span></a>
+          <a href="/es/" lang="es" hreflang="es">Español <span>ES</span></a>
         </div>
       </details>
     </nav>
@@ -291,13 +291,13 @@
         <div class="tx-foot">constante · couvre chaque spend du batch · données des coins hors chaîne</div>
       </div>
     </div>
-    <p class="compare-cap">Les données des coins ne touchent jamais la chaîne. <b>De nombreux spends privés s'ancrent sur Bitcoin en une seule inscription constante de 231 octets ; la paire commit+reveal d'environ 318 vBytes du publisher s'amortit à ~3.2 vBytes par spend à 100 par batch.</b></p>
+    <p class="compare-cap">Les données des coins ne touchent jamais la chaîne. <b>De nombreux spends privés s'ancrent sur Bitcoin en une seule inscription constante de 231 octets&nbsp;; la paire commit+reveal d'environ 318 vBytes du publisher s'amortit à ~3.2 vBytes par spend à 100 par batch.</b></p>
   </section>
 
   <!-- PAPER (dominant) -->
   <section id="paper" style="padding-bottom: 8px;">
     <blockquote class="quote quote-lead">
-      "Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."
+      <span lang="en">"Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."</span>
       <cite>— Robin Linus, co-auteur de Shielded CSV</cite>
     </blockquote>
     <article class="paper" aria-labelledby="paper-title">
@@ -317,9 +317,9 @@
       </dl>
 
       <p class="abstract">
-        Client-Side Validation découple la validation des transactions du consensus Bitcoin en la déplaçant vers le destinataire. Shielded CSV améliore les conceptions CSV antérieures en masquant entièrement l'historique des transactions : chaque transfert ne fuit qu'un nullifier de 64 octets vers la chaîne, le reste étant vérifié côté client via des preuves zero-knowledge succinctes. Le protocole est compatible avec Bitcoin tel quel — pas de soft fork, pas de hard fork — et vise environ un ordre de grandeur de plus de transactions par seconde que la base layer seule.
+        Client-Side Validation découple la validation des transactions du consensus Bitcoin en la déplaçant vers le destinataire. Shielded CSV améliore les conceptions CSV antérieures en masquant entièrement l'historique des transactions&nbsp;: chaque transfert ne fuit qu'un nullifier de 64 octets vers la chaîne, le reste étant vérifié côté client via des preuves zero-knowledge succinctes. Le protocole est compatible avec Bitcoin tel quel — pas de soft fork, pas de hard fork — et vise environ un ordre de grandeur de plus de transactions par seconde que la base layer seule.
       </p>
-      <p class="paper-note"><b>zkCoins v1 va plus loin :</b> le nullifier ne touche jamais Bitcoin — un publisher permissionless regroupe de nombreux spends en une seule BatchInscription constante de 231 octets, au-delà de la figure on-chain de 64 octets par transaction du paper.</p>
+      <p class="paper-note"><b>zkCoins v1 va plus loin&nbsp;:</b> le nullifier ne touche jamais Bitcoin — un publisher permissionless regroupe de nombreux spends en une seule BatchInscription constante de 231 octets, au-delà du chiffre on-chain de 64 octets par transaction du paper.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -373,10 +373,10 @@
     </div>
     <ol class="steps">
       <li class="step"><span class="n">1</span><div class="body"><p class="t">L'expéditeur prouve</p><p class="d">L'expéditeur crée un transfert et génère une preuve de validité succincte de toute l'histoire du coin — une taille constante, quel que soit l'âge du coin.</p></div></li>
-      <li class="step"><span class="n">2</span><div class="body"><p class="t">La preuve va au destinataire</p><p class="d">La preuve voyage <b>directement vers le destinataire, hors chaîne</b>. Seuls l'expéditeur et le destinataire voient jamais les montants, parties et historique — rien n'est écrit sur la chaîne.</p></div></li>
+      <li class="step"><span class="n">2</span><div class="body"><p class="t">La preuve va au destinataire</p><p class="d">La preuve voyage <b>directement vers le destinataire, hors chaîne</b>. Seuls l'expéditeur et le destinataire voient les montants, les parties et l'historique — rien n'est écrit sur la chaîne.</p></div></li>
       <li class="step"><span class="n">3</span><div class="body"><p class="t">Un batch est ancré sur Bitcoin</p><p class="d">Un <b>publisher</b> permissionless agrège de nombreux spends et inscrit une seule <code>231-byte BatchInscription</code> constante — les nullifiers eux-mêmes restent hors chaîne.</p></div></li>
       <li class="step"><span class="n">4</span><div class="body"><p class="t">Le destinataire vérifie côté client</p><p class="d">Le destinataire re-vérifie localement la preuve zero-knowledge complète du coin — un seul contrôle en temps constant, quelle que soit la longueur de l'historique — et l'accepte sans faire confiance à un tiers.</p></div></li>
-      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin empêche les double-spends</p><p class="d">Chaque batch ancre la transition de racine de l'accumulateur de nullifiers. Le seul rôle de la chaîne : garantir que chaque coin est dépensé <b>exactement une fois</b>.</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin empêche les double-spends</p><p class="d">Chaque batch ancre la transition de racine de l'accumulateur de nullifiers. Le seul rôle de la chaîne&nbsp;: garantir que chaque coin est dépensé <b>exactement une fois</b>.</p></div></li>
     </ol>
   </section>
 
@@ -411,7 +411,7 @@
     <div class="band-head">
       <span class="eyebrow">Limites</span>
       <h2>Ce que Shielded CSV n'est pas</h2>
-      <p>Ici, la confidentialité est structurelle, pas un ajout. Il vaut d'être précis sur ce que ce protocole n'est délibérément pas.</p>
+      <p>Ici, la confidentialité est structurelle, pas un ajout. Cela vaut la peine d'être précis sur ce que ce protocole n'est délibérément pas.</p>
     </div>
     <div class="nots">
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Pas une sidechain</span><p>Il utilise <b>Bitcoin L1 directement</b> — pas de consensus séparé, pas de bridge vers une chaîne étrangère.</p></div>
@@ -465,7 +465,7 @@
           <span class="phase-when">Q3 2026</span>
           <span class="phase-status">Suivant</span>
         </div>
-        <p class="phase-lede">Combler les écarts de protocole entre « ça marche sur signet » et « sûr avec du vrai Bitcoin ».</p>
+        <p class="phase-lede">Combler les écarts de protocole entre «&nbsp;ça marche sur signet&nbsp;» et «&nbsp;sûr avec du vrai Bitcoin&nbsp;».</p>
         <div class="phase-card">
           <ul>
             <li><span class="what">Masquer les commitments des destinataires.</span><span class="why">Éliminer le lien résiduel entre expéditeur, destinataire et identifiant de coin.</span></li>
@@ -489,7 +489,7 @@
             <li><span class="what">Bridge de type BitVM2 / Clementine.</span><span class="why">Modèle de confiance 1-of-N honesty. La même construction qui tourne sur le mainnet Citrea.</span></li>
             <li><span class="what">Light client Bitcoin récursif.</span><span class="why">Une preuve succincte qu'un dépôt a atterri à profondeur ≥ 6 dans la chaîne canonique.</span></li>
             <li><span class="what">Récursion → wrapping Groth16.</span><span class="why">Amener nos preuves adaptées à la récursion dans un vérifieur que Bitcoin script peut contrôler.</span></li>
-            <li><span class="what">Mise à l'échelle de la fédération : N=3 → N=100.</span><span class="why">Démarrer avec une fédération mono-opérateur ; croître jusqu'à cent membres indépendants, où une seule suppression de clé honnête suffit.</span></li>
+            <li><span class="what">Mise à l'échelle de la fédération&nbsp;: N=3 → N=100.</span><span class="why">Démarrer avec une fédération mono-opérateur&nbsp;; croître jusqu'à cent membres indépendants, où une seule suppression de clé honnête suffit.</span></li>
             <li><span class="what">Run d'intégration signet.</span><span class="why">Roundtrip peg-in / peg-out complet, y compris un scénario d'opérateur délibérément malveillant.</span></li>
           </ul>
         </div>
@@ -507,7 +507,7 @@
           <ul>
             <li><span class="what">HTLC sur la transaction de funding de l'inscription.</span><span class="why">L'atomicité vit sur Bitcoin layer 1, pas sur la couche de coins privés. Primitives standard, pas de soft fork.</span></li>
             <li><span class="what">Flux LN ↔ zkCoins symétriques.</span><span class="why">Acheter avec des sats Lightning et revendre en sats Lightning, les deux directions trustless.</span></li>
-            <li><span class="what">Liquidité frontée par des providers.</span><span class="why">N'importe qui peut faire tourner un swap provider ; le protocole impose l'honnêteté, pas l'opérateur.</span></li>
+            <li><span class="what">Liquidité avancée par des providers.</span><span class="why">N'importe qui peut faire tourner un swap provider&nbsp;; le protocole impose l'honnêteté, pas l'opérateur.</span></li>
             <li><span class="what">Motif de swap préservant la confidentialité.</span><span class="why">Un swap provider apprend le côté LN, jamais le graphe interne zkCoins.</span></li>
           </ul>
         </div>
@@ -532,7 +532,7 @@
       </li>
     </ol>
 
-    <p class="roadmap-note"><strong>Note.</strong> Les dates indiquent des fenêtres cibles pour le travail d'ingénierie, pas une date de mainnet garantie. zkCoins tourne dans un environnement de test public jusqu'à la fin du durcissement pré-mainnet ; aucun vrai Bitcoin n'est en risque avant.</p>
+    <p class="roadmap-note"><strong>Note.</strong> Les dates indiquent des fenêtres cibles pour le travail d'ingénierie, pas une date de mainnet garantie. zkCoins tourne dans un environnement de test public jusqu'à la fin du durcissement pré-mainnet&nbsp;; aucun vrai Bitcoin n'est en risque avant.</p>
   </section>
 
   <hr class="hr" />
@@ -594,32 +594,32 @@
     </div>
     <div class="faq">
       <details>
-        <summary>Qu'est-ce que zkCoins ?</summary>
+        <summary>Qu'est-ce que zkCoins&nbsp;?</summary>
         <p>zkCoins est un wallet self-custodial pour Shielded CSV, un protocole de confidentialité pour Bitcoin. Montants, expéditeur, destinataire et historique de transactions restent hors chaîne, prouvés par zero-knowledge et vérifiés côté client. De nombreux spends privés s'ancrent sur Bitcoin comme une seule inscription constante de 231 octets par batch.</p>
       </details>
       <details>
-        <summary>zkCoins est-il un nouveau token ou altcoin ?</summary>
-        <p>Non — zkCoins n'est pas une blockchain séparée, un altcoin, ni un token de protocole natif. C'est une couche de client-side-validation ancrée sur Bitcoin L1 ; la valeur vit dans des coins validés côté client. Faire entrer et sortir du BTC on-chain passe par un bridge, qui figure sur la roadmap.</p>
+        <summary>zkCoins est-il un nouveau token ou altcoin&nbsp;?</summary>
+        <p>Non — zkCoins n'est pas une blockchain séparée, un altcoin, ni un token de protocole natif. C'est une couche de client-side-validation ancrée sur Bitcoin L1&nbsp;; la valeur vit dans des coins validés côté client. Faire entrer et sortir du BTC on-chain passe par un bridge, qui figure sur la roadmap.</p>
       </details>
       <details>
-        <summary>zkCoins nécessite-t-il un soft fork ?</summary>
+        <summary>zkCoins nécessite-t-il un soft fork&nbsp;?</summary>
         <p>Non. Shielded CSV fonctionne sur Bitcoin tel qu'il existe aujourd'hui — pas de soft fork, pas de hard fork, pas de nouveaux opcodes. La chaîne n'est utilisée que pour ordonner des commitments et empêcher les double-spends.</p>
       </details>
       <details>
-        <summary>Comment zkCoins garde-t-il les transactions privées ?</summary>
-        <p>Chaque spend est prouvé avec une preuve zero-knowledge et partagé hors chaîne. Les données des coins — montants, parties et historique — ne touchent jamais Bitcoin. Un publisher permissionless ancre tout un batch de spends comme une seule inscription constante de 231 octets ; les nullifiers restent hors chaîne.</p>
+        <summary>Comment zkCoins garde-t-il les transactions privées&nbsp;?</summary>
+        <p>Chaque spend est prouvé avec une preuve zero-knowledge et partagé hors chaîne. Les données des coins — montants, parties et historique — ne touchent jamais Bitcoin. Un publisher permissionless ancre tout un batch de spends comme une seule inscription constante de 231 octets&nbsp;; les nullifiers restent hors chaîne.</p>
       </details>
       <details>
-        <summary>zkCoins est-il self-custodial ?</summary>
+        <summary>zkCoins est-il self-custodial&nbsp;?</summary>
         <p>Oui. Les clés sont générées et stockées localement dans votre navigateur et ne quittent jamais votre appareil. zkCoins est peer-to-peer, sans coordinator ni custodian capable de geler des fonds ou d'arrêter le réseau.</p>
       </details>
       <details>
-        <summary>Qu'est-ce que Shielded CSV ?</summary>
+        <summary>Qu'est-ce que Shielded CSV&nbsp;?</summary>
         <p>Shielded CSV (Client-Side Validation) est un protocole Bitcoin préservant la confidentialité issu du paper de Jonas Nick, Liam Eagen et Robin Linus (ePrint 2025/068). zkCoins v1 regroupe de nombreux spends et ancre chaque batch sur Bitcoin comme une seule inscription constante de 231 octets.</p>
       </details>
       <details>
-        <summary>Le rôle de publisher est-il vraiment décentralisé ?</summary>
-        <p>La publication est permissionless, et tout wallet peut auto-publier son propre batch à un coût trivial — cela plafonne ce qu'un publisher dominant peut facturer. L'économie concurrentielle favorise l'opérateur le plus rapide et le mieux capitalisé, donc une certaine concentration est attendue. Ce n'est qu'un risque de liveness : un publisher ne détient jamais la custody et peut au plus censurer ou retarder un batch, jamais voler ni forger des coins. Analyse complète sur la <a href="https://docs.zkcoins.app/risks">page Risks</a> des docs.</p>
+        <summary>Le rôle de publisher est-il vraiment décentralisé&nbsp;?</summary>
+        <p>La publication est permissionless, et tout wallet peut auto-publier son propre batch à un coût trivial — cela plafonne ce qu'un publisher dominant peut facturer. L'économie concurrentielle favorise l'opérateur le plus rapide et le mieux capitalisé, donc une certaine concentration est attendue. Ce n'est qu'un risque de liveness&nbsp;: un publisher ne détient jamais la custody et peut au plus censurer ou retarder un batch, jamais voler ni forger des coins. Analyse complète sur la <a href="https://docs.zkcoins.app/risks">page Risks</a> des docs.</p>
       </details>
     </div>
   </section>
@@ -628,7 +628,7 @@
   <section class="band" style="padding-top:8px;">
     <div class="cta">
       <h2>Essayez le Bitcoin privé aujourd'hui</h2>
-      <p>Le wallet zkCoins tourne dans votre navigateur. Les clés sont générées et stockées localement — elles ne quittent jamais votre appareil. Actuellement sur un réseau de test public ; aucun vrai Bitcoin n'est en risque.</p>
+      <p>Le wallet zkCoins tourne dans votre navigateur. Les clés sont générées et stockées localement — elles ne quittent jamais votre appareil. Actuellement sur un réseau de test public&nbsp;; aucun vrai Bitcoin n'est en risque.</p>
       <div class="actions">
         <a class="btn btn-primary" href="https://zkcoins.app">
           Ouvrir le wallet

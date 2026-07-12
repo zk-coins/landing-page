@@ -229,12 +229,12 @@
       </a>
       <details class="lang">
         <summary aria-label="Lingua">IT</summary>
-        <div class="lang__menu" role="menu">
-          <a href="/" role="menuitem">English <span>EN</span></a>
-          <a href="/de/" role="menuitem">Deutsch <span>DE</span></a>
-          <a href="/fr/" role="menuitem">Français <span>FR</span></a>
-          <a href="/it/" role="menuitem" aria-current="true">Italiano <span>IT</span></a>
-          <a href="/es/" role="menuitem">Español <span>ES</span></a>
+        <div class="lang__menu">
+          <a href="/" lang="en" hreflang="en">English <span>EN</span></a>
+          <a href="/de/" lang="de" hreflang="de">Deutsch <span>DE</span></a>
+          <a href="/fr/" lang="fr" hreflang="fr">Français <span>FR</span></a>
+          <a href="/it/" lang="it" hreflang="it" aria-current="page">Italiano <span>IT</span></a>
+          <a href="/es/" lang="es" hreflang="es">Español <span>ES</span></a>
         </div>
       </details>
     </nav>
@@ -279,7 +279,7 @@
         <div class="tx-row"><span class="lbl">from</span><span class="val">bc1q7f…3k9</span></div>
         <div class="tx-row"><span class="lbl">to</span><span class="val">bc1p2m…q8x</span></div>
         <div class="tx-row"><span class="lbl">amount</span><span class="val">0.4218 BTC</span></div>
-        <div class="tx-foot">~140 vBytes · interamente pubblico · uno per pagamento</div>
+        <div class="tx-foot">~140 vByte · interamente pubblico · uno per pagamento</div>
       </div>
       <div class="compare-arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -291,13 +291,13 @@
         <div class="tx-foot">costante · copre ogni spend del batch · dati dei coin off-chain</div>
       </div>
     </div>
-    <p class="compare-cap">I dati dei coin non toccano mai la chain. <b>Molti spend privati si ancorano a Bitcoin come una sola inscription costante di 231 byte; la coppia commit+reveal di ~318 vByte del publisher si ammortizza a ~3.2 vBytes per spend a 100 per batch.</b></p>
+    <p class="compare-cap">I dati dei coin non toccano mai la chain. <b>Molti spend privati si ancorano a Bitcoin come una sola inscription costante di 231 byte; la coppia commit+reveal di ~318 vByte del publisher si ammortizza a ~3.2 vByte per spend a 100 per batch.</b></p>
   </section>
 
   <!-- PAPER (dominant) -->
   <section id="paper" style="padding-bottom: 8px;">
     <blockquote class="quote quote-lead">
-      "Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."
+      <span lang="en">"Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."</span>
       <cite>— Robin Linus, co-autore di Shielded CSV</cite>
     </blockquote>
     <article class="paper" aria-labelledby="paper-title">
@@ -319,7 +319,7 @@
       <p class="abstract">
         Client-Side Validation disaccoppia la validazione delle transazioni dal consensus Bitcoin spostandola al destinatario. Shielded CSV migliora i design CSV precedenti nascondendo del tutto la cronologia delle transazioni: ogni trasferimento lascia trapelare solo un nullifier di 64 byte sulla chain, il resto è verificato client-side tramite succinct zero-knowledge proof. Il protocollo è compatibile con Bitcoin as-is — nessun soft fork, nessun hard fork — e punta a circa un ordine di grandezza in più di transazioni al secondo rispetto alla sola base layer.
       </p>
-      <p class="paper-note"><b>zkCoins v1 va oltre:</b> il nullifier non tocca affatto Bitcoin — un publisher permissionless raggruppa molti spend in una sola BatchInscription costante di 231 byte, oltre la figura on-chain di 64 byte per transazione del paper.</p>
+      <p class="paper-note"><b>zkCoins v1 va oltre:</b> il nullifier non tocca affatto Bitcoin — un publisher permissionless raggruppa molti spend in una sola BatchInscription costante di 231 byte, oltre la cifra on-chain di 64 byte per transazione del paper.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -357,7 +357,7 @@
       <div class="concept">
         <div class="k">Costo</div>
         <div class="h">Si ammortizza verso zero</div>
-        <p class="v">L'inscription è costante indipendentemente da quanti spend copre — la coppia commit+reveal di ~318 vByte del publisher si ammortizza a <b>~3.2 vBytes per spend a 100 per batch</b>.</p>
+        <p class="v">L'inscription è costante indipendentemente da quanti spend copre — la coppia commit+reveal di ~318 vByte del publisher si ammortizza a <b>~3.2 vByte per spend a 100 per batch</b>.</p>
       </div>
     </div>
   </section>
@@ -373,7 +373,7 @@
     </div>
     <ol class="steps">
       <li class="step"><span class="n">1</span><div class="body"><p class="t">Il mittente prova</p><p class="d">Il mittente crea un trasferimento e genera una succinct validity proof dell'intera cronologia del coin — dimensione costante, qualunque sia l'età del coin.</p></div></li>
-      <li class="step"><span class="n">2</span><div class="body"><p class="t">La proof va al destinatario</p><p class="d">La proof viaggia <b>direttamente al destinatario, off-chain</b>. Solo mittente e destinatario vedono mai importi, parti e cronologia — nulla viene scritto sulla chain.</p></div></li>
+      <li class="step"><span class="n">2</span><div class="body"><p class="t">La proof va al destinatario</p><p class="d">La proof viaggia <b>direttamente al destinatario, off-chain</b>. Solo mittente e destinatario vedono importi, parti e cronologia — nulla viene scritto sulla chain.</p></div></li>
       <li class="step"><span class="n">3</span><div class="body"><p class="t">Un batch viene ancorato su Bitcoin</p><p class="d">Un <b>publisher</b> permissionless aggrega molti spend e iscrive una sola <code>231-byte BatchInscription</code> costante — i nullifier stessi restano off-chain.</p></div></li>
       <li class="step"><span class="n">4</span><div class="body"><p class="t">Il destinatario verifica client-side</p><p class="d">Il destinatario ri-verifica localmente la zero-knowledge proof completa del coin — un singolo controllo in tempo costante, qualunque sia la lunghezza della cronologia — e la accetta senza fidarsi di terze parti.</p></div></li>
       <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin previene i double-spend</p><p class="d">Ogni batch ancora la transizione di root dell'accumulatore di nullifier. L'unico compito della chain: garantire che ogni coin sia speso <b>esattamente una volta</b>.</p></div></li>
@@ -394,8 +394,8 @@
           <tr><th>Metrica</th><th>Bitcoin (classico)</th><th class="zk">zkCoins v1</th></tr>
         </thead>
         <tbody>
-          <tr><td class="metric">Dati on-chain</td><td class="btc" data-label="Bitcoin (classico)">transazione completa (~140 vBytes)</td><td class="zk" data-label="zkCoins v1"><b>inscription di 231 byte per batch</b></td></tr>
-          <tr><td class="metric">Costo per spend</td><td class="btc" data-label="Bitcoin (classico)">~140 vBytes</td><td class="zk" data-label="zkCoins v1"><b>~3.2 vBytes (100 / batch)</b></td></tr>
+          <tr><td class="metric">Dati on-chain</td><td class="btc" data-label="Bitcoin (classico)">transazione completa (~140 vByte)</td><td class="zk" data-label="zkCoins v1"><b>inscription di 231 byte per batch</b></td></tr>
+          <tr><td class="metric">Costo per spend</td><td class="btc" data-label="Bitcoin (classico)">~140 vByte</td><td class="zk" data-label="zkCoins v1"><b>~3.2 vByte (100 / batch)</b></td></tr>
           <tr><td class="metric">Privacy</td><td class="btc" data-label="Bitcoin (classico)">Nessuna — interamente pubblico</td><td class="zk" data-label="zkCoins v1"><b>Piena — niente on-chain</b></td></tr>
           <tr><td class="metric">Verifica</td><td class="btc" data-label="Bitcoin (classico)">Script completo per tx</td><td class="zk" data-label="zkCoins v1">1× proof di batch</td></tr>
           <tr><td class="metric">Dimensione proof</td><td class="btc" data-label="Bitcoin (classico)">N/A</td><td class="zk" data-label="zkCoins v1">Costante, indipendente dalla cronologia</td></tr>
@@ -452,7 +452,7 @@
           <ul>
             <li><span class="what">Migrazione del circuit zero-knowledge.</span><span class="why">Portare il circuit di state-transition su un sistema di proving nativo per la ricorsione con un hash SNARK-friendly.</span></li>
             <li><span class="what">Proving lato server su hardware commodity.</span><span class="why">Target Apple Silicon single-host — nessuna farm GPU, nessun servizio di proving cloud. Il wallet detiene solo la private key.</span></li>
-            <li><span class="what">Confine wallet via BIP-340 Schnorr.</span><span class="why">Il wallet firma un digest SHA-256 dello state calcolato dal server. Nessun zero-knowledge nel browser.</span></li>
+            <li><span class="what">Confine wallet via BIP-340 Schnorr.</span><span class="why">Il wallet firma un digest SHA-256 dello state calcolato dal server. Nessuno zero-knowledge nel browser.</span></li>
             <li><span class="what">Roundtrip end-to-end su signet.</span><span class="why">Creare account, mintare, inviare, ricevere — il loop utente completo gira su un testnet Bitcoin pubblico.</span></li>
           </ul>
         </div>
@@ -507,7 +507,7 @@
           <ul>
             <li><span class="what">HTLC sulla transaction di funding dell'inscription.</span><span class="why">L'atomicità vive su Bitcoin layer 1, non sul layer dei coin privati. Primitive standard, nessun soft fork.</span></li>
             <li><span class="what">Flussi LN ↔ zkCoins simmetrici.</span><span class="why">Comprare con sats Lightning e rivendere in sats Lightning, entrambe le direzioni trustless.</span></li>
-            <li><span class="what">Liquidità frontata da provider.</span><span class="why">Chiunque può gestire un swap provider; il protocollo impone l'onestà, non l'operatore.</span></li>
+            <li><span class="what">Liquidità anticipata dai provider.</span><span class="why">Chiunque può gestire uno swap provider; il protocollo impone l'onestà, non l'operatore.</span></li>
             <li><span class="what">Pattern di swap che preserva la privacy.</span><span class="why">Uno swap provider apprende il lato LN, mai il grafo interno zkCoins.</span></li>
           </ul>
         </div>

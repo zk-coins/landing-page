@@ -2,10 +2,12 @@ name: Update visual baselines
 
 # Regenerate the Playwright screenshot baselines without a local Docker setup.
 #
-# Actions tab → "Update visual baselines" → "Run workflow" → pick the PR branch.
-# Regenerates baselines inside the same pinned Playwright container the visual
-# gate uses, then commits them back. Local alternative: `npm run e2e:docker:update`
-# (requires Docker).
+# Actions tab → "Update visual baselines" → "Run workflow" → pick the branch.
+# The workflow always runs on — and commits back to — the branch picked in that
+# dropdown, so the checked-out tree matches this workflow definition and the
+# Playwright pin guard below can trust it. Regenerates baselines inside the same
+# pinned Playwright container the visual gate uses, then commits them back. Local
+# alternative: `npm run e2e:docker:update` (requires Docker).
 #
 # The default GITHUB_TOKEN cannot re-trigger the visual-regression workflow on
 # the commit it pushes. To auto-re-run the gate, add a repo secret BASELINE_PAT
@@ -14,10 +16,6 @@ name: Update visual baselines
 
 on:
   workflow_dispatch:
-    inputs:
-      ref:
-        description: "Branch to update (defaults to the selected branch)"
-        required: false
 
 permissions:
   contents: write
@@ -31,7 +29,6 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          ref: ${{ inputs.ref || github.ref_name }}
           token: ${{ secrets.BASELINE_PAT || github.token }}
           persist-credentials: false
 
@@ -57,7 +54,7 @@ jobs:
       - name: Commit and push baselines
         env:
           # Pass through as env so the shell never interpolates untrusted template text.
-          TARGET_REF: ${{ inputs.ref || github.ref_name }}
+          TARGET_REF: ${{ github.ref_name }}
           PUSH_TOKEN: ${{ secrets.BASELINE_PAT || github.token }}
         run: |
           git config user.name "github-actions[bot]"
@@ -67,7 +64,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Baselines already up to date — nothing to commit." >> "$GITHUB_STEP_SUMMARY"
           else
-            git commit -m "test: regenerate visual baselines for multilingual matrix"
+            git commit -m "test: regenerate visual baselines"
             git push origin "HEAD:${TARGET_REF}"
             echo "Updated baselines pushed to \`${TARGET_REF}\`." >> "$GITHUB_STEP_SUMMARY"
           fi

@@ -229,12 +229,12 @@
       </a>
       <details class="lang">
         <summary aria-label="Idioma">ES</summary>
-        <div class="lang__menu" role="menu">
-          <a href="/" role="menuitem">English <span>EN</span></a>
-          <a href="/de/" role="menuitem">Deutsch <span>DE</span></a>
-          <a href="/fr/" role="menuitem">Français <span>FR</span></a>
-          <a href="/it/" role="menuitem">Italiano <span>IT</span></a>
-          <a href="/es/" role="menuitem" aria-current="true">Español <span>ES</span></a>
+        <div class="lang__menu">
+          <a href="/" lang="en" hreflang="en">English <span>EN</span></a>
+          <a href="/de/" lang="de" hreflang="de">Deutsch <span>DE</span></a>
+          <a href="/fr/" lang="fr" hreflang="fr">Français <span>FR</span></a>
+          <a href="/it/" lang="it" hreflang="it">Italiano <span>IT</span></a>
+          <a href="/es/" lang="es" hreflang="es" aria-current="page">Español <span>ES</span></a>
         </div>
       </details>
     </nav>
@@ -297,7 +297,7 @@
   <!-- PAPER (dominant) -->
   <section id="paper" style="padding-bottom: 8px;">
     <blockquote class="quote quote-lead">
-      "Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."
+      <span lang="en">"Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."</span>
       <cite>— Robin Linus, coautor de Shielded CSV</cite>
     </blockquote>
     <article class="paper" aria-labelledby="paper-title">
@@ -483,7 +483,7 @@
           <span class="phase-when">Q4 2026</span>
           <span class="phase-status">Planificado</span>
         </div>
-        <p class="phase-lede">Mint y burn contra BTC nativo sin confiar en el emisor. La mayor brecha de confianza de cara al usuario se cierra aquí.</p>
+        <p class="phase-lede">Mint y burn contra BTC nativo sin confiar en el issuer. La mayor brecha de confianza de cara al usuario se cierra aquí.</p>
         <div class="phase-card">
           <ul>
             <li><span class="what">Bridge al estilo BitVM2 / Clementine.</span><span class="why">Modelo de confianza 1-of-N honesty. La misma construcción que corre en el mainnet de Citrea.</span></li>
@@ -507,7 +507,7 @@
           <ul>
             <li><span class="what">HTLC en la transacción de funding de la inscription.</span><span class="why">La atomicidad vive en Bitcoin layer 1, no en la capa de monedas privadas. Primitivas estándar, sin soft fork.</span></li>
             <li><span class="what">Flujos LN ↔ zkCoins simétricos.</span><span class="why">Comprar con sats de Lightning y vender de vuelta a sats de Lightning, ambas direcciones trustless.</span></li>
-            <li><span class="what">Liquidez frontalizada por providers.</span><span class="why">Cualquiera puede operar un swap provider; el protocolo impone la honestidad, no el operador.</span></li>
+            <li><span class="what">Liquidez adelantada por providers.</span><span class="why">Cualquiera puede operar un swap provider; el protocolo impone la honestidad, no el operador.</span></li>
             <li><span class="what">Patrón de swap que preserva la privacidad.</span><span class="why">Un swap provider conoce el lado LN, nunca el grafo interno de zkCoins.</span></li>
           </ul>
         </div>

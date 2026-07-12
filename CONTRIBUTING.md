@@ -130,6 +130,14 @@ These follow the **zkCoins Brand Guide v1.0** and must not change without an exp
 - Shared stylesheet is `/styles.css` (root-absolute on every page). Do not re-inline a divergent copy.
 - The Shielded CSV paper (ePrint 2025/068) stays a prominent element of the page.
 
+## Adding a language
+
+A new locale needs the code added to `LANGS` in **both** `scripts/lib/i18n.mjs`
+and `scripts/i18n/generate.py`, a translated `scripts/i18n/strings/<code>.json`,
+**and** the new path added to the `i18n:check` and `validate:html` globs in
+`package.json`. Miss those `package.json` lists and the drift gate silently stops
+covering the new locale.
+
 ## Adding a new section
 
 Prefer extending the i18n template (`scripts/i18n/page.template`) and every

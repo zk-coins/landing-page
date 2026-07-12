@@ -105,6 +105,26 @@ function checkSameOriginHttps(label, value) {
   if (ORIGIN !== null && url.origin !== ORIGIN) fail(`${label} "${value}" is not on ${ORIGIN}`);
 }
 
+// og:locale extractors. Kept inline (this file is outside the coverage target)
+// so the LANGS.ogLocale field is consumed by a gate without adding lib helpers
+// that would need their own 100% unit coverage. The exact-quote boundary on
+// "og:locale" means the "og:locale:alternate" metas are never matched here.
+function extractOgLocale(html) {
+  const meta = html.match(/<meta\b[^>]*\bproperty=["']og:locale["'][^>]*>/i);
+  if (!meta) return null;
+  const content = meta[0].match(/\bcontent=["']([^"']+)["']/i);
+  return content ? content[1] : null;
+}
+
+function extractOgLocaleAlternates(html) {
+  const out = [];
+  for (const m of html.matchAll(/<meta\b[^>]*\bproperty=["']og:locale:alternate["'][^>]*>/gi)) {
+    const content = m[0].match(/\bcontent=["']([^"']+)["']/i);
+    if (content) out.push(content[1]);
+  }
+  return out;
+}
+
 // --- 1. nostr.json (NIP-05) --------------------------------------------------
 const NOSTR_FILE = '.well-known/nostr.json';
 if (!existsSync(join(root, NOSTR_FILE))) {
@@ -179,6 +199,28 @@ for (const lang of LANGS) {
     checkSameOriginHttps(`${rel}: og:url`, ogUrl);
     if (expectedUrl !== null && ogUrl !== expectedUrl) {
       fail(`${rel}: og:url should be ${expectedUrl}, got ${ogUrl}`);
+    }
+  }
+
+  // 2b-bis. og:locale exact + og:locale:alternate completeness. The expected
+  // values come from LANGS.ogLocale, so a drift between generate.py and
+  // scripts/lib/i18n.mjs surfaces here instead of shipping a wrong locale.
+  const ogLocale = extractOgLocale(html);
+  if (ogLocale === null) {
+    fail(`${rel}: missing <meta property="og:locale">`);
+  } else if (ogLocale !== lang.ogLocale) {
+    fail(`${rel}: og:locale should be ${lang.ogLocale}, got ${ogLocale}`);
+  }
+  const expectedAlternates = LANGS.filter((l) => l.code !== lang.code).map((l) => l.ogLocale);
+  const ogAlternates = extractOgLocaleAlternates(html);
+  for (const loc of expectedAlternates) {
+    if (!ogAlternates.includes(loc)) {
+      fail(`${rel}: missing <meta property="og:locale:alternate" content="${loc}">`);
+    }
+  }
+  for (const loc of ogAlternates) {
+    if (!expectedAlternates.includes(loc)) {
+      fail(`${rel}: unexpected og:locale:alternate "${loc}"`);
     }
   }
 

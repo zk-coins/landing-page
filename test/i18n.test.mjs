@@ -74,9 +74,9 @@ describe('switcher helpers', () => {
 
   test('extractSwitcherHrefs reads the lang menu', () => {
     const html = `
-      <div class="lang__menu" role="menu">
-        <a href="/">English <span>EN</span></a>
-        <a href="/de/" aria-current="true">Deutsch <span>DE</span></a>
+      <div class="lang__menu">
+        <a href="/" lang="en" hreflang="en">English <span>EN</span></a>
+        <a href="/de/" lang="de" hreflang="de" aria-current="page">Deutsch <span>DE</span></a>
       </div>
     `;
     expect(extractSwitcherHrefs(html)).toEqual(['/', '/de/']);
