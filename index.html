@@ -617,6 +617,11 @@
           "@type": "Question",
           "name": "Is the publisher role actually decentralized?",
           "acceptedAnswer": { "@type": "Answer", "text": "Publishing is permissionless, and any wallet can self-publish its own batch at trivial cost — that caps what a dominant publisher can charge. Competitive economics do favor the fastest, best-capitalised operator, so some concentration is expected. It's a liveness risk only: a publisher never holds custody and can at most censor or delay a batch, never steal or forge coins. Full breakdown on the docs' Risks page." }
+        },
+        {
+          "@type": "Question",
+          "name": "What if off-chain batch data becomes unavailable?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, held by independent nodes rather than guaranteed by Bitcoin. Your own coins are never at stake — no data loss can reveal a key or let anyone forge or seize a coin. What availability affects is verification: if a bundle can't be reached, a fresh verifier can't confirm that batch, and because batches chain one after another, nothing built on top of it either — it stays pending, never silently accepted. The precise guarantees when data is withheld or served selectively are the subtle part, and the Shielded CSV paper sidesteps them by writing each 64-byte nullifier to Bitcoin. Both are laid out on the docs' Risks page." }
         }
       ]
     }
@@ -739,7 +744,7 @@
       <p class="abstract">
         Client-Side Validation decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and targets roughly an order of magnitude more transactions per second than the base layer alone.
       </p>
-      <p class="paper-note"><b>zkCoins v1 goes further:</b> the nullifier never touches Bitcoin at all — a permissionless publisher batches many spends into one constant 231-byte BatchInscription, beyond the paper's per-transaction 64-byte on-chain figure.</p>
+      <p class="paper-note"><b>zkCoins v1 batches it:</b> a permissionless publisher folds many spends into a single constant 231-byte BatchInscription, so the on-chain footprint stays flat however many transactions ride in one batch — where the paper spends 64 bytes per transaction, zkCoins spends 231 for the whole batch. The nullifiers move off-chain into replicated batch data: a deliberate trade of an explicit data-availability assumption for that constant cost, laid out on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -796,7 +801,7 @@
       <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof goes to the receiver</p><p class="d">The proof travels <b>directly to the receiver, off-chain</b>. Only sender and receiver ever see the amounts, parties and history — nothing is written to the chain.</p></div></li>
       <li class="step"><span class="n">3</span><div class="body"><p class="t">A batch is anchored on Bitcoin</p><p class="d">A permissionless <b>publisher</b> aggregates many spends and inscribes one constant <code>231-byte BatchInscription</code> — the nullifiers themselves stay off-chain.</p></div></li>
       <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver re-verifies the coin's full zero-knowledge proof locally — a single constant-time check, no matter how long the coin's history — and accepts it without trusting any third party.</p></div></li>
-      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin prevents double-spends</p><p class="d">Each batch anchors the nullifier accumulator's root transition. The chain's one job: guarantee each coin is spent <b>exactly once</b>.</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin anchors double-spend protection</p><p class="d">Each batch anchors the nullifier accumulator's root transition; the chain fixes the one canonical order of batches. The batch proof — checked against the published batch data — is what guarantees each coin is spent <b>exactly once</b>.</p></div></li>
     </ol>
   </section>
 
@@ -835,7 +840,7 @@
     </div>
     <div class="nots">
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a sidechain</span><p>It uses <b>Bitcoin L1 directly</b> — no separate consensus, no bridge to a foreign chain.</p></div>
-      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no data-availability layer.</b> Proofs move peer-to-peer between sender and receiver.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no coordinator.</b> Validity proofs move peer-to-peer between sender and receiver, then anchor to Bitcoin L1.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — a global anonymity set of every coin, not a small per-round pool.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a token</span><p><b>No native protocol token to bootstrap.</b> Value lives in client-side-validated coins.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a soft fork</span><p>It works on <b>Bitcoin as it exists today</b> — no consensus change, no new opcodes.</p></div>
@@ -1040,6 +1045,10 @@
       <details>
         <summary>Is the publisher role actually decentralized?</summary>
         <p>Publishing is permissionless, and any wallet can self-publish its own batch at trivial cost — that caps what a dominant publisher can charge. Competitive economics do favor the fastest, best-capitalised operator, so some concentration is expected. It's a liveness risk only: a publisher never holds custody and can at most censor or delay a batch, never steal or forge coins. Full breakdown on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
+      </details>
+      <details>
+        <summary>What if off-chain batch data becomes unavailable?</summary>
+        <p>The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, held by independent nodes rather than guaranteed by Bitcoin. Your own coins are never at stake — no data loss can reveal a key or let anyone forge or seize a coin. What availability affects is verification: if a bundle can't be reached, a fresh verifier can't confirm that batch, and because batches chain one after another, nothing built on top of it either — it stays pending, never silently accepted. The precise guarantees when data is withheld or served selectively are the subtle part, and the Shielded CSV paper sidesteps them by writing each 64-byte nullifier to Bitcoin. Both are laid out on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
       </details>
     </div>
   </section>
