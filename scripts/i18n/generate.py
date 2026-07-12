@@ -345,7 +345,6 @@ def main() -> int:
         "faq_a7_json",
         "faq_q8",
         "faq_a8",
-        "faq_a8_json",
         "jsonld_org_description",
         "jsonld_website_description",
         "jsonld_wallet_description",
