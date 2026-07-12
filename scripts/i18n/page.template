@@ -448,6 +448,10 @@
         <summary>{{faq_q7}}</summary>
         <p>{{faq_a7}}</p>
       </details>
+      <details>
+        <summary>{{faq_q8}}</summary>
+        <p>{{faq_a8}}</p>
+      </details>
     </div>
   </section>
 

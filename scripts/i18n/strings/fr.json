@@ -56,7 +56,7 @@
   "meta_predecessor_dt": "Prédécesseur",
   "meta_predecessor_dd": "zkCoins (Robin Linus, 2023) · s'appuie sur le <a href=\"https://github.com/ZeroSync/ZKCoins\">prototype ZeroSync</a>",
   "paper_abstract": "Client-Side Validation découple la validation des transactions du consensus Bitcoin en la déplaçant vers le destinataire. Shielded CSV améliore les conceptions CSV antérieures en masquant entièrement l'historique des transactions&nbsp;: chaque transfert ne fuit qu'un nullifier de 64 octets vers la chaîne, le reste étant vérifié côté client via des preuves zero-knowledge succinctes. Le protocole est compatible avec Bitcoin tel quel — pas de soft fork, pas de hard fork — et vise environ un ordre de grandeur de plus de transactions par seconde que la base layer seule.",
-  "paper_note": "<b>zkCoins v1 va plus loin&nbsp;:</b> le nullifier ne touche jamais Bitcoin — un publisher permissionless regroupe de nombreux spends en une seule BatchInscription constante de 231 octets, au-delà du chiffre on-chain de 64 octets par transaction du paper.",
+  "paper_note": "<b>zkCoins v1 fait un compromis délibéré&nbsp;:</b> le nullifier ne touche jamais Bitcoin — un publisher permissionless regroupe de nombreux spends en une seule BatchInscription constante de 231 octets, en deçà du chiffre de 64 octets par transaction du paper. Le paper garde chaque nullifier on-chain, de sorte que Bitcoin lui-même en garantit la disponibilité&nbsp;; zkCoins garde plutôt les nullifiers dans des données de batch hors chaîne répliquées — une empreinte plus réduite obtenue au prix d'une hypothèse de data-availability, détaillée sur la <a href=\"https://docs.zkcoins.app/risks\">page Risks</a> des docs.",
   "btn_read_paper": "Lire le paper",
   "btn_abstract_eprint": "Abstract sur ePrint",
 
@@ -87,8 +87,8 @@
   "step3_d": "Un <b>publisher</b> permissionless agrège de nombreux spends et inscrit une seule <code>231-byte BatchInscription</code> constante — les nullifiers eux-mêmes restent hors chaîne.",
   "step4_t": "Le destinataire vérifie côté client",
   "step4_d": "Le destinataire re-vérifie localement la preuve zero-knowledge complète du coin — un seul contrôle en temps constant, quelle que soit la longueur de l'historique — et l'accepte sans faire confiance à un tiers.",
-  "step5_t": "Bitcoin empêche les double-spends",
-  "step5_d": "Chaque batch ancre la transition de racine de l'accumulateur de nullifiers. Le seul rôle de la chaîne&nbsp;: garantir que chaque coin est dépensé <b>exactement une fois</b>.",
+  "step5_t": "Bitcoin ancre la protection contre les double-spends",
+  "step5_d": "Chaque batch ancre la transition de racine de l'accumulateur de nullifiers&nbsp;; la chaîne fixe l'unique ordre canonique des batches. La preuve de batch — vérifiée contre les données de batch publiées — est ce qui garantit que chaque coin est dépensé <b>exactement une fois</b>.",
 
   "perf_eyebrow": "En chiffres",
   "perf_h2": "Bitcoin, à côté de Shielded CSV",
@@ -117,7 +117,7 @@
   "not1_title": "Pas une sidechain",
   "not1_p": "Il utilise <b>Bitcoin L1 directement</b> — pas de consensus séparé, pas de bridge vers une chaîne étrangère.",
   "not2_title": "Pas un rollup",
-  "not2_p": "<b>Pas de sequencer, pas de couche de data-availability.</b> Les preuves circulent peer-to-peer entre expéditeur et destinataire.",
+  "not2_p": "<b>Pas de sequencer, aucun opérateur dans la boucle.</b> Les preuves circulent peer-to-peer entre expéditeur et destinataire&nbsp;; les données de batch hors chaîne sont répliquées sur des nœuds indépendants — la disponibilité est une question de liveness, jamais de custody.",
   "not3_title": "Pas un mixer",
   "not3_p": "La confidentialité est <b>structurelle, pas de l'obfuscation</b> — un ensemble d'anonymat global de chaque coin, pas un petit pool par round.",
   "not4_title": "Pas un token",
@@ -242,6 +242,9 @@
   "faq_q7": "Le rôle de publisher est-il vraiment décentralisé&nbsp;?",
   "faq_a7": "La publication est permissionless, et tout wallet peut auto-publier son propre batch à un coût trivial — cela plafonne ce qu'un publisher dominant peut facturer. L'économie concurrentielle favorise l'opérateur le plus rapide et le mieux capitalisé, donc une certaine concentration est attendue. Ce n'est qu'un risque de liveness&nbsp;: un publisher ne détient jamais la custody et peut au plus censurer ou retarder un batch, jamais voler ni forger des coins. Analyse complète sur la <a href=\"https://docs.zkcoins.app/risks\">page Risks</a> des docs.",
   "faq_a7_json": "La publication est permissionless, et tout wallet peut auto-publier son propre batch à un coût trivial — cela plafonne ce qu'un publisher dominant peut facturer. L'économie concurrentielle favorise l'opérateur le plus rapide et le mieux capitalisé, donc une certaine concentration est attendue. Ce n'est qu'un risque de liveness&nbsp;: un publisher ne détient jamais la custody et peut au plus censurer ou retarder un batch, jamais voler ni forger des coins. Analyse complète sur la page Risks des docs.",
+  "faq_q8": "Que se passe-t-il si les données de batch hors chaîne deviennent indisponibles&nbsp;?",
+  "faq_a8": "Les nullifiers derrière chaque inscription de 231 octets vivent hors chaîne dans un batch bundle, détenu par des nœuds indépendants plutôt que garanti par Bitcoin. Si un bundle devenait inatteignable, un nouveau vérifieur ne pourrait pas confirmer ce batch — et, comme les batches s'enchaînent les uns après les autres, rien de ce qui est bâti par-dessus non plus. Il reste en attente, jamais accepté silencieusement&nbsp;: la vérification s'arrête plutôt que de mentir, et aucun coin ne peut circuler ni être forgé sur des données que personne ne peut lire. C'est un risque de liveness, jamais de custody. C'est le vrai prix de l'empreinte on-chain constante — le paper Shielded CSV écrit à la place chaque nullifier de 64 octets sur Bitcoin, de sorte que la chaîne elle-même garantit que les données sont toujours là. La façon dont la rétention est assurée, ainsi que ses limites, sont détaillées sur la <a href=\"https://docs.zkcoins.app/risks\">page Risks</a> des docs.",
+  "faq_a8_json": "Les nullifiers derrière chaque inscription de 231 octets vivent hors chaîne dans un batch bundle, détenu par des nœuds indépendants plutôt que garanti par Bitcoin. Si un bundle devenait inatteignable, un nouveau vérifieur ne pourrait pas confirmer ce batch — et, comme les batches s'enchaînent les uns après les autres, rien de ce qui est bâti par-dessus non plus. Il reste en attente, jamais accepté silencieusement&nbsp;: la vérification s'arrête plutôt que de mentir, et aucun coin ne peut circuler ni être forgé sur des données que personne ne peut lire. C'est un risque de liveness, jamais de custody. C'est le vrai prix de l'empreinte on-chain constante — le paper Shielded CSV écrit à la place chaque nullifier de 64 octets sur Bitcoin, de sorte que la chaîne elle-même garantit que les données sont toujours là. La façon dont la rétention est assurée, ainsi que ses limites, sont détaillées sur la page Risks des docs.",
 
   "cta_h2": "Essayez le Bitcoin privé aujourd'hui",
   "cta_p": "Le wallet zkCoins tourne dans votre navigateur. Les clés sont générées et stockées localement — elles ne quittent jamais votre appareil. Actuellement sur un réseau de test public&nbsp;; aucun vrai Bitcoin n'est en risque.",

@@ -187,6 +187,14 @@
             "@type": "Answer",
             "text": "Publishing is permissionless, and any wallet can self-publish its own batch at trivial cost — that caps what a dominant publisher can charge. Competitive economics do favor the fastest, best-capitalised operator, so some concentration is expected. It's a liveness risk only: a publisher never holds custody and can at most censor or delay a batch, never steal or forge coins. Full breakdown on the docs' Risks page."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "What if off-chain batch data becomes unavailable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, held by independent nodes rather than guaranteed by Bitcoin. If a bundle became unreachable, a fresh verifier could not confirm that batch — and, because batches chain one after another, nothing built on top of it either. It stays pending, never silently accepted: verification halts rather than lies, and no coin can move or be forged on data no one can read. This is a liveness risk, never a custody one. It is the real price of the constant on-chain footprint — the Shielded CSV paper instead writes each 64-byte nullifier to Bitcoin, so the chain itself guarantees the data is always there. How retention is enforced, and its limits, are laid out on the docs' Risks page."
+          }
         }
       ]
     }
@@ -319,7 +327,7 @@
       <p class="abstract">
         Client-Side Validation decouples transaction validation from Bitcoin consensus by moving it to the recipient. Shielded CSV improves on prior CSV designs by hiding the transaction history entirely: each transfer leaks only a 64-byte nullifier to the chain, with the rest verified client-side via succinct zero-knowledge proofs. The protocol is compatible with Bitcoin as-is — no soft fork, no hard fork — and targets roughly an order of magnitude more transactions per second than the base layer alone.
       </p>
-      <p class="paper-note"><b>zkCoins v1 goes further:</b> the nullifier never touches Bitcoin at all — a permissionless publisher batches many spends into one constant 231-byte BatchInscription, beyond the paper's per-transaction 64-byte on-chain figure.</p>
+      <p class="paper-note"><b>zkCoins v1 makes a deliberate tradeoff:</b> the nullifier never touches Bitcoin at all — a permissionless publisher batches many spends into one constant 231-byte BatchInscription, below the paper's per-transaction 64-byte figure. The paper keeps every nullifier on-chain so Bitcoin itself guarantees its availability; zkCoins keeps nullifiers in replicated off-chain batch data instead — a smaller footprint bought with a data-availability assumption, spelled out on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -376,7 +384,7 @@
       <li class="step"><span class="n">2</span><div class="body"><p class="t">Proof goes to the receiver</p><p class="d">The proof travels <b>directly to the receiver, off-chain</b>. Only sender and receiver ever see the amounts, parties and history — nothing is written to the chain.</p></div></li>
       <li class="step"><span class="n">3</span><div class="body"><p class="t">A batch is anchored on Bitcoin</p><p class="d">A permissionless <b>publisher</b> aggregates many spends and inscribes one constant <code>231-byte BatchInscription</code> — the nullifiers themselves stay off-chain.</p></div></li>
       <li class="step"><span class="n">4</span><div class="body"><p class="t">Receiver verifies client-side</p><p class="d">The receiver re-verifies the coin's full zero-knowledge proof locally — a single constant-time check, no matter how long the coin's history — and accepts it without trusting any third party.</p></div></li>
-      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin prevents double-spends</p><p class="d">Each batch anchors the nullifier accumulator's root transition. The chain's one job: guarantee each coin is spent <b>exactly once</b>.</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin anchors double-spend protection</p><p class="d">Each batch anchors the nullifier accumulator's root transition; the chain fixes the one canonical order of batches. The batch proof — checked against the published batch data — is what guarantees each coin is spent <b>exactly once</b>.</p></div></li>
     </ol>
   </section>
 
@@ -415,7 +423,7 @@
     </div>
     <div class="nots">
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a sidechain</span><p>It uses <b>Bitcoin L1 directly</b> — no separate consensus, no bridge to a foreign chain.</p></div>
-      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no data-availability layer.</b> Proofs move peer-to-peer between sender and receiver.</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a rollup</span><p><b>No sequencer, no operator in the loop.</b> Proofs move peer-to-peer between sender and receiver; off-chain batch data is replicated across independent nodes — availability is a liveness matter, never custody.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a mixer</span><p>Privacy is <b>structural, not obfuscation</b> — a global anonymity set of every coin, not a small per-round pool.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a token</span><p><b>No native protocol token to bootstrap.</b> Value lives in client-side-validated coins.</p></div>
       <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not a soft fork</span><p>It works on <b>Bitcoin as it exists today</b> — no consensus change, no new opcodes.</p></div>
@@ -620,6 +628,10 @@
       <details>
         <summary>Is the publisher role actually decentralized?</summary>
         <p>Publishing is permissionless, and any wallet can self-publish its own batch at trivial cost — that caps what a dominant publisher can charge. Competitive economics do favor the fastest, best-capitalised operator, so some concentration is expected. It's a liveness risk only: a publisher never holds custody and can at most censor or delay a batch, never steal or forge coins. Full breakdown on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
+      </details>
+      <details>
+        <summary>What if off-chain batch data becomes unavailable?</summary>
+        <p>The nullifiers behind each 231-byte inscription live off-chain in a batch bundle, held by independent nodes rather than guaranteed by Bitcoin. If a bundle became unreachable, a fresh verifier could not confirm that batch — and, because batches chain one after another, nothing built on top of it either. It stays pending, never silently accepted: verification halts rather than lies, and no coin can move or be forged on data no one can read. This is a liveness risk, never a custody one. It is the real price of the constant on-chain footprint — the Shielded CSV paper instead writes each 64-byte nullifier to Bitcoin, so the chain itself guarantees the data is always there. How retention is enforced, and its limits, are laid out on the docs' <a href="https://docs.zkcoins.app/risks">Risks page</a>.</p>
       </details>
     </div>
   </section>

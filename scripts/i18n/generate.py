@@ -175,9 +175,9 @@ def build_lang_switcher(current_code: str, aria_label: str) -> str:
 
 
 def faq_answer_for_json(strings: dict[str, str], n: int) -> str:
-    if n == 7:
-        return strings["faq_a7_json"]
-    return strings[f"faq_a{n}"]
+    # Answers with an inline link carry a link-free "faq_a{n}_json" variant for
+    # the FAQPage structured data; plain answers reuse the visible string.
+    return strings.get(f"faq_a{n}_json", strings[f"faq_a{n}"])
 
 
 def build_json_ld(code: str, strings: dict[str, str], locale_url: str) -> str:
@@ -253,7 +253,7 @@ def build_json_ld(code: str, strings: dict[str, str], locale_url: str) -> str:
                         "text": faq_answer_for_json(strings, n),
                     },
                 }
-                for n in range(1, 8)
+                for n in range(1, 9)
             ],
         },
     ]
@@ -343,6 +343,9 @@ def main() -> int:
         "faq_q7",
         "faq_a7",
         "faq_a7_json",
+        "faq_q8",
+        "faq_a8",
+        "faq_a8_json",
         "jsonld_org_description",
         "jsonld_website_description",
         "jsonld_wallet_description",
