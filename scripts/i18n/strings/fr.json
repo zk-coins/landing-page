@@ -88,7 +88,7 @@
   "step4_t": "Le destinataire vérifie côté client",
   "step4_d": "Le destinataire re-vérifie localement la preuve zero-knowledge complète du coin — un seul contrôle en temps constant, quelle que soit la longueur de l'historique — et l'accepte sans faire confiance à un tiers.",
   "step5_t": "Bitcoin ancre la protection contre les double-spends",
-  "step5_d": "Chaque batch ancre la transition de racine de l'accumulateur de nullifiers&nbsp;; la chaîne fixe l'unique ordre canonique des batches. La preuve de batch — vérifiée contre les données de batch publiées — est ce qui garantit que chaque coin est dépensé <b>exactement une fois</b>.",
+  "step5_d": "Chaque batch ancre la transition de racine de l'accumulateur de nullifiers&nbsp;; la chaîne fixe l'unique ordre canonique des batches. La preuve de batch — vérifiée par rapport aux données de batch publiées — est ce qui garantit que chaque coin est dépensé <b>exactement une fois</b>.",
 
   "perf_eyebrow": "En chiffres",
   "perf_h2": "Bitcoin, à côté de Shielded CSV",
