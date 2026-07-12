@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="{{html_lang}}">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>{{meta_title}}</title>
+<meta name="description" content="{{meta_description}}" />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<meta property="og:title" content="{{og_title}}" />
+<meta property="og:description" content="{{og_description}}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{canonical_url}}" />
+<meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@zkcoinsbtc" />
+<meta name="twitter:creator" content="@zkcoinsbtc" />
+<link rel="canonical" href="{{canonical_url}}" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="author" content="zkCoins" />
+<meta name="application-name" content="zkCoins" />
+<meta property="og:site_name" content="zkCoins" />
+<meta property="og:locale" content="{{og_locale}}" />
+{{og_locale_alternates}}
+{{hreflang_links}}
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+<link rel="stylesheet" href="/styles.css" />
+<script type="application/ld+json">
+{{json_ld}}
+</script>
+</head>
+<body>
+<!-- zkCoins mark — canonical 12×12 pixel monogram (Brand Guide v1.0) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="zk" viewBox="0 0 12 12">
+    <rect x="3" y="1" width="6" height="1"/>
+    <rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+    <rect x="2" y="3" width="8" height="1"/>
+    <rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+    <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+    <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+    <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+    <rect x="2" y="8" width="8" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+    <rect x="3" y="10" width="6" height="1"/>
+  </symbol>
+</svg>
+<a class="skip" href="#main">{{skip_to_content}}</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="{{locale_home}}" aria-label="{{brand_aria}}">
+      <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+      <span class="word"><b>zk</b>Coins</span>
+    </a>
+    <nav class="nav-links" aria-label="{{nav_aria}}">
+      <a class="link" href="#paper">{{nav_paper}}</a>
+      <a class="link" href="#how">{{nav_how}}</a>
+      <a class="link" href="#roadmap">{{nav_roadmap}}</a>
+      <a class="link" href="https://docs.zkcoins.app">{{nav_docs}}</a>
+      <a class="app-btn" href="https://zkcoins.app">
+        {{nav_open_wallet}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      {{lang_switcher}}
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">{{hero_eyebrow}}</span>
+    <h1>{{hero_h1_line1}}<br><span class="accent">{{hero_h1_accent}}</span></h1>
+    <p class="lede">{{hero_lede}}</p>
+    <div class="pillars">
+      <span class="pill">{{pill_no_soft_fork}}</span>
+      <span class="pill">{{pill_self_custodial}}</span>
+      <span class="pill">{{pill_zero_knowledge}}</span>
+      <span class="pill">{{pill_no_coordinator}}</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://zkcoins.app">
+        {{cta_open_wallet}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#paper">{{cta_read_whitepaper}}</a>
+    </div>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="statband" aria-label="{{statband_aria}}">
+    <div class="stat"><span class="num">231<span class="u">B</span></span><span class="lab">{{stat_onchain_lab}}</span></div>
+    <div class="stat"><span class="num">~3.2<span class="u">vB</span></span><span class="lab">{{stat_perspend_lab}}</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">{{stat_softforks_lab}}</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">{{stat_coordinators_lab}}</span></div>
+  </section>
+
+  <!-- COMPRESSION DIAGRAM -->
+  <section class="compare band" aria-label="{{compare_aria}}">
+    <div class="compare-grid">
+      <div class="txbox tx-public">
+        <div class="tx-title"><span class="tx-dot"></span>{{tx_public_title}}</div>
+        <div class="tx-row"><span class="lbl">{{tx_from}}</span><span class="val">bc1q7f…3k9</span></div>
+        <div class="tx-row"><span class="lbl">{{tx_to}}</span><span class="val">bc1p2m…q8x</span></div>
+        <div class="tx-row"><span class="lbl">{{tx_amount}}</span><span class="val">0.4218 BTC</span></div>
+        <div class="tx-foot">{{tx_public_foot}}</div>
+      </div>
+      <div class="compare-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        {{compare_arrow}}
+      </div>
+      <div class="txbox tx-private">
+        <div class="tx-title"><span class="tx-dot"></span>{{tx_private_title}}</div>
+        <div class="nullifier">{{nullifier_text}}</div>
+        <div class="tx-foot">{{tx_private_foot}}</div>
+      </div>
+    </div>
+    <p class="compare-cap">{{compare_cap}}</p>
+  </section>
+
+  <!-- PAPER (dominant) -->
+  <section id="paper" style="padding-bottom: 8px;">
+    <blockquote class="quote quote-lead">
+      <span lang="en">{{quote_text}}</span>
+      <cite>{{quote_cite}}</cite>
+    </blockquote>
+    <article class="paper" aria-labelledby="paper-title">
+      <div class="eyebrow">{{paper_eyebrow}}</div>
+      <h2 id="paper-title">{{paper_title}}</h2>
+      <div class="subtitle">{{paper_subtitle}}</div>
+
+      <dl class="meta">
+        <dt>{{meta_authors_dt}}</dt>
+        <dd>{{meta_authors_dd}}</dd>
+        <dt>{{meta_published_dt}}</dt>
+        <dd>{{meta_published_dd}}</dd>
+        <dt>{{meta_reference_dt}}</dt>
+        <dd><a href="https://eprint.iacr.org/2025/068">eprint.iacr.org/2025/068</a></dd>
+        <dt>{{meta_predecessor_dt}}</dt>
+        <dd>{{meta_predecessor_dd}}</dd>
+      </dl>
+
+      <p class="abstract">
+        {{paper_abstract}}
+      </p>
+      <p class="paper-note">{{paper_note}}</p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
+          {{btn_read_paper}}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://eprint.iacr.org/2025/068">{{btn_abstract_eprint}}</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- WHAT CHANGES -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">{{changes_eyebrow}}</span>
+      <h2>{{changes_h2}}</h2>
+      <p>{{changes_p}}</p>
+    </div>
+    <div class="concepts">
+      <div class="concept">
+        <div class="k">{{concept1_k}}</div>
+        <div class="h">{{concept1_h}}</div>
+        <p class="v">{{concept1_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{concept2_k}}</div>
+        <div class="h">{{concept2_h}}</div>
+        <p class="v">{{concept2_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{concept3_k}}</div>
+        <div class="h">{{concept3_h}}</div>
+        <p class="v">{{concept3_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{concept4_k}}</div>
+        <div class="h">{{concept4_h}}</div>
+        <p class="v">{{concept4_v}}</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="band">
+    <div class="band-head">
+      <span class="eyebrow">{{how_eyebrow}}</span>
+      <h2>{{how_h2}}</h2>
+      <p>{{how_p}}</p>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="n">1</span><div class="body"><p class="t">{{step1_t}}</p><p class="d">{{step1_d}}</p></div></li>
+      <li class="step"><span class="n">2</span><div class="body"><p class="t">{{step2_t}}</p><p class="d">{{step2_d}}</p></div></li>
+      <li class="step"><span class="n">3</span><div class="body"><p class="t">{{step3_t}}</p><p class="d">{{step3_d}}</p></div></li>
+      <li class="step"><span class="n">4</span><div class="body"><p class="t">{{step4_t}}</p><p class="d">{{step4_d}}</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">{{step5_t}}</p><p class="d">{{step5_d}}</p></div></li>
+    </ol>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- PERFORMANCE -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">{{perf_eyebrow}}</span>
+      <h2>{{perf_h2}}</h2>
+    </div>
+    <div class="perf-wrap">
+      <table class="perf">
+        <thead>
+          <tr><th>{{perf_metric}}</th><th>{{perf_bitcoin_regular}}</th><th class="zk">{{perf_zkcoins_v1}}</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="metric">{{perf_row1_metric}}</td><td class="btc" data-label="{{perf_bitcoin_regular}}">{{perf_row1_btc}}</td><td class="zk" data-label="{{perf_zkcoins_v1}}">{{perf_row1_zk}}</td></tr>
+          <tr><td class="metric">{{perf_row2_metric}}</td><td class="btc" data-label="{{perf_bitcoin_regular}}">{{perf_row2_btc}}</td><td class="zk" data-label="{{perf_zkcoins_v1}}">{{perf_row2_zk}}</td></tr>
+          <tr><td class="metric">{{perf_row3_metric}}</td><td class="btc" data-label="{{perf_bitcoin_regular}}">{{perf_row3_btc}}</td><td class="zk" data-label="{{perf_zkcoins_v1}}">{{perf_row3_zk}}</td></tr>
+          <tr><td class="metric">{{perf_row4_metric}}</td><td class="btc" data-label="{{perf_bitcoin_regular}}">{{perf_row4_btc}}</td><td class="zk" data-label="{{perf_zkcoins_v1}}">{{perf_row4_zk}}</td></tr>
+          <tr><td class="metric">{{perf_row5_metric}}</td><td class="btc" data-label="{{perf_bitcoin_regular}}">{{perf_row5_btc}}</td><td class="zk" data-label="{{perf_zkcoins_v1}}">{{perf_row5_zk}}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- WHAT IT IS NOT -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">{{boundaries_eyebrow}}</span>
+      <h2>{{boundaries_h2}}</h2>
+      <p>{{boundaries_p}}</p>
+    </div>
+    <div class="nots">
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{not1_title}}</span><p>{{not1_p}}</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{not2_title}}</span><p>{{not2_p}}</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{not3_title}}</span><p>{{not3_p}}</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{not4_title}}</span><p>{{not4_p}}</p></div>
+      <div class="not"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{not5_title}}</span><p>{{not5_p}}</p></div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- ROADMAP -->
+  <section id="roadmap" class="roadmap band" aria-labelledby="roadmap-title">
+    <div class="roadmap-head">
+      <div class="band-head" style="margin:0;">
+        <span class="eyebrow">{{roadmap_eyebrow}}</span>
+        <h2 id="roadmap-title" style="margin-bottom:0;">{{roadmap_title}}</h2>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span class="is-active"><i class="dot-active"></i>{{legend_active}}</span>
+        <span><i class="dot-next"></i>{{legend_next}}</span>
+        <span><i class="dot-planned"></i>{{legend_planned}}</span>
+        <span><i class="dot-horizon"></i>{{legend_horizon}}</span>
+      </div>
+    </div>
+
+    <ol class="timeline">
+      <li class="phase active">
+        <div class="phase-head">
+          <span class="phase-num">{{phase01_num}}</span>
+          <h3 class="phase-title">{{phase01_title}}</h3>
+          <span class="phase-when">{{phase01_when}}</span>
+          <span class="phase-status">{{phase01_status}}</span>
+        </div>
+        <p class="phase-lede">{{phase01_lede}}</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">{{phase01_i1_what}}</span><span class="why">{{phase01_i1_why}}</span></li>
+            <li><span class="what">{{phase01_i2_what}}</span><span class="why">{{phase01_i2_why}}</span></li>
+            <li><span class="what">{{phase01_i3_what}}</span><span class="why">{{phase01_i3_why}}</span></li>
+            <li><span class="what">{{phase01_i4_what}}</span><span class="why">{{phase01_i4_why}}</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase next">
+        <div class="phase-head">
+          <span class="phase-num">{{phase02_num}}</span>
+          <h3 class="phase-title">{{phase02_title}}</h3>
+          <span class="phase-when">{{phase02_when}}</span>
+          <span class="phase-status">{{phase02_status}}</span>
+        </div>
+        <p class="phase-lede">{{phase02_lede}}</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">{{phase02_i1_what}}</span><span class="why">{{phase02_i1_why}}</span></li>
+            <li><span class="what">{{phase02_i2_what}}</span><span class="why">{{phase02_i2_why}}</span></li>
+            <li><span class="what">{{phase02_i3_what}}</span><span class="why">{{phase02_i3_why}}</span></li>
+            <li><span class="what">{{phase02_i4_what}}</span><span class="why">{{phase02_i4_why}}</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase planned">
+        <div class="phase-head">
+          <span class="phase-num">{{phase03_num}}</span>
+          <h3 class="phase-title">{{phase03_title}}</h3>
+          <span class="phase-when">{{phase03_when}}</span>
+          <span class="phase-status">{{phase03_status}}</span>
+        </div>
+        <p class="phase-lede">{{phase03_lede}}</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">{{phase03_i1_what}}</span><span class="why">{{phase03_i1_why}}</span></li>
+            <li><span class="what">{{phase03_i2_what}}</span><span class="why">{{phase03_i2_why}}</span></li>
+            <li><span class="what">{{phase03_i3_what}}</span><span class="why">{{phase03_i3_why}}</span></li>
+            <li><span class="what">{{phase03_i4_what}}</span><span class="why">{{phase03_i4_why}}</span></li>
+            <li><span class="what">{{phase03_i5_what}}</span><span class="why">{{phase03_i5_why}}</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase planned">
+        <div class="phase-head">
+          <span class="phase-num">{{phase04_num}}</span>
+          <h3 class="phase-title">{{phase04_title}}</h3>
+          <span class="phase-when">{{phase04_when}}</span>
+          <span class="phase-status">{{phase04_status}}</span>
+        </div>
+        <p class="phase-lede">{{phase04_lede}}</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">{{phase04_i1_what}}</span><span class="why">{{phase04_i1_why}}</span></li>
+            <li><span class="what">{{phase04_i2_what}}</span><span class="why">{{phase04_i2_why}}</span></li>
+            <li><span class="what">{{phase04_i3_what}}</span><span class="why">{{phase04_i3_why}}</span></li>
+            <li><span class="what">{{phase04_i4_what}}</span><span class="why">{{phase04_i4_why}}</span></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="phase horizon">
+        <div class="phase-head">
+          <span class="phase-num">{{phase05_num}}</span>
+          <h3 class="phase-title">{{phase05_title}}</h3>
+          <span class="phase-when">{{phase05_when}}</span>
+          <span class="phase-status">{{phase05_status}}</span>
+        </div>
+        <p class="phase-lede">{{phase05_lede}}</p>
+        <div class="phase-card">
+          <ul>
+            <li><span class="what">{{phase05_i1_what}}</span><span class="why">{{phase05_i1_why}}</span></li>
+            <li><span class="what">{{phase05_i2_what}}</span><span class="why">{{phase05_i2_why}}</span></li>
+            <li><span class="what">{{phase05_i3_what}}</span><span class="why">{{phase05_i3_why}}</span></li>
+            <li><span class="what">{{phase05_i4_what}}</span><span class="why">{{phase05_i4_why}}</span></li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+    <p class="roadmap-note">{{roadmap_note}}</p>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- FAMILY -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">{{family_eyebrow}}</span>
+      <h2>{{family_h2}}</h2>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://zkcoins.app">
+        <div class="label">{{card_wallet_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{card_wallet_name}}</div>
+        <div class="domain">zkcoins.app</div>
+      </a>
+      <a class="card" href="https://docs.zkcoins.app">
+        <div class="label">{{card_docs_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{card_docs_name}}</div>
+        <div class="domain">docs.zkcoins.app</div>
+      </a>
+      <a class="card" href="https://github.com/zk-coins">
+        <div class="label">{{card_source_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{card_source_name}}</div>
+        <div class="domain">github.com/zk-coins</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- INVESTORS -->
+  <section id="investors" class="band" aria-labelledby="investors-title">
+    <div class="investor">
+      <div class="band-head">
+        <span class="eyebrow">{{investors_eyebrow}}</span>
+        <h2 id="investors-title">{{investors_title}}</h2>
+        <p>{{investors_intro}}</p>
+      </div>
+      <div class="investor-body">
+        <p>{{investors_body}}</p>
+        <a class="investor-mail" href="mailto:investors@zkcoins.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          investors@zkcoins.com
+        </a>
+        <div class="investor-links" role="group" aria-label="{{investors_dd_aria}}">
+          <a href="https://github.com/zk-coins">{{investors_link_github}}</a>
+          <a href="#paper">{{investors_link_whitepaper}}</a>
+          <a href="#roadmap">{{investors_link_roadmap}}</a>
+          <a href="https://docs.zkcoins.app">{{investors_link_docs}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <div class="band-head">
+      <span class="eyebrow">{{faq_eyebrow}}</span>
+      <h2>{{faq_h2}}</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>{{faq_q1}}</summary>
+        <p>{{faq_a1}}</p>
+      </details>
+      <details>
+        <summary>{{faq_q2}}</summary>
+        <p>{{faq_a2}}</p>
+      </details>
+      <details>
+        <summary>{{faq_q3}}</summary>
+        <p>{{faq_a3}}</p>
+      </details>
+      <details>
+        <summary>{{faq_q4}}</summary>
+        <p>{{faq_a4}}</p>
+      </details>
+      <details>
+        <summary>{{faq_q5}}</summary>
+        <p>{{faq_a5}}</p>
+      </details>
+      <details>
+        <summary>{{faq_q6}}</summary>
+        <p>{{faq_a6}}</p>
+      </details>
+      <details>
+        <summary>{{faq_q7}}</summary>
+        <p>{{faq_a7}}</p>
+      </details>
+      <details>
+        <summary>{{faq_q8}}</summary>
+        <p>{{faq_a8}}</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band" style="padding-top:8px;">
+    <div class="cta">
+      <h2>{{cta_h2}}</h2>
+      <p>{{cta_p}}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://zkcoins.app">
+          {{cta_open_wallet}}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://docs.zkcoins.app">{{cta_read_docs}}</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="{{locale_home}}" aria-label="{{brand_aria}}">
+        <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+        <span class="word"><b>zk</b>Coins</span>
+      </a>
+      <span class="tag">{{footer_tag}}</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>{{footer_protocol}}</h3>
+        <a href="#paper">{{footer_whitepaper}}</a>
+        <a href="#how">{{footer_how}}</a>
+        <a href="#roadmap">{{footer_roadmap}}</a>
+        <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
+      </div>
+      <div class="footer-col">
+        <h3>{{footer_build}}</h3>
+        <a href="https://zkcoins.app">{{footer_wallet}}</a>
+        <a href="https://docs.zkcoins.app">{{footer_documentation}}</a>
+        <a href="https://github.com/zk-coins">{{footer_github}}</a>
+        <a href="https://github.com/zk-coins/landing-page/tree/HEAD/brand">{{footer_brand_kit}}</a>
+      </div>
+      <div class="footer-col">
+        <h3>{{footer_community}}</h3>
+        <a href="https://x.com/zkcoinsbtc">{{footer_x}}</a>
+        <a href="https://t.me/zkcoinsbtc">{{footer_telegram}}</a>
+        <a href="https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m" title="{{footer_nostr_title}}">{{footer_nostr}}</a>
+      </div>
+      <div class="footer-col">
+        <h3>{{footer_investors_col}}</h3>
+        <a href="#investors">{{footer_investor_relations}}</a>
+        <a href="mailto:investors@zkcoins.com">investors@zkcoins.com</a>
+        <a href="https://github.com/zk-coins">{{footer_source_code}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>{{footer_legal_copy}}</span>
+    <span>{{footer_legal_disclaimer}}</span>
+  </div>
+</footer>
+</body>
+</html>

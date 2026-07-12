@@ -10,8 +10,15 @@
 - **Self-custodial**: keys are generated and stored locally in the browser and never leave the device. Peer-to-peer, permissionless publishing, no coordinator or custodian.
 - Based on the paper *Shielded CSV: Private and Efficient Client-Side Validation* by Jonas Nick, Liam Eagen and Robin Linus (IACR ePrint 2025/068).
 
+## Languages
+- English (default): https://zkcoins.com/
+- Deutsch: https://zkcoins.com/de/
+- Français: https://zkcoins.com/fr/
+- Italiano: https://zkcoins.com/it/
+- Español: https://zkcoins.com/es/
+
 ## Core pages
-- [zkCoins home](https://zkcoins.com/): overview, how it works, roadmap, FAQ
+- [zkCoins home](https://zkcoins.com/): overview, how it works, roadmap, FAQ (also /de/ /fr/ /it/ /es/)
 - [Wallet](https://zkcoins.app): the self-custodial zkCoins wallet (web / PWA)
 - [Documentation](https://docs.zkcoins.app): architecture, protocol, privacy model, wallet guide
 - [Brand kit](https://github.com/zk-coins/landing-page/tree/HEAD/brand): logo, color, typography, voice, design tokens
