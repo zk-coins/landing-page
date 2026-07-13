@@ -92,8 +92,8 @@
 
   <!-- STAT BAND -->
   <section class="statband" aria-label="{{statband_aria}}">
-    <div class="stat"><span class="num">231<span class="u">B</span></span><span class="lab">{{stat_onchain_lab}}</span></div>
-    <div class="stat"><span class="num">~3.2<span class="u">vB</span></span><span class="lab">{{stat_perspend_lab}}</span></div>
+    <div class="stat"><span class="num">~16<span class="u">vB</span></span><span class="lab">{{stat_onchain_lab}}</span></div>
+    <div class="stat"><span class="num">~100<span class="u">tx/s</span></span><span class="lab">{{stat_perspend_lab}}</span></div>
     <div class="stat"><span class="num">0</span><span class="lab">{{stat_softforks_lab}}</span></div>
     <div class="stat"><span class="num">0</span><span class="lab">{{stat_coordinators_lab}}</span></div>
   </section>
