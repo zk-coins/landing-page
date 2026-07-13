@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://zkcoins.com/</loc>
-    <lastmod>2026-07-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/it/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/"/>
   </url>
 </urlset>

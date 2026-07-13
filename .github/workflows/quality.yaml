@@ -36,6 +36,9 @@ jobs:
       - name: Formatting (prettier)
         run: npm run format:check
 
+      - name: i18n source ↔ generated pages
+        run: npm run i18n:check
+
       - name: Site completeness
         run: npm run check:site
 

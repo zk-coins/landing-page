@@ -1,17 +1,24 @@
 # zkCoins
 
-> zkCoins is a self-custodial wallet for **Shielded CSV**, a privacy protocol for Bitcoin. Amounts, sender, receiver and transaction history stay **off-chain**, proven with zero-knowledge and verified client-side. A permissionless publisher anchors many spends to Bitcoin as one constant **231-byte inscription** per batch. No soft fork, no sidechain, no coordinator.
+> zkCoins is a self-custodial wallet for **Shielded CSV**, a privacy protocol for Bitcoin. Amounts, sender, receiver and transaction history stay **off-chain**, proven with zero-knowledge and verified client-side. Each transfer publishes only a **~64-byte nullifier** to Bitcoin — about 16 vBytes on-chain. No soft fork, no sidechain, no coordinator.
 
 ## Key facts
 - zkCoins is a **Client-Side Validation layer anchored to Bitcoin L1**. It is **not** a separate blockchain, altcoin, or native protocol token — value lives in client-side-validated coins. Moving on-chain BTC in and out uses a **bridge**, which is outside the protocol and on the roadmap.
 - Shielded CSV works on Bitcoin **as it exists today** — no soft fork, no hard fork, no consensus change.
-- Coin data (amounts, balances, history) **never touches the chain**. In the zkCoins v1 spec a permissionless publisher batches many spends and anchors each batch with one constant **231-byte `BatchInscription`** (the nullifiers stay off-chain). The ~318 vByte commit+reveal pair is independent of spend count, so per-spend cost amortises toward zero (~3.2 vBytes per record at 100 records). (The Shielded CSV *paper's* per-transaction design uses a 64-byte nullifier; zkCoins v1 batches it further.)
+- Coin data (amounts, balances, history) **never touches the chain**. In the zkCoins v1 spec each transfer publishes its **~64-byte nullifier** (the pair `Pkᵢ ‖ Rᵢ`) directly to Bitcoin as a half-aggregated signature — about **16 vBytes** on-chain per transfer, roughly an order of magnitude smaller than a ~140-vByte Bitcoin transfer, and constant no matter how many coins the transfer moves. Bitcoin itself holds every nullifier a verifier needs, and the first on-chain occurrence of a state key selects the one valid transition — so there is **no off-chain batch data and no data-availability assumption** for the double-spend view. Throughput is on the order of **~100 transactions per second**, the Shielded CSV envelope.
 - Proving system: **Plonky2 + Poseidon-Goldilocks** (recursion-native, SNARK-friendly hash).
 - **Self-custodial**: keys are generated and stored locally in the browser and never leave the device. Peer-to-peer, permissionless publishing, no coordinator or custodian.
 - Based on the paper *Shielded CSV: Private and Efficient Client-Side Validation* by Jonas Nick, Liam Eagen and Robin Linus (IACR ePrint 2025/068).
 
+## Languages
+- English (default): https://zkcoins.com/
+- Deutsch: https://zkcoins.com/de/
+- Français: https://zkcoins.com/fr/
+- Italiano: https://zkcoins.com/it/
+- Español: https://zkcoins.com/es/
+
 ## Core pages
-- [zkCoins home](https://zkcoins.com/): overview, how it works, roadmap, FAQ
+- [zkCoins home](https://zkcoins.com/): overview, how it works, roadmap, FAQ (also /de/ /fr/ /it/ /es/)
 - [Wallet](https://zkcoins.app): the self-custodial zkCoins wallet (web / PWA)
 - [Documentation](https://docs.zkcoins.app): architecture, protocol, privacy model, wallet guide
 - [Brand kit](https://github.com/zk-coins/landing-page/tree/HEAD/brand): logo, color, typography, voice, design tokens

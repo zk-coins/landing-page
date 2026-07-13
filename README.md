@@ -7,23 +7,27 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 
 ## Stack
 
-- Plain HTML + inline CSS — the **deployed page** has no build step and no runtime dependencies
+- Plain HTML + shared CSS (`/styles.css`) — **no site build step**
 - No runtime JavaScript (only inert `application/ld+json` structured data)
-- System font stack (no external font load)
+- Five languages: English (default), Deutsch, Français, Italiano, Español
+- System / IBM Plex font stacks (no remote font CDN)
 - Dev-only test tooling (Playwright + Vitest) — never shipped, kept off the CDN by `.assetsignore`
 
 ## Structure
 
 ```
 .
-├── index.html            — Single-page whitepaper landing (HTML + inline CSS)
+├── index.html            — English home (default, x-default)
+├── de/ fr/ it/ es/       — Localised homes
+├── styles.css            — Shared stylesheet
 ├── favicon.svg / .png    — zkCoins mark
 ├── robots.txt            — crawler policy (AI answer engines welcome)
-├── sitemap.xml           — single-URL sitemap
+├── sitemap.xml           — all locales + xhtml:link alternates
 ├── llms.txt              — LLM-oriented site summary
 ├── .well-known/nostr.json — NIP-05 identity
 ├── brand/                — brand kit (logos, tokens)
-├── scripts/              — dev server + check/test tooling (scripts/lib/** is unit-tested)
+├── scripts/i18n/         — template + strings + generator (dev-only)
+├── scripts/              — dev server + check/test tooling
 ├── tests/                — Playwright specs + committed screenshot baselines
 ├── test/                 — Vitest unit tests
 └── LICENSE               — MIT
@@ -32,21 +36,26 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 ## Local preview
 
 ```bash
-python3 -m http.server 8080        # or: npm run serve   (http://127.0.0.1:4173)
-# open http://localhost:8080
+npm ci
+npm run serve
+# open http://127.0.0.1:4173  (also /de/, /fr/, /it/, /es/)
+```
+
+After editing locale strings:
+
+```bash
+python3 scripts/i18n/generate.py
 ```
 
 ## Testing
 
 ```bash
 npm ci
-npm run check              # prettier + html-validate + site completeness + 100% unit coverage
+npm run check              # prettier + html-validate + i18n:check + check:site + 100% unit coverage
 npm run e2e:docker         # Playwright screenshots vs. the committed baselines (pinned container)
 ```
 
-Screenshot baselines are regenerated with `npm run e2e:docker:update`. See
-[CONTRIBUTING.md](CONTRIBUTING.md#testing) for the full rig (what each gate covers,
-how the baselines stay reproducible, and the 100% coverage rule).
+Screenshot baselines: `npm run e2e:docker:update`, or **Actions → Update visual baselines** without Docker. See [CONTRIBUTING.md](CONTRIBUTING.md#testing).
 
 ## Deploy — Cloudflare Pages
 
@@ -80,7 +89,7 @@ Security issues: see [SECURITY.md](SECURITY.md).
 
 Follows the zkCoins brand kit. Key invariants:
 
-- Background `#0a0a0a`, accent `#f7931a` (Bitcoin orange), body text `#ece9e4`, headings/mark `#ffffff`
+- Background `#0a0a0a`, accent `#f7931a` (Bitcoin orange), body `#ece9e4`, headings/mark `#ffffff`
 - Display name **zkCoins** (always capital C)
 - Tagline: *Private Bitcoin transactions via Shielded CSV*
 

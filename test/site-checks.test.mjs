@@ -123,6 +123,30 @@ describe('structured content extraction', () => {
       { question: 'Fast & private?', answer: 'Yes. Very.' },
     ]);
   });
+
+  test('extractDetailsFaq ignores the language switcher and scopes to #faq when present', () => {
+    const html =
+      '<details class="lang"><summary>EN</summary><div class="lang__menu"><a href="/">English</a></div></details>' +
+      '<section id="faq"><div class="faq">' +
+      '<details><summary>Q?</summary><p>A.</p></details>' +
+      '</div></section>' +
+      '<details><summary>Outside FAQ</summary><p>Ignored when #faq exists.</p></details>';
+    expect(extractDetailsFaq(html)).toEqual([{ question: 'Q?', answer: 'A.' }]);
+  });
+
+  test('extractDetailsFaq falls back to a .faq div when #faq is absent', () => {
+    const html =
+      '<div class="faq"><details><summary>Only</summary><p>This.</p></details></div>' +
+      '<details><summary>Outside</summary><p>Ignored.</p></details>';
+    expect(extractDetailsFaq(html)).toEqual([{ question: 'Only', answer: 'This.' }]);
+  });
+
+  test('extractDetailsFaq skips class=lang when scanning the whole document', () => {
+    const html =
+      '<details class="lang"><summary>EN</summary><p>menu</p></details>' +
+      '<details><summary>Q</summary><p>A</p></details>';
+    expect(extractDetailsFaq(html)).toEqual([{ question: 'Q', answer: 'A' }]);
+  });
 });
 
 describe('faqFromJsonLd', () => {

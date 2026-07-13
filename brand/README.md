@@ -10,7 +10,8 @@ The single source of truth for how zkCoins looks. Precise, warm, cryptographical
 No hype, no moon. Verifiable claims, plainly stated.
 
 > This kit is asset-only (logo, tokens, guidelines) — no build step, no JavaScript, in
-> keeping with this repo. `zkcoins.com` itself stays a single static `index.html`.
+> keeping with this repo. `zkcoins.com` is a static multilingual landing page (one home
+> per language, shared `/styles.css`, no runtime JavaScript).
 
 ---
 

@@ -108,13 +108,31 @@ export function extractSitemapLocs(xml) {
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
 }
 
-// Visible FAQ, from <details><summary>Q</summary>…answer…</details> blocks. The
-// answer is everything after the summary (all <p> merged), tag-stripped and
-// entity-decoded so it compares equal to the JSON-LD plain text.
+// Visible FAQ, from <details><summary>Q</summary>…answer…</details> blocks
+// inside the FAQ region only (so the language-switcher <details class="lang">
+// is never counted). Prefer the #faq section; fall back to .faq; fall back to
+// every <details> that is not class="lang". The answer is everything after the
+// summary (all <p> merged), tag-stripped and entity-decoded so it compares
+// equal to the JSON-LD plain text.
 export function extractDetailsFaq(html) {
+  let scope = html;
+  const faqSection = html.match(/<section\b[^>]*\bid=["']faq["'][^>]*>([\s\S]*?)<\/section>/i);
+  if (faqSection) {
+    scope = faqSection[1];
+  } else {
+    const faqDiv = html.match(
+      /<div\b[^>]*\bclass=["'][^"']*\bfaq\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/i,
+    );
+    if (faqDiv) scope = faqDiv[1];
+  }
+
   const faq = [];
-  for (const block of html.matchAll(/<details[^>]*>([\s\S]*?)<\/details>/gi)) {
-    const inner = block[1];
+  for (const block of scope.matchAll(/<details\b([^>]*)>([\s\S]*?)<\/details>/gi)) {
+    const attrs = block[1];
+    // Skip the language switcher (and any other non-FAQ details) when we fell
+    // back to the whole document.
+    if (/\bclass=["'][^"']*\blang\b/i.test(attrs)) continue;
+    const inner = block[2];
     const summary = inner.match(/<summary[^>]*>([\s\S]*?)<\/summary>/i);
     if (!summary) continue;
     const answerHtml = inner.replace(/<summary[^>]*>[\s\S]*?<\/summary>/i, '');

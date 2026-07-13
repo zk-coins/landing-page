@@ -1,0 +1,70 @@
+name: Update visual baselines
+
+# Regenerate the Playwright screenshot baselines without a local Docker setup.
+#
+# Actions tab → "Update visual baselines" → "Run workflow" → pick the branch.
+# The workflow always runs on — and commits back to — the branch picked in that
+# dropdown, so the checked-out tree matches this workflow definition and the
+# Playwright pin guard below can trust it. Regenerates baselines inside the same
+# pinned Playwright container the visual gate uses, then commits them back. Local
+# alternative: `npm run e2e:docker:update` (requires Docker).
+#
+# The default GITHUB_TOKEN cannot re-trigger the visual-regression workflow on
+# the commit it pushes. To auto-re-run the gate, add a repo secret BASELINE_PAT
+# (fine-grained PAT with contents:write). Without it, re-run the check or push
+# any follow-up commit after this workflow finishes.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Regenerate baselines
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-noble
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          token: ${{ secrets.BASELINE_PAT || github.token }}
+          persist-credentials: false
+
+      - name: Mark workspace safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Guard — Playwright pin matches the container image
+        run: |
+          PKG=$(node -p "require('./package.json').devDependencies['@playwright/test']")
+          IMG=$(grep -oE 'mcr\.microsoft\.com/playwright:v[0-9.]+' .github/workflows/update-baselines.yaml | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          echo "package.json @playwright/test=$PKG, workflow image tag=$IMG"
+          if [ "$PKG" != "$IMG" ]; then
+            echo "::error::@playwright/test ($PKG) != Playwright image tag ($IMG)."
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund || npm ci --no-audit --no-fund
+
+      - name: Regenerate screenshots
+        run: npx playwright test --update-snapshots
+
+      - name: Commit and push baselines
+        env:
+          # Pass through as env so the shell never interpolates untrusted template text.
+          TARGET_REF: ${{ github.ref_name }}
+          PUSH_TOKEN: ${{ secrets.BASELINE_PAT || github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add tests/__screenshots__
+          if git diff --cached --quiet; then
+            echo "Baselines already up to date — nothing to commit." >> "$GITHUB_STEP_SUMMARY"
+          else
+            git commit -m "test: regenerate visual baselines"
+            git push origin "HEAD:${TARGET_REF}"
+            echo "Updated baselines pushed to \`${TARGET_REF}\`." >> "$GITHUB_STEP_SUMMARY"
+          fi
