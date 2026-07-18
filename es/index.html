@@ -177,7 +177,7 @@
           "name": "¿Qué es Shielded CSV?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Shielded CSV (Client-Side Validation) es un protocolo de Bitcoin que preserva la privacidad, del paper de Jonas Nick, Liam Eagen y Robin Linus (ePrint 2025/068). zkCoins v1 lo implementa fielmente: cada transferencia publica en Bitcoin un nullifier de ~64 bytes, y todo lo demás se verifica client-side."
+            "text": "Shielded CSV (Client-Side Validation) es un protocolo de Bitcoin que preserva la privacidad, del paper de Jonas Nick, Liam Eagen y Robin Linus (ePrint 2025/068). zkCoins v1 se basa directamente en él: cada transferencia publica en Bitcoin un nullifier de ~64 bytes, y todo lo demás se verifica client-side."
           }
         },
         {
@@ -327,7 +327,7 @@
       <p class="abstract">
         Client-Side Validation desacopla la validación de transacciones del consenso de Bitcoin moviéndola al destinatario. Shielded CSV mejora diseños CSV anteriores ocultando por completo el historial de transacciones: cada transferencia solo filtra un nullifier de 64 bytes a la chain, y el resto se verifica client-side mediante succinct zero-knowledge proofs. El protocolo es compatible con Bitcoin tal cual — sin soft fork, sin hard fork — y apunta a aproximadamente un orden de magnitud más de transacciones por segundo que la base layer sola.
       </p>
-      <p class="paper-note"><b>zkCoins v1 implementa fielmente el modelo del paper:</b> cada transferencia publica su nullifier de ~64 bytes directamente en Bitcoin como firma semi-agregada, de modo que la propia chain garantiza cada nullifier que un verificador necesita para sus comprobaciones de double-spend — sin datos de batch off-chain, sin supuesto de data-availability. Unos 16 vBytes on-chain por transferencia, del orden de ~100 transacciones por segundo.</p>
+      <p class="paper-note"><b>zkCoins v1 se basa directamente en el modelo on-chain del paper:</b> cada transferencia publica su nullifier de ~64 bytes directamente en Bitcoin como firma semi-agregada, de modo que la propia chain garantiza cada nullifier que un verificador necesita para sus comprobaciones de double-spend — sin datos de batch off-chain, sin supuesto de data-availability. Unos 16 vBytes on-chain por transferencia, del orden de ~100 transacciones por segundo.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -623,7 +623,7 @@
       </details>
       <details>
         <summary>¿Qué es Shielded CSV?</summary>
-        <p>Shielded CSV (Client-Side Validation) es un protocolo de Bitcoin que preserva la privacidad, del paper de Jonas Nick, Liam Eagen y Robin Linus (ePrint 2025/068). zkCoins v1 lo implementa fielmente: cada transferencia publica en Bitcoin un nullifier de ~64 bytes, y todo lo demás se verifica client-side.</p>
+        <p>Shielded CSV (Client-Side Validation) es un protocolo de Bitcoin que preserva la privacidad, del paper de Jonas Nick, Liam Eagen y Robin Linus (ePrint 2025/068). zkCoins v1 se basa directamente en él: cada transferencia publica en Bitcoin un nullifier de ~64 bytes, y todo lo demás se verifica client-side.</p>
       </details>
       <details>
         <summary>¿El rol de publisher está realmente descentralizado?</summary>
