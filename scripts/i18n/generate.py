@@ -9,7 +9,9 @@ from __future__ import annotations
 import json
 import re
 import sys
+from html.entities import html5
 from pathlib import Path
+from typing import Callable
 
 I18N_DIR = Path(__file__).resolve().parent
 ROOT = I18N_DIR.parents[1]
@@ -64,6 +66,50 @@ LANGS = [
 ALL_LANG_CODES = [lang["code"] for lang in LANGS]
 
 PLACEHOLDER_RE = re.compile(r"\{\{(\w+)\}\}")
+# Optional markup-free FAQ answer variant used only in FAQPage JSON-LD.
+FAQ_A_JSON_RE = re.compile(r"^faq_a(\d+)_json$")
+# Character references (named or numeric); semicolon optional for legacy forms.
+CHAR_REF_RE = re.compile(r"&(?:#[0-9]+;?|#[xX][0-9a-fA-F]+;?|[a-zA-Z][a-zA-Z0-9]*;?)")
+
+
+def resolvable_refs(value: str) -> list[str]:
+    """Flag tokens that look like deliberate author character references.
+
+    Matching rule: every ``&`` followed by a run of alphanumerics (optional
+    trailing ``;``) is considered. Numeric forms (``&#…`` / ``&#x…``) are
+    always flagged, with or without the trailing semicolon. A named form is
+    flagged only when the matched token itself — the full alphanumeric run
+    after ``&``, with or without the semicolon, exactly as matched by the
+    regex — is a key in ``html.entities.html5``.
+
+    Tokens whose matched run is outside that table are deliberately not
+    flagged, e.g. ``"R&D;"``, ``"&bogus;"``, ``"AT&T"``,
+    ``"?tab=1&notes=2"``. A real HTML parser may still partially resolve
+    some of these in body text (longest-match against table names, not
+    against the whole alphanumeric run) — e.g. ``?tab=1&notes=2`` becomes
+    ``?tab=1¬es=2`` because ``not`` is a table name. They are nonetheless
+    safe in every guarded key because the two HTML sinks escape the
+    ampersand: ``html_attr()`` for ``ATTR_KEYS`` and the ``&`` → ``&amp;``
+    pass in ``main()`` for FAQ body copy. The JSON-LD sink needs no
+    escaping at all: ``json.dumps`` emits the ampersand verbatim, but
+    ``<script type="application/ld+json">`` is an HTML raw-text element,
+    so a literal ``&`` is never parsed as a character reference there
+    (the same non-escaping is why ``check_jsonld_value()`` must reject
+    ``<`` by hand).
+
+    Purpose: catch a character reference the author wrote expecting a
+    parser to resolve it (e.g. ``&nbsp;``, ``&copy``) landing in a sink
+    that will not parse it — an authoring-intent check, distinct from the
+    sink-escaping that provides the actual safety guarantee.
+    """
+    found: list[str] = []
+    for m in CHAR_REF_RE.finditer(value):
+        text = m.group()
+        name = text[1:]  # strip the leading "&"
+        if name.startswith("#") or name in html5:
+            found.append(text)
+    return found
+
 
 # Keys placed into HTML attributes — escape &, ", <, >
 ATTR_KEYS = frozenset(
@@ -84,6 +130,18 @@ ATTR_KEYS = frozenset(
     }
 )
 
+# FAQ question/answer indices that feed the FAQPage JSON-LD graph.
+FAQ_NS = range(1, 9)
+
+
+def is_unsafe_sink_key(key: str) -> bool:
+    """True if this string key is injected into an attribute or JSON-LD."""
+    if key in ATTR_KEYS or key.startswith("jsonld_"):
+        return True
+    if key in {f"faq_q{n}" for n in FAQ_NS} or key in {f"faq_a{n}" for n in FAQ_NS}:
+        return True
+    return FAQ_A_JSON_RE.fullmatch(key) is not None
+
 
 def path_for(code: str) -> str:
     if code == "en":
@@ -101,6 +159,10 @@ def file_for(code: str) -> str:
     return f"{code}/index.html"
 
 
+def strings_path_for(code: str) -> Path:
+    return I18N_DIR / "strings" / f"{code}.json"
+
+
 def html_attr(value: str) -> str:
     return (
         value.replace("&", "&amp;")
@@ -111,7 +173,7 @@ def html_attr(value: str) -> str:
 
 
 def load_strings(code: str) -> dict[str, str]:
-    path = I18N_DIR / "strings" / f"{code}.json"
+    path = strings_path_for(code)
 
     def reject_duplicates(pairs: list[tuple[str, object]]) -> dict[str, object]:
         seen: dict[str, object] = {}
@@ -129,6 +191,24 @@ def load_strings(code: str) -> dict[str, str]:
     for key, value in data.items():
         if not isinstance(value, str):
             raise SystemExit(f"{path}: key {key!r} must be a string")
+    # Author-intent refs (table-key / numeric; see resolvable_refs docstring) are
+    # fine in body-only keys but wrong in attributes and JSON-LD. Untable tokens
+    # like "R&D;", "&bogus;", "?tab=1&notes=2" are not flagged; they are safe in
+    # guarded keys because the sink escapes & regardless.
+    char_ref_hits: list[tuple[str, list[str]]] = sorted(
+        (key, refs)
+        for key, value in data.items()
+        if is_unsafe_sink_key(key) and (refs := resolvable_refs(value))
+    )
+    if char_ref_hits:
+        details = "; ".join(
+            f"{key}: {', '.join(repr(r) for r in refs)}" for key, refs in char_ref_hits
+        )
+        raise SystemExit(
+            f"{path}: HTML character references are not allowed in attribute or "
+            f"JSON-LD keys: {details}. Type the literal character "
+            "instead (a no-break space is U+00A0)."
+        )
     return data
 
 
@@ -156,9 +236,10 @@ def build_og_locale_alternates(current_code: str) -> str:
 
 
 def build_lang_switcher(current_code: str, aria_label: str) -> str:
+    accessible_label = f"{aria_label} ({current_code.upper()})"
     lines = [
         '<details class="lang">',
-        f'  <summary aria-label="{html_attr(aria_label)}">{current_code.upper()}</summary>',
+        f'  <summary aria-label="{html_attr(accessible_label)}">{current_code.upper()}</summary>',
         '  <div class="lang__menu">',
     ]
     for lang in LANGS:
@@ -174,13 +255,68 @@ def build_lang_switcher(current_code: str, aria_label: str) -> str:
     return "\n      ".join(lines)
 
 
-def faq_answer_for_json(strings: dict[str, str], n: int) -> str:
-    # Answers with an inline link carry a link-free "faq_a{n}_json" variant for
-    # the FAQPage structured data; plain answers reuse the visible string.
-    return strings.get(f"faq_a{n}_json", strings[f"faq_a{n}"])
+def check_jsonld_value(code: str, key: str, value: str) -> str:
+    """Reject a value unfit for the JSON-LD payload.
+
+    ld+json is an HTML raw-text element, terminated by the literal byte sequence
+    "</script", and json.dumps does not escape "<". Every string reaching that
+    payload must be non-empty and markup-free.
+    """
+    if not value.strip():
+        raise SystemExit(
+            f"{strings_path_for(code)}: key {key!r} is empty (or whitespace-only) "
+            "but is used in the JSON-LD payload; JSON-LD strings must be "
+            "non-empty."
+        )
+    if "<" in value:
+        raise SystemExit(
+            f"{strings_path_for(code)}: key {key!r} contains '<' but is used in "
+            "the JSON-LD payload; JSON-LD strings must be markup-free because "
+            '<script type="application/ld+json"> is an HTML raw-text element '
+            "(a literal '</script' sequence would terminate it early, and "
+            "json.dumps does not escape '<')."
+        )
+    return value
 
 
-def build_json_ld(code: str, strings: dict[str, str], locale_url: str) -> str:
+def faq_answer_for_json(code: str, strings: dict[str, str], n: int) -> str:
+    # A visible answer containing any HTML markup MUST have a markup-free
+    # "faq_a{n}_json" variant for the FAQPage structured data (a missing variant
+    # in that case is a hard error). When a "_json" variant is present it always
+    # takes precedence over the visible answer, whether or not the visible
+    # answer contains markup.
+    visible_key = f"faq_a{n}"
+    visible_answer = strings[visible_key]
+    json_key = f"{visible_key}_json"
+    if json_key in strings:
+        return check_jsonld_value(code, json_key, strings[json_key])
+    if "<" in visible_answer:
+        path = strings_path_for(code)
+        raise SystemExit(
+            f"{path}: missing required key {json_key!r}: "
+            f"{visible_key!r} contains HTML markup, so a markup-free JSON-LD "
+            "answer is required."
+        )
+    return check_jsonld_value(code, visible_key, visible_answer)
+
+
+def jsonld_string(strings: dict[str, str], code: str, key: str) -> str:
+    """Fetch a locale string for the JSON-LD payload, refusing unguarded keys."""
+    if not is_unsafe_sink_key(key):
+        raise SystemExit(
+            f"{strings_path_for(code)}: key {key!r} is used in the JSON-LD payload "
+            "but is not covered by the character-reference guard. Name JSON-LD "
+            "strings 'jsonld_*' (see is_unsafe_sink_key)."
+        )
+    return check_jsonld_value(code, key, strings[key])
+
+
+def build_json_ld(
+    code: str,
+    locale_url: str,
+    get_string: Callable[[str], str],
+    get_faq_answer: Callable[[int], str],
+) -> str:
     graph = [
         {
             "@type": "Organization",
@@ -188,7 +324,7 @@ def build_json_ld(code: str, strings: dict[str, str], locale_url: str) -> str:
             "name": "zkCoins",
             "url": f"{ORIGIN}/",
             "logo": f"{ORIGIN}/favicon.png",
-            "description": strings["jsonld_org_description"],
+            "description": get_string("jsonld_org_description"),
             "sameAs": [
                 "https://x.com/zkcoinsbtc",
                 "https://t.me/zkcoinsbtc",
@@ -210,7 +346,7 @@ def build_json_ld(code: str, strings: dict[str, str], locale_url: str) -> str:
             "@id": f"{ORIGIN}/#website",
             "url": f"{ORIGIN}/",
             "name": "zkCoins",
-            "description": strings["jsonld_website_description"],
+            "description": get_string("jsonld_website_description"),
             "inLanguage": list(ALL_LANG_CODES),
             "publisher": {"@id": f"{ORIGIN}/#organization"},
         },
@@ -221,7 +357,7 @@ def build_json_ld(code: str, strings: dict[str, str], locale_url: str) -> str:
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Web, iOS, Android (PWA)",
             "url": "https://zkcoins.app",
-            "description": strings["jsonld_wallet_description"],
+            "description": get_string("jsonld_wallet_description"),
             "isAccessibleForFree": True,
             "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
             "isBasedOn": {"@id": f"{ORIGIN}/#paper"},
@@ -247,13 +383,13 @@ def build_json_ld(code: str, strings: dict[str, str], locale_url: str) -> str:
             "mainEntity": [
                 {
                     "@type": "Question",
-                    "name": strings[f"faq_q{n}"],
+                    "name": get_string(f"faq_q{n}"),
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": faq_answer_for_json(strings, n),
+                        "text": get_faq_answer(n),
                     },
                 }
-                for n in range(1, 9)
+                for n in FAQ_NS
             ],
         },
     ]
@@ -342,7 +478,6 @@ def main() -> int:
         "faq_a1",
         "faq_q7",
         "faq_a7",
-        "faq_a7_json",
         "faq_q8",
         "faq_a8",
         "jsonld_org_description",
@@ -377,6 +512,16 @@ def main() -> int:
             if key in mapping:
                 mapping[key] = html_attr(mapping[key])
 
+        # FAQ keys are injected raw into the HTML body via page.template, but
+        # are also guarded against character references because they feed the
+        # JSON-LD payload. Authors write a literal "&"; this pass escapes it
+        # only for the body-copy mapping. JSON-LD reads from strings (untouched)
+        # and keeps the plain character — JSON needs no HTML escaping.
+        for n in FAQ_NS:
+            for key in (f"faq_q{n}", f"faq_a{n}"):
+                if key in mapping:
+                    mapping[key] = mapping[key].replace("&", "&amp;")
+
         mapping["html_lang"] = code
         mapping["canonical_url"] = locale_url
         mapping["og_locale"] = lang["ogLocale"]
@@ -386,7 +531,14 @@ def main() -> int:
         mapping["lang_switcher"] = build_lang_switcher(
             code, strings["lang_switcher_aria"]
         )
-        mapping["json_ld"] = build_json_ld(code, strings, locale_url)
+
+        def get_string(key: str) -> str:
+            return jsonld_string(strings, code, key)
+
+        def get_faq_answer(n: int) -> str:
+            return faq_answer_for_json(code, strings, n)
+
+        mapping["json_ld"] = build_json_ld(code, locale_url, get_string, get_faq_answer)
 
         html = render(template, mapping)
         out_rel = file_for(code)

@@ -38,7 +38,7 @@
   "tx_public_foot": "~140 vBytes · vollständig öffentlich · eine pro Zahlung",
   "compare_arrow": "eine Größenordnung kleiner",
   "tx_private_title": "zkCoins-Transfer",
-  "nullifier_text": "ein&nbsp;~64-Byte<br>Nullifier",
+  "nullifier_text": "ein ~64-Byte<br>Nullifier",
   "tx_private_foot": "~16 vBytes on-chain · Coin-Daten off-chain",
   "compare_cap": "Coin-Daten berühren die Chain nie. <b>Jeder Transfer veröffentlicht einen ~64-Byte-Nullifier auf Bitcoin — etwa 16 vBytes gegenüber ~140 bei einem regulären Transfer — konstant, egal wie viele Coins er bewegt.</b>",
 
