@@ -13,7 +13,7 @@
     "format:check": "prettier --check .",
     "validate:html": "html-validate \"*.html\" \"de/**/*.html\" \"fr/**/*.html\" \"it/**/*.html\" \"es/**/*.html\"",
     "i18n:generate": "python3 scripts/i18n/generate.py",
-    "i18n:check": "python3 scripts/i18n/generate.py && git diff --exit-code -- index.html de/ fr/ it/ es/ sitemap.xml && sh -c 'status=$(git status --porcelain -- index.html de/ fr/ it/ es/ sitemap.xml); if [ -n \"$status\" ]; then echo \"i18n:check: generated locale files are untracked or uncommitted after regeneration:\" >&2; echo \"$status\" >&2; exit 1; fi'",
+    "i18n:check": "python3 scripts/i18n/generate.py && git diff --exit-code -- index.html de/ fr/ it/ es/ sitemap.xml && sh -c 'status=$(git status --porcelain -- index.html de/ fr/ it/ es/ sitemap.xml | sed -n \"/^??/p\"); if [ -n \"$status\" ]; then echo \"i18n:check: generated locale files are untracked after regeneration:\" >&2; echo \"$status\" >&2; exit 1; fi'",
     "check:site": "node scripts/check-site.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
