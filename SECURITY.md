@@ -16,7 +16,7 @@ In scope:
 
 Out of scope:
 
-- The linked external sites (`zkcoins.app`, `zkcoins.info`, `zkcoins.exchange`, `zkcoins.space`, `docs.zkcoins.app`) — report those to their respective repos
+- The linked external sites (`zkcoins.app`, `zkcoins.info`, `zkcoins.exchange`, `zkcoins.space`, `docs.zkcoins.com`) — report those to their respective repos
 - The Shielded CSV protocol itself — report to the upstream authors
 - General Bitcoin protocol concerns
 
