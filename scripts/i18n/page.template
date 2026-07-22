@@ -58,7 +58,7 @@
       <a class="link" href="#paper">{{nav_paper}}</a>
       <a class="link" href="#how">{{nav_how}}</a>
       <a class="link" href="#roadmap">{{nav_roadmap}}</a>
-      <a class="link" href="https://docs.zkcoins.app">{{nav_docs}}</a>
+      <a class="link" href="https://docs.zkcoins.com">{{nav_docs}}</a>
       <a class="app-btn" href="https://zkcoins.app">
         {{nav_open_wallet}}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
@@ -376,10 +376,10 @@
         <div class="name">{{card_wallet_name}}</div>
         <div class="domain">zkcoins.app</div>
       </a>
-      <a class="card" href="https://docs.zkcoins.app">
+      <a class="card" href="https://docs.zkcoins.com">
         <div class="label">{{card_docs_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
         <div class="name">{{card_docs_name}}</div>
-        <div class="domain">docs.zkcoins.app</div>
+        <div class="domain">docs.zkcoins.com</div>
       </a>
       <a class="card" href="https://github.com/zk-coins">
         <div class="label">{{card_source_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
@@ -407,7 +407,7 @@
           <a href="https://github.com/zk-coins">{{investors_link_github}}</a>
           <a href="#paper">{{investors_link_whitepaper}}</a>
           <a href="#roadmap">{{investors_link_roadmap}}</a>
-          <a href="https://docs.zkcoins.app">{{investors_link_docs}}</a>
+          <a href="https://docs.zkcoins.com">{{investors_link_docs}}</a>
         </div>
       </div>
     </div>
@@ -465,7 +465,7 @@
           {{cta_open_wallet}}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
-        <a class="btn btn-ghost" href="https://docs.zkcoins.app">{{cta_read_docs}}</a>
+        <a class="btn btn-ghost" href="https://docs.zkcoins.com">{{cta_read_docs}}</a>
       </div>
     </div>
   </section>
@@ -492,7 +492,7 @@
       <div class="footer-col">
         <h3>{{footer_build}}</h3>
         <a href="https://zkcoins.app">{{footer_wallet}}</a>
-        <a href="https://docs.zkcoins.app">{{footer_documentation}}</a>
+        <a href="https://docs.zkcoins.com">{{footer_documentation}}</a>
         <a href="https://github.com/zk-coins">{{footer_github}}</a>
         <a href="https://github.com/zk-coins/landing-page/tree/HEAD/brand">{{footer_brand_kit}}</a>
       </div>

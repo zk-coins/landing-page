@@ -102,7 +102,7 @@ Follows the zkCoins brand kit. Key invariants:
 | zkcoins.app | Wallet (PWA) | [zk-coins/app](https://github.com/zk-coins/app) |
 | zkcoins.exchange | Trading venue | — |
 | zkcoins.space | Explorer | — |
-| docs.zkcoins.app | Documentation | [zk-coins/docs](https://github.com/zk-coins/docs) |
+| docs.zkcoins.com | Documentation | [zk-coins/docs](https://github.com/zk-coins/docs) |
 
 ## License
 
