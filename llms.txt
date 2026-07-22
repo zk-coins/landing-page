@@ -20,7 +20,7 @@
 ## Core pages
 - [zkCoins home](https://zkcoins.com/): overview, how it works, roadmap, FAQ (also /de/ /fr/ /it/ /es/)
 - [Wallet](https://zkcoins.app): the self-custodial zkCoins wallet (web / PWA)
-- [Documentation](https://docs.zkcoins.app): architecture, protocol, privacy model, wallet guide
+- [Documentation](https://docs.zkcoins.com): architecture, protocol, privacy model, wallet guide
 - [Brand kit](https://github.com/zk-coins/landing-page/tree/HEAD/brand): logo, color, typography, voice, design tokens
 
 ## Protocol
