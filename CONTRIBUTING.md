@@ -12,6 +12,10 @@ python3 scripts/i18n/generate.py
 
 Do not hand-edit only one locale copy — edit the string sources and regenerate so languages cannot drift.
 
+Character references the author wrote expecting a parser to resolve them are rejected in every key listed in the `ATTR_KEYS` frozenset in `scripts/i18n/generate.py`, every key starting with `jsonld_`, and every `faq_q{n}` / `faq_a{n}` / `faq_a{n}_json` key — type the literal character instead (a no-break space is the literal U+00A0 character; it is invisible in a diff, so be deliberate about it). That includes semicolon-terminated forms (`&nbsp;`, `&mdash;`, `&#160;`, `&#x00a0;`) and semicolon-less legacy forms that are keys in the HTML5 named-character-reference table (`html.entities.html5`) — e.g. `&nbsp`, `&copy`, `&not`, `&amp` (no trailing semicolon). Numeric references (`&#160`, `&#160;`, `&#xa0`, …) are always rejected, with or without the trailing semicolon. A named form is flagged only when the matched token itself (the full alphanumeric run after `&`, with or without the semicolon, exactly as matched) is a key in that table — so `&mdash` (no semicolon) is accepted, while `&mdash;` is not, and tokens whose matched run is outside the table (`?tab=1&notes=2`, `?tab=1&notes`, `see ?tab=1&section.`, `AT&T`, `Q&A`, `100% & rising`, `R&D;`, `&bogus;`) are not flagged. Those untable ampersand strings are safe in every guarded key specifically because the generator escapes the ampersand at whichever sink needs it (HTML attributes via `html_attr()` and FAQ body copy via the `&` → `&amp;` pass in `main()` escape the ampersand; JSON-LD needs no escaping — `json.dumps` emits the ampersand verbatim, but it lands inside a `<script type="application/ld+json">` HTML raw-text element where a literal `&` is never parsed as a character reference) — not because a parser would leave them alone (a browser may still partially resolve some of them in raw body text, e.g. `?tab=1&notes=2` → `?tab=1¬es=2`). The guard is an exact table lookup on the matched name (plus the always-flag numeric rule); it is an authoring-intent check, not a security boundary — the sink escaping above is what keeps the page safe. A literal ampersand is fine in a guarded key unless the run of alphanumeric characters immediately following it (with or without a trailing semicolon) happens to be a name in the HTML5 table (`copy`, `not`, `sect`, `amp`, `nbsp`, and others) — e.g. `meta_description = "... see the terms &sect 4 ..."` and `og_description = "&copy 2026 zkCoins"` both fail the guard and the author must insert a space, rephrase, or otherwise break up the adjacency. FAQ answer keys are guarded unconditionally, even when a `_json` variant exists and makes that answer effectively body-only today (so the rule still holds if the variant is later removed). All other body-only keys may still use character references freely. If you add a new placeholder that ends up inside an HTML attribute in `page.template`, you must also add its key to `ATTR_KEYS`, or it gets neither HTML-escaping nor this character-reference guard. If you add a new string wired into `build_json_ld`, name it `jsonld_*` — `build_json_ld` cannot read locale strings directly; every read goes through a guarded accessor that hard-fails on any key `is_unsafe_sink_key` does not cover.
+
+A visible FAQ answer (`faq_a{n}`) that contains HTML markup requires a matching markup-free `faq_a{n}_json` variant key for the FAQPage structured data; the generator hard-fails if markup is present without a variant. Every value that reaches the JSON-LD payload (including `jsonld_*`, `faq_q{n}`, and the effective FAQ answer) must be non-empty and free of `<`.
+
 ## Branching model
 
 | Branch | Role | Protection | Deploys to |
@@ -136,7 +140,11 @@ A new locale needs the code added to `LANGS` in **both** `scripts/lib/i18n.mjs`
 and `scripts/i18n/generate.py`, a translated `scripts/i18n/strings/<code>.json`,
 **and** the new path added to the `i18n:check` and `validate:html` globs in
 `package.json`. Miss those `package.json` lists and the drift gate silently stops
-covering the new locale.
+covering the new locale. In the string file, use literal characters (not HTML
+character references) in `ATTR_KEYS`, `jsonld_*`, and FAQ (`faq_q{n}` /
+`faq_a{n}` / `faq_a{n}_json`) keys — including FAQ answers that have a `_json`
+variant — and include a `faq_a{n}_json` variant for any FAQ answer that
+contains markup.
 
 ## Adding a new section
 

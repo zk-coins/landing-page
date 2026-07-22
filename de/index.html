@@ -177,7 +177,7 @@
           "name": "Was ist Shielded CSV?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Shielded CSV (Client-Side Validation) ist ein privatsphärewahrendes Bitcoin-Protokoll aus dem Paper von Jonas Nick, Liam Eagen und Robin Linus (ePrint 2025/068). zkCoins v1 implementiert es getreu: jeder Transfer veröffentlicht einen ~64-Byte-Nullifier auf Bitcoin, alles andere wird client-seitig verifiziert."
+            "text": "Shielded CSV (Client-Side Validation) ist ein privatsphärewahrendes Bitcoin-Protokoll aus dem Paper von Jonas Nick, Liam Eagen und Robin Linus (ePrint 2025/068). zkCoins v1 baut direkt darauf auf: jeder Transfer veröffentlicht einen ~64-Byte-Nullifier auf Bitcoin, alles andere wird client-seitig verifiziert."
           }
         },
         {
@@ -236,7 +236,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
       </a>
       <details class="lang">
-        <summary aria-label="Sprache">DE</summary>
+        <summary aria-label="Sprache (DE)">DE</summary>
         <div class="lang__menu">
           <a href="/" lang="en" hreflang="en">English <span>EN</span></a>
           <a href="/de/" lang="de" hreflang="de" aria-current="page">Deutsch <span>DE</span></a>
@@ -295,7 +295,7 @@
       </div>
       <div class="txbox tx-private">
         <div class="tx-title"><span class="tx-dot"></span>zkCoins-Transfer</div>
-        <div class="nullifier">ein&nbsp;~64-Byte<br>Nullifier</div>
+        <div class="nullifier">ein ~64-Byte<br>Nullifier</div>
         <div class="tx-foot">~16 vBytes on-chain · Coin-Daten off-chain</div>
       </div>
     </div>
@@ -327,7 +327,7 @@
       <p class="abstract">
         Client-Side Validation entkoppelt die Transaktionsvalidierung vom Bitcoin-Konsens, indem sie zum Empfänger wandert. Shielded CSV verbessert frühere CSV-Designs, indem die Transaktionshistorie vollständig verborgen bleibt: jeder Transfer leakt nur einen 64-Byte-Nullifier an die Chain, der Rest wird client-seitig über succinct Zero-Knowledge-Proofs verifiziert. Das Protokoll ist mit Bitcoin as-is kompatibel — kein Soft Fork, kein Hard Fork — und zielt auf grob eine Größenordnung mehr Transaktionen pro Sekunde als die Base Layer allein.
       </p>
-      <p class="paper-note"><b>zkCoins v1 implementiert das Modell des Papers getreu:</b> jeder Transfer veröffentlicht seinen ~64-Byte-Nullifier direkt auf Bitcoin als halb-aggregierte Signatur, sodass die Chain selbst jeden Nullifier garantiert, den ein Verifier für seine Double-Spend-Prüfungen braucht — keine Off-Chain-Batch-Daten, keine Data-Availability-Annahme. Etwa 16 vBytes on-chain pro Transfer, in der Größenordnung von ~100 Transaktionen pro Sekunde.</p>
+      <p class="paper-note"><b>zkCoins v1 baut direkt auf dem On-Chain-Modell des Papers auf:</b> jeder Transfer veröffentlicht seinen ~64-Byte-Nullifier direkt auf Bitcoin als halb-aggregierte Signatur, sodass die Chain selbst jeden Nullifier garantiert, den ein Verifier für seine Double-Spend-Prüfungen braucht — keine Off-Chain-Batch-Daten, keine Data-Availability-Annahme. Etwa 16 vBytes on-chain pro Transfer, in der Größenordnung von ~100 Transaktionen pro Sekunde.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -477,7 +477,7 @@
         <div class="phase-card">
           <ul>
             <li><span class="what">Recipient-Commitments verbergen.</span><span class="why">Den residualen Link zwischen Sender, Empfänger und Coin-Identifier eliminieren.</span></li>
-            <li><span class="what">Reorg-sichere Nullifier-Akkumulation.</span><span class="why">Kontrolliert degradieren, wenn sich die kanonische Chain reorganisiert — statt stecken zu bleiben.</span></li>
+            <li><span class="what">Deterministische Nullifier-Akkumulation.</span><span class="why">Rein aus Bitcoin rekonstruiert; endgültig nach 6 Bestätigungen — der Bitcoin-Standardtiefe.</span></li>
             <li><span class="what">Per-Coin-Freshness-Proofs.</span><span class="why">Empfänger prüfen das Alter eines Coins lokal, ohne einer Drittpartei zu vertrauen.</span></li>
             <li><span class="what">Paper-abgeleitete Security-Testsuite.</span><span class="why">Der volle Satz formaler Eigenschaften aus dem Shielded-CSV-Paper, kodiert als Failing-Witness-Tests.</span></li>
           </ul>
@@ -623,7 +623,7 @@
       </details>
       <details>
         <summary>Was ist Shielded CSV?</summary>
-        <p>Shielded CSV (Client-Side Validation) ist ein privatsphärewahrendes Bitcoin-Protokoll aus dem Paper von Jonas Nick, Liam Eagen und Robin Linus (ePrint 2025/068). zkCoins v1 implementiert es getreu: jeder Transfer veröffentlicht einen ~64-Byte-Nullifier auf Bitcoin, alles andere wird client-seitig verifiziert.</p>
+        <p>Shielded CSV (Client-Side Validation) ist ein privatsphärewahrendes Bitcoin-Protokoll aus dem Paper von Jonas Nick, Liam Eagen und Robin Linus (ePrint 2025/068). zkCoins v1 baut direkt darauf auf: jeder Transfer veröffentlicht einen ~64-Byte-Nullifier auf Bitcoin, alles andere wird client-seitig verifiziert.</p>
       </details>
       <details>
         <summary>Ist die Publisher-Rolle wirklich dezentral?</summary>
