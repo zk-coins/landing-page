@@ -32,7 +32,8 @@ export async function installVisualDeterminism(page) {
 
 // Interactive-state setup: expand every FAQ <details> so the shot captures each
 // answer (the default-collapsed shot never shows them). Native <details>, no JS —
-// set the attribute directly and wait for the answers to become visible.
+// set the attribute directly and wait for the answers to become visible, then for
+// document height to stop changing (opening every details reflows a tall page).
 export async function openAllFaq(page) {
   const count = await page.locator('.faq details').count();
   await page.evaluate(() => {
@@ -43,6 +44,19 @@ export async function openAllFaq(page) {
     (expected) => document.querySelectorAll('.faq details[open]').length === expected,
     count,
   );
+  // After mass-open, layout may still be settling (container paints). Wait until
+  // scrollHeight is identical across two consecutive animation frames.
+  await page.waitForFunction(() => {
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        const height = document.documentElement.scrollHeight;
+        requestAnimationFrame(() => {
+          resolve(document.documentElement.scrollHeight === height);
+        });
+      });
+    });
+  });
+  await page.waitForTimeout(50);
 }
 
 // Waits until the page has reached a stable visual state: fonts ready, network
