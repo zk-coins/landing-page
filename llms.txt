@@ -9,6 +9,7 @@
 - Proving system: **Plonky2 + Poseidon-Goldilocks** (recursion-native, SNARK-friendly hash).
 - **Self-custodial**: keys are generated and stored locally in the browser and never leave the device. Peer-to-peer, permissionless publishing, no coordinator or custodian.
 - Based on the paper *Shielded CSV: Private and Efficient Client-Side Validation* by Jonas Nick, Liam Eagen and Robin Linus (IACR ePrint 2025/068).
+- **zkBTC** is token standard 3 on the zkCoins protocol: lock real Bitcoin, hold it as a private and freely transferable coin, redeem it back into on-chain BTC without a central party's permission. An optional gatekeeper screens the source of new deposits at mint time and can never freeze, seize, block or reverse coins, transfers or exits. Reserve construction: **BitVM2**, with open permissionless operator registration and no federation multisig. Status: a **design specification** — no implementation code, unaudited, not production-ready.
 
 ## Languages
 - English (default): https://zkcoins.com/
@@ -27,6 +28,7 @@
 - [Shielded CSV whitepaper — ePrint 2025/068](https://eprint.iacr.org/2025/068)
 - [ZeroSync prototype](https://github.com/ZeroSync/ZKCoins)
 - [Source code](https://github.com/zk-coins)
+- [zkBTC token standard](https://github.com/zk-coins/zkbtc): 1:1 BTC-backed, freely transferable, redeemable token on zkCoins (design specification)
 
 ## Community
 - [X / Twitter](https://x.com/zkcoinsbtc)

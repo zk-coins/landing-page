@@ -195,6 +195,14 @@
             "@type": "Answer",
             "text": "Su Bitcoin. Ogni trasferimento pubblica il proprio nullifier da ~64 byte direttamente sulla chain come firma semi-aggregata, così che Bitcoin stesso garantisca la disponibilità di ogni nullifier di cui un verifier ha bisogno per controllare i double-spend — nessun dato di batch off-chain e nessun layer di data-availability separato di cui fidarsi. I dati dei coin — importi, parti e cronologia — restano comunque off-chain, provati con zero-knowledge, e non sono mai necessari per ricostruire la vista pubblica dei double-spend."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Che cos'è zkBTC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "zkBTC è il token standard 3 del protocollo zkCoins: bloccare Bitcoin reale, tenerlo come coin privato e liberamente trasferibile e riscattarlo in BTC on-chain senza il permesso di una parte centrale. Un gatekeeper opzionale può controllare la provenienza dei nuovi depositi al momento del mint, ma non può mai congelare, sequestrare, bloccare o annullare coin, trasferimenti o uscite di nessuno. Oggi è una specifica di design — nessun codice di implementazione, non auditata, non pronta per la produzione."
+          }
         }
       ]
     }
@@ -229,6 +237,7 @@
     <nav class="nav-links" aria-label="Principale">
       <a class="link" href="#paper">Whitepaper</a>
       <a class="link" href="#how">Come funziona</a>
+      <a class="link" href="#zkbtc">zkBTC</a>
       <a class="link" href="#roadmap">Roadmap</a>
       <a class="link" href="https://docs.zkcoins.com">Docs</a>
       <a class="app-btn" href="https://zkcoins.app">
@@ -432,6 +441,60 @@
 
   <hr class="hr" />
 
+  <!-- zkBTC -->
+  <section id="zkbtc" class="band" aria-labelledby="zkbtc-title">
+    <div class="band-head">
+      <span class="eyebrow">Token standard 3</span>
+      <h2 id="zkbtc-title">zkBTC — Bitcoin nello shielded pool</h2>
+      <p>zkCoins non ha un token di protocollo nativo. zkBTC è un'altra cosa: un token standard pubblicato per bloccare Bitcoin reale e tenerlo come coin privato e liberamente trasferibile, che ogni detentore può riscattare in BTC on-chain — senza il permesso di una parte centrale.</p>
+    </div>
+    <p class="zkbtc-status">
+      <span class="zkbtc-badge">Specifica di design</span>
+      <span>Non esiste codice di implementazione, il design non è auditato e non è pronto per la produzione. Tre gate — la conversione del compliance predicate, un mercato aperto di registrazione degli operatori e un audit esterno — devono essere superati prima.</span>
+    </p>
+    <div class="concepts">
+      <div class="concept">
+        <div class="k">Modello dell'asset</div>
+        <div class="h">Un coin zkCoins ordinario</div>
+        <p class="v">zkBTC è il <b>token standard 3</b> del protocollo zkCoins — verificato dallo stesso circuit e dallo stesso accumulatore di nullifier di ogni altro asset zkCoins. Nessun secondo protocollo, nessuna chain separata.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Trasferimento</div>
+        <div class="h">Libero una volta mintato</div>
+        <p class="v">Ogni detentore può inviare zkBTC a qualsiasi indirizzo <b>senza il permesso del gatekeeper</b>, senza la sua firma e senza la sua cooperazione online — e il trasferimento resta shielded come ogni altro trasferimento zkCoins.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Riscatto</div>
+        <div class="h">Uscita senza il gatekeeper</div>
+        <p class="v">La riserva poggia su <b>BitVM2</b>, la costruzione fraud-proof provata su mainnet — nessun multisig di federazione. La registrazione degli operatori è aperta e permissionless, e l'uscita dipende solo dal fatto che almeno un operatore registrato sia attivo.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Gatekeeper</div>
+        <div class="h">Controllo in ingresso, mai custodia</div>
+        <p class="v">Un gatekeeper opzionale controlla la provenienza dei <b>nuovi depositi al momento del mint</b>. Non può congelare, sequestrare, bloccare o annullare coin, trasferimenti o uscite di nessuno, e nel peg-out <b>non ha alcun ruolo</b>.</p>
+      </div>
+    </div>
+    <div class="zkbtc-limits">
+      <h3>Costi e rischi residui</h3>
+      <ul>
+        <li><b>Garanzie condizionate, non assolute.</b> «Nessun operatore può rubare» vale sotto l'onestà 1-of-N del setup, almeno un challenger onesto che agisce entro la finestra di challenge, e crittografia corretta di circuit e grafo BitVM2. Un bug di soundness critico rende possibile un furto reale — per questo un audit esterno è un gate di lancio.</li>
+        <li><b>Liveness, non custodia.</b> L'uscita richiede almeno un operatore registrato attivo, liquido e disposto ad anticipare BTC entro la commissione massima del detentore. Un riscatto brucia prima il coin: una commissione troppo bassa lo lascia inevaso finché un operatore non lo serve.</li>
+        <li><b>Il gatekeeper è una vera concentrazione di fiducia.</b> In modalità gated un gatekeeper compromesso o negligente può abilitare un drain del backing dell'intera riserva pooled — e la riserva è pooled, quindi un solo vault svuotato diluisce tutti i detentori, non solo la controparte di un deposito.</li>
+        <li><b>Il confine è pubblico.</b> Peg-in e peg-out sono eventi Bitcoin ordinari: importi e tempi al confine sono osservabili e correlabili, anche se i trasferimenti dentro il pool restano shielded.</li>
+      </ul>
+    </div>
+    <div class="actions zkbtc-actions">
+      <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">
+        Leggi la specifica
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">Whitepaper zkBTC (PDF)</a>
+      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc">Repository</a>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
   <!-- ROADMAP -->
   <section id="roadmap" class="roadmap band" aria-labelledby="roadmap-title">
     <div class="roadmap-head">
@@ -497,7 +560,7 @@
             <li><span class="what">Bridge in stile BitVM2 / Clementine.</span><span class="why">Modello di fiducia 1-of-N honesty. La stessa costruzione in esecuzione sul mainnet Citrea.</span></li>
             <li><span class="what">Light client Bitcoin ricorsivo.</span><span class="why">Una succinct proof che un deposito è atterrato a profondità ≥ 6 nella chain canonica.</span></li>
             <li><span class="what">Ricorsione → wrapping Groth16.</span><span class="why">Portare le nostre proof adatte alla ricorsione in un verifier che Bitcoin script può controllare.</span></li>
-            <li><span class="what">Scaling della federation: N=3 → N=100.</span><span class="why">Partire con una federation mono-operatore; crescere fino a cento membri indipendenti, dove basta una key deletion onesta.</span></li>
+            <li><span class="what">Registrazione degli operatori aperta e permissionless.</span><span class="why">Chiunque può registrarsi per epoca di deposito con un bond — nessun insieme di operatori fisso o privilegiato, e un detentore può fare da agente di uscita per sé stesso.</span></li>
             <li><span class="what">Run di integrazione su signet.</span><span class="why">Roundtrip completo peg-in / peg-out incluso uno scenario di operatore deliberatamente malevolo.</span></li>
           </ul>
         </div>
@@ -533,7 +596,7 @@
           <ul>
             <li><span class="what">Sistema di proving di nuova generazione.</span><span class="why">Portare su un field più piccolo con un hash più veloce una volta stabilizzato lo stack upstream. La struttura algoritmica resta.</span></li>
             <li><span class="what">Upgrade della costruzione del bridge.</span><span class="why">I successori drop-in di BitVM2 (Glock, Mosaic) riducono il costo di dispute on-chain di due ordini di grandezza. Il contract del circuit è invariato.</span></li>
-            <li><span class="what">Diversità della federation.</span><span class="why">Reclutare organizzazioni indipendenti come membri della federation finché one-honest-deletion non è un'assunzione significativa.</span></li>
+            <li><span class="what">Diversità dell'insieme di operatori.</span><span class="why">Allargare l'insieme degli operatori registrati con parti indipendenti finché l'onestà 1-of-N del setup non è un'ipotesi solida.</span></li>
             <li><span class="what">Trusted setup del verifier del bridge.</span><span class="why">Una ceremony con 30–60 contributor sostituisce il set di parametri Groth16 mono-contributor usato per testare il verifier del bridge — le proof proprie di zkCoins sono trasparenti (FRI) e non richiedono setup.</span></li>
           </ul>
         </div>
@@ -561,6 +624,11 @@
         <div class="label">Documentazione <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
         <div class="name">zkCoins Docs</div>
         <div class="domain">docs.zkcoins.com</div>
+      </a>
+      <a class="card" href="https://github.com/zk-coins/zkbtc">
+        <div class="label">Token standard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">zkBTC</div>
+        <div class="domain">github.com/zk-coins/zkbtc</div>
       </a>
       <a class="card" href="https://github.com/zk-coins">
         <div class="label">Source <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
@@ -633,6 +701,10 @@
         <summary>Dove vivono i nullifier?</summary>
         <p>Su Bitcoin. Ogni trasferimento pubblica il proprio nullifier da ~64 byte direttamente sulla chain come firma semi-aggregata, così che Bitcoin stesso garantisca la disponibilità di ogni nullifier di cui un verifier ha bisogno per controllare i double-spend — nessun dato di batch off-chain e nessun layer di data-availability separato di cui fidarsi. I dati dei coin — importi, parti e cronologia — restano comunque off-chain, provati con zero-knowledge, e non sono mai necessari per ricostruire la vista pubblica dei double-spend.</p>
       </details>
+      <details>
+        <summary>Che cos'è zkBTC?</summary>
+        <p>zkBTC è il token standard 3 del protocollo zkCoins: bloccare Bitcoin reale, tenerlo come coin privato e liberamente trasferibile e riscattarlo in BTC on-chain senza il permesso di una parte centrale. Un gatekeeper opzionale può controllare la provenienza dei nuovi depositi al momento del mint, ma non può mai congelare, sequestrare, bloccare o annullare coin, trasferimenti o uscite di nessuno. Oggi è una <a href="https://github.com/zk-coins/zkbtc">specifica di design</a> — nessun codice di implementazione, non auditata, non pronta per la produzione.</p>
+      </details>
     </div>
   </section>
 
@@ -668,6 +740,7 @@
         <a href="#paper">Whitepaper</a>
         <a href="#how">Come funziona</a>
         <a href="#roadmap">Roadmap</a>
+        <a href="#zkbtc">zkBTC</a>
         <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
       </div>
       <div class="footer-col">

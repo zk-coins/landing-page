@@ -57,6 +57,7 @@
     <nav class="nav-links" aria-label="{{nav_aria}}">
       <a class="link" href="#paper">{{nav_paper}}</a>
       <a class="link" href="#how">{{nav_how}}</a>
+      <a class="link" href="#zkbtc">{{nav_zkbtc}}</a>
       <a class="link" href="#roadmap">{{nav_roadmap}}</a>
       <a class="link" href="https://docs.zkcoins.com">{{nav_docs}}</a>
       <a class="app-btn" href="https://zkcoins.app">
@@ -251,6 +252,60 @@
 
   <hr class="hr" />
 
+  <!-- zkBTC -->
+  <section id="zkbtc" class="band" aria-labelledby="zkbtc-title">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_eyebrow}}</span>
+      <h2 id="zkbtc-title">{{zkbtc_h2}}</h2>
+      <p>{{zkbtc_p}}</p>
+    </div>
+    <p class="zkbtc-status">
+      <span class="zkbtc-badge">{{zkbtc_status_badge}}</span>
+      <span>{{zkbtc_status_text}}</span>
+    </p>
+    <div class="concepts">
+      <div class="concept">
+        <div class="k">{{zkbtc_c1_k}}</div>
+        <div class="h">{{zkbtc_c1_h}}</div>
+        <p class="v">{{zkbtc_c1_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{zkbtc_c2_k}}</div>
+        <div class="h">{{zkbtc_c2_h}}</div>
+        <p class="v">{{zkbtc_c2_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{zkbtc_c3_k}}</div>
+        <div class="h">{{zkbtc_c3_h}}</div>
+        <p class="v">{{zkbtc_c3_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{zkbtc_c4_k}}</div>
+        <div class="h">{{zkbtc_c4_h}}</div>
+        <p class="v">{{zkbtc_c4_v}}</p>
+      </div>
+    </div>
+    <div class="zkbtc-limits">
+      <h3>{{zkbtc_limits_title}}</h3>
+      <ul>
+        <li>{{zkbtc_limit1}}</li>
+        <li>{{zkbtc_limit2}}</li>
+        <li>{{zkbtc_limit3}}</li>
+        <li>{{zkbtc_limit4}}</li>
+      </ul>
+    </div>
+    <div class="actions zkbtc-actions">
+      <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">
+        {{zkbtc_btn_spec}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">{{zkbtc_btn_paper}}</a>
+      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc">{{zkbtc_btn_repo}}</a>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
   <!-- ROADMAP -->
   <section id="roadmap" class="roadmap band" aria-labelledby="roadmap-title">
     <div class="roadmap-head">
@@ -381,6 +436,11 @@
         <div class="name">{{card_docs_name}}</div>
         <div class="domain">docs.zkcoins.com</div>
       </a>
+      <a class="card" href="https://github.com/zk-coins/zkbtc">
+        <div class="label">{{card_zkbtc_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{card_zkbtc_name}}</div>
+        <div class="domain">github.com/zk-coins/zkbtc</div>
+      </a>
       <a class="card" href="https://github.com/zk-coins">
         <div class="label">{{card_source_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
         <div class="name">{{card_source_name}}</div>
@@ -452,6 +512,10 @@
         <summary>{{faq_q8}}</summary>
         <p>{{faq_a8}}</p>
       </details>
+      <details>
+        <summary>{{faq_q9}}</summary>
+        <p>{{faq_a9}}</p>
+      </details>
     </div>
   </section>
 
@@ -487,6 +551,7 @@
         <a href="#paper">{{footer_whitepaper}}</a>
         <a href="#how">{{footer_how}}</a>
         <a href="#roadmap">{{footer_roadmap}}</a>
+        <a href="#zkbtc">{{footer_zkbtc}}</a>
         <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
       </div>
       <div class="footer-col">

@@ -1327,6 +1327,75 @@ table.perf td.zk b {
   text-underline-offset: 2px;
 }
 
+/* ─── zkBTC ──────────────────────────────────────────────────── */
+.zkbtc-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--orange-dim);
+  border-radius: 0 8px 8px 0;
+  background: var(--orange-faint);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.zkbtc-badge {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 1px solid var(--orange-dim);
+  background: var(--orange-soft);
+  border-radius: 999px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.zkbtc-limits {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px;
+  background: var(--card-bg);
+}
+.zkbtc-limits h3 {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.zkbtc-limits ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.zkbtc-limits li {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.zkbtc-limits li:last-child {
+  margin-bottom: 0;
+}
+.zkbtc-limits li::marker {
+  color: var(--orange-dim);
+}
+.zkbtc-limits b {
+  color: var(--fg);
+  font-weight: 700;
+}
+.zkbtc-actions {
+  margin-top: 22px;
+}
+
 /* ─── Family ─────────────────────────────────────────────────── */
 .grid {
   display: grid;
@@ -1637,11 +1706,16 @@ footer.footer {
   }
 }
 
-/* ─── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 720px) {
+/* Nav links drop out before they wrap: five links plus the wallet button and the
+   language switcher no longer fit under ~820px. */
+@media (max-width: 820px) {
   .nav-links a.link {
     display: none;
   }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 720px) {
   .compare-grid {
     grid-template-columns: 1fr;
   }

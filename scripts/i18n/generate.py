@@ -131,7 +131,7 @@ ATTR_KEYS = frozenset(
 )
 
 # FAQ question/answer indices that feed the FAQPage JSON-LD graph.
-FAQ_NS = range(1, 9)
+FAQ_NS = range(1, 10)
 
 
 def is_unsafe_sink_key(key: str) -> bool:
@@ -480,6 +480,8 @@ def main() -> int:
         "faq_a7",
         "faq_q8",
         "faq_a8",
+        "faq_q9",
+        "faq_a9",
         "jsonld_org_description",
         "jsonld_website_description",
         "jsonld_wallet_description",
