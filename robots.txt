@@ -28,6 +28,12 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
 User-agent: PerplexityBot
 Allow: /
 
@@ -57,6 +63,15 @@ User-agent: Bytespider
 Allow: /
 
 User-agent: meta-externalagent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: OAI-AdsBot
+Allow: /
+
+User-agent: Google-CloudVertexBot
 Allow: /
 
 Sitemap: https://zkcoins.com/sitemap.xml

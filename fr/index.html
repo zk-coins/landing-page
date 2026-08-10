@@ -128,6 +128,18 @@
       ]
     },
     {
+      "@type": "WebPage",
+      "@id": "https://zkcoins.com/fr/#webpage",
+      "url": "https://zkcoins.com/fr/",
+      "name": "zkCoins — Bitcoin privé via Shielded CSV",
+      "description": "zkCoins apporte une vraie confidentialité à Bitcoin via Shielded CSV : montants, expéditeur, destinataire et historique restent hors chaîne, prouvés par zero-knowledge. Chaque transfert publie seulement un nullifier de ~64 octets sur Bitcoin — environ 16 vBytes on-chain. Pas de soft fork, self-custodial. Basé sur le paper de Jonas Nick, Liam Eagen et Robin Linus (ePrint 2025/068).",
+      "inLanguage": "fr",
+      "dateModified": "2026-08-10",
+      "isPartOf": {
+        "@id": "https://zkcoins.com/#website"
+      }
+    },
+    {
       "@type": "FAQPage",
       "@id": "https://zkcoins.com/fr/#faq",
       "inLanguage": "fr",
@@ -237,7 +249,7 @@
     <nav class="nav-links" aria-label="Principale">
       <a class="link" href="#paper">Whitepaper</a>
       <a class="link" href="#how">Comment ça marche</a>
-      <a class="link" href="#zkbtc">zkBTC</a>
+      <a class="link zk" href="/fr/zkbtc/">zkBTC</a>
       <a class="link" href="#roadmap">Roadmap</a>
       <a class="link" href="https://docs.zkcoins.com">Docs</a>
       <a class="app-btn" href="https://zkcoins.app">
@@ -441,55 +453,44 @@
 
   <hr class="hr" />
 
-  <!-- zkBTC -->
+  <!-- zkBTC (teaser → /zkbtc/) -->
   <section id="zkbtc" class="band" aria-labelledby="zkbtc-title">
     <div class="band-head">
-      <span class="eyebrow">Standard de token 3</span>
+      <span class="eyebrow">Standard de token 3 · zkCoins</span>
       <h2 id="zkbtc-title">zkBTC — du Bitcoin dans le shielded pool</h2>
       <p>zkCoins n'a pas de token de protocole natif. zkBTC est autre chose : un standard de token publié pour verrouiller du vrai Bitcoin et le détenir comme un coin privé et librement transférable, que tout détenteur peut réclamer en BTC on-chain — sans la permission d'une partie centrale.</p>
     </div>
     <p class="zkbtc-status">
       <span class="zkbtc-badge">Spécification de design</span>
-      <span>Aucun code d'implémentation n'existe, le design n'est pas audité et n'est pas prêt pour la production. Trois gates — la conversion du predicate de compliance, un marché ouvert d'enregistrement des opérateurs et un audit externe — doivent d'abord être franchis.</span>
+      <span>Aucun code d'implémentation n'existe encore, le design n'est pas audité en externe et n'est pas prêt pour la production. zkBTC est un projet entièrement élaboré — pas un système en fonctionnement, et aucun bitcoin engagé.</span>
     </p>
     <div class="concepts">
       <div class="concept">
         <div class="k">Modèle d'actif</div>
         <div class="h">Un coin zkCoins ordinaire</div>
-        <p class="v">zkBTC est le <b>standard de token 3</b> du protocole zkCoins — vérifié par le même circuit et le même accumulateur de nullifiers que tout autre actif zkCoins. Pas de second protocole, pas de chaîne séparée.</p>
+        <p class="v">zkBTC est le <b>standard de token 3</b> du protocole zkCoins. Pas de second protocole, pas de chaîne séparée, pas de consensus propre.</p>
       </div>
       <div class="concept">
         <div class="k">Transfert</div>
         <div class="h">Libre une fois minté</div>
-        <p class="v">Tout détenteur peut envoyer des zkBTC à n'importe quelle adresse <b>sans permission du gatekeeper</b>, sans sa signature ni sa coopération en ligne — et le transfert reste shieldé comme tout autre transfert zkCoins.</p>
+        <p class="v">Tout détenteur peut envoyer des zkBTC à n'importe quelle adresse — <b>sans la permission du gatekeeper</b>, sans sa signature, sans qu'il soit en ligne.</p>
       </div>
       <div class="concept">
         <div class="k">Réclamation</div>
         <div class="h">Sortir sans le gatekeeper</div>
-        <p class="v">La réserve repose sur <b>BitVM2</b>, la construction de fraud proof éprouvée sur mainnet — pas de multisig de fédération. L'enregistrement des opérateurs est ouvert et permissionless, et la sortie dépend seulement d'au moins un opérateur enregistré en ligne.</p>
+        <p class="v">La réserve repose sur <b>BitVM2</b> — pas de multisig de fédération. La sortie dépend seulement d'au moins un opérateur enregistré en ligne.</p>
       </div>
       <div class="concept">
         <div class="k">Gatekeeper</div>
         <div class="h">Contrôle à l'entrée, jamais la garde</div>
-        <p class="v">Un gatekeeper optionnel filtre l'origine des <b>nouveaux dépôts au moment du mint</b>. Il ne peut ni geler, ni saisir, ni bloquer, ni annuler les coins, transferts ou sorties de qui que ce soit, et il n'a <b>aucun rôle au peg-out</b>.</p>
+        <p class="v">Un gatekeeper optionnel filtre l'origine des <b>nouveaux dépôts au moment du mint</b> — et n'a <b>aucun rôle au peg-out</b>.</p>
       </div>
     </div>
-    <div class="zkbtc-limits">
-      <h3>Coûts et risques résiduels</h3>
-      <ul>
-        <li><b>Des garanties conditionnelles, pas absolues.</b> « Aucun opérateur ne peut voler » tient sous l'honnêteté 1-of-N du setup, au moins un challenger honnête agissant dans la fenêtre de challenge, et une cryptographie de circuit et de graphe BitVM2 correcte. Un bug de soundness critique rend un vol réel possible — c'est pourquoi un audit externe est un gate de lancement.</li>
-        <li><b>Liveness, pas garde.</b> La sortie exige au moins un opérateur enregistré, en ligne, liquide et prêt à avancer du BTC dans la limite de frais du détenteur. Une réclamation brûle d'abord le coin : des frais trop bas le laissent en attente jusqu'à ce qu'un opérateur le serve.</li>
-        <li><b>Le gatekeeper est une vraie concentration de confiance.</b> En mode gated, un gatekeeper compromis ou négligent peut permettre un drain du backing de toute la réserve mutualisée — et la réserve est mutualisée, donc un seul vault vidé dilue tous les détenteurs, pas seulement la contrepartie d'un dépôt.</li>
-        <li><b>La frontière est publique.</b> Le peg-in et le peg-out sont des événements Bitcoin ordinaires : montants et horaires à la frontière sont observables et corrélables, même si les transferts à l'intérieur du pool restent shieldés.</li>
-      </ul>
-    </div>
     <div class="actions zkbtc-actions">
-      <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">
-        Lire la spécification
+      <a class="btn btn-primary" href="/fr/zkbtc/">
+        zkBTC en détail
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
       </a>
-      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">Whitepaper zkBTC (PDF)</a>
-      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc">Dépôt</a>
     </div>
   </section>
 
@@ -625,10 +626,10 @@
         <div class="name">zkCoins Docs</div>
         <div class="domain">docs.zkcoins.com</div>
       </a>
-      <a class="card" href="https://github.com/zk-coins/zkbtc">
+      <a class="card" href="/fr/zkbtc/">
         <div class="label">Standard de token <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
         <div class="name">zkBTC</div>
-        <div class="domain">github.com/zk-coins/zkbtc</div>
+        <div class="domain">zkcoins.com/zkbtc</div>
       </a>
       <a class="card" href="https://github.com/zk-coins">
         <div class="label">Source <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
@@ -740,7 +741,7 @@
         <a href="#paper">Whitepaper</a>
         <a href="#how">Comment ça marche</a>
         <a href="#roadmap">Roadmap</a>
-        <a href="#zkbtc">zkBTC</a>
+        <a href="/fr/zkbtc/">zkBTC</a>
         <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
       </div>
       <div class="footer-col">

@@ -15,7 +15,7 @@
   --strong: #ffffff; /* headings + the mark */
   --fg: #ece9e4; /* body — warm off-white, never dead grey */
   --muted: #a8a29a;
-  --faint: #78726a;
+  --faint: #857f76;
   --line: #2e2a26;
   --line-2: #221f1b;
   --paper-bg: rgba(247, 147, 26, 0.04);
@@ -1396,6 +1396,442 @@ table.perf td.zk b {
   margin-top: 22px;
 }
 
+/* ─── Breadcrumb ─────────────────────────────────────────────── */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 28px 0 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+.crumbs a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.crumbs a:hover {
+  color: var(--fg);
+}
+.crumbs [aria-current='page'] {
+  color: var(--faint);
+}
+
+/* ─── zkBTC subpage: visibility band ─────────────────────────── */
+.viz {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-bg);
+  padding: 26px 22px 22px;
+}
+.viz-rail {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 12px;
+}
+.viz-line {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  align-items: center;
+  height: 16px;
+  position: relative;
+}
+.viz-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--orange-dim) 0%,
+    var(--orange-dim) 22%,
+    var(--line) 34%,
+    var(--line) 66%,
+    var(--orange-dim) 78%,
+    var(--orange-dim) 100%
+  );
+}
+.viz-line span {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.viz-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow:
+    0 0 0 4px var(--orange-soft),
+    0 0 14px var(--orange);
+}
+.viz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  grid-template-rows: auto auto;
+}
+.viz-pool {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 22px 10px 20px;
+  height: 46px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: var(--ink-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.viz-pool i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.viz-pool s {
+  width: 28px;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--orange-dim) 0 3px, transparent 3px 7px);
+}
+.viz-cell {
+  grid-row: 2;
+  padding: 0 14px;
+  text-align: center;
+}
+.viz-cell:first-of-type {
+  grid-column: 1;
+  padding-left: 0;
+}
+.viz-cell--pool {
+  grid-column: 2;
+}
+.viz-cell:last-of-type {
+  grid-column: 3;
+  padding-right: 0;
+}
+.viz-k {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 7px;
+}
+.viz-cell--pool .viz-k {
+  color: var(--faint);
+}
+.viz-t {
+  margin: 0 0 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--strong);
+  line-height: 1.25;
+}
+.viz-d {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.viz-cap {
+  margin: 20px auto 0;
+  max-width: 74ch;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-2);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+}
+.viz-cap b {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* ─── zkBTC subpage: flow ────────────────────────────────────── */
+.flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.flow-item {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 18px;
+  align-items: start;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-bg);
+}
+.flow-item .n {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--orange);
+  border: 1px solid var(--orange-dim);
+  background: var(--orange-faint);
+  border-radius: 10px;
+  padding: 7px 0;
+  text-align: center;
+}
+.flow-item .t {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--strong);
+  line-height: 1.3;
+}
+.flow-item .d {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 66ch;
+}
+.flow-item .d b {
+  color: var(--fg);
+  font-weight: 700;
+}
+.where {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 6px 11px;
+  white-space: nowrap;
+  align-self: start;
+}
+.where-public {
+  color: var(--orange);
+  border: 1px solid var(--orange-dim);
+  background: var(--orange-soft);
+}
+.where-private {
+  color: var(--muted);
+  border: 1px solid var(--line);
+  background: var(--ink-2);
+}
+
+/* ─── zkBTC subpage: roles matrix ────────────────────────────── */
+.matrix-wrap {
+  overflow-x: auto;
+}
+table.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+table.matrix th,
+table.matrix td {
+  padding: 13px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--line-2);
+}
+table.matrix thead th {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  white-space: nowrap;
+}
+table.matrix thead th.role {
+  text-align: center;
+}
+table.matrix tbody tr:last-child th,
+table.matrix tbody tr:last-child td {
+  border-bottom: 0;
+}
+table.matrix tbody th {
+  font-weight: 600;
+  color: var(--fg);
+  font-size: 13.5px;
+}
+table.matrix td {
+  text-align: center;
+  width: 116px;
+}
+.mk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.mk svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+.mk-yes {
+  color: var(--orange);
+}
+.mk-no {
+  color: var(--faint);
+}
+
+/* ─── zkBTC subpage: maturity gates ──────────────────────────── */
+.gates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.gate {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card-bg);
+}
+.gate .box {
+  margin-top: 1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--ink-1);
+  display: grid;
+  place-items: center;
+}
+.gate .box svg {
+  width: 13px;
+  height: 13px;
+  display: none;
+}
+.gate.done .box {
+  border-color: var(--orange-dim);
+  background: var(--orange-soft);
+  color: var(--orange);
+}
+.gate.done .box svg {
+  display: block;
+}
+.gate .t {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--strong);
+  line-height: 1.3;
+}
+.gate .t .state {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 3px 7px;
+  margin-left: 9px;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+.gate .state-open {
+  color: var(--faint);
+  border: 1px solid var(--line);
+}
+.gate .state-done {
+  color: var(--orange);
+  border: 1px solid var(--orange-dim);
+  background: var(--orange-soft);
+}
+.gate.done .t {
+  color: var(--muted);
+}
+.gate .d {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 66ch;
+}
+.gates-note {
+  margin: 16px 0 0;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--orange-dim);
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.gates-note strong {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+/* Nav: zkBTC entry shimmer (disabled under prefers-reduced-motion) */
+.nav-links a.link.zk {
+  color: var(--fg);
+  position: relative;
+  overflow: hidden;
+}
+.nav-links a.link.zk::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 34%, var(--orange-soft) 50%, transparent 66%);
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  animation: zk-shimmer 7s var(--ease) infinite;
+}
+@keyframes zk-shimmer {
+  0%,
+  72% {
+    background-position: 150% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
+}
+
+/* Eyebrow note under a section label */
+.eyebrow-note {
+  margin: -4px 0 20px;
+  max-width: 64ch;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Hero variant for the zkBTC subpage */
+.zkbtc-hero h1 {
+  font-size: clamp(36px, 6.4vw, 66px);
+}
+.zkbtc-hero .lede {
+  max-width: 60ch;
+}
+.zkbtc-status {
+  max-width: 78ch;
+}
+
 /* ─── Family ─────────────────────────────────────────────────── */
 .grid {
   display: grid;
@@ -1769,5 +2205,166 @@ footer.footer {
   * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* zkBTC subpage: viz stacks vertically under 720px */
+@media (max-width: 720px) {
+  .viz-line {
+    display: none;
+  }
+  .viz-grid {
+    grid-template-columns: 1fr;
+    position: relative;
+    padding-left: 34px;
+  }
+  .viz-grid::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      var(--orange-dim) 0%,
+      var(--orange-dim) 14%,
+      var(--line) 28%,
+      var(--line) 72%,
+      var(--orange-dim) 86%,
+      var(--orange-dim) 100%
+    );
+  }
+  .viz-pool,
+  .viz-cell,
+  .viz-cell:first-of-type,
+  .viz-cell--pool,
+  .viz-cell:last-of-type {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .viz-cell {
+    padding: 0 0 26px;
+    text-align: left;
+    position: relative;
+  }
+  .viz-cell:last-of-type {
+    padding-bottom: 0;
+  }
+  .viz-cell::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 2px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow:
+      0 0 0 4px var(--orange-soft),
+      0 0 14px var(--orange);
+  }
+  .viz-cell--pool::before {
+    display: none;
+  }
+  .viz-pool {
+    margin: 0 0 22px;
+    justify-content: flex-start;
+    padding: 0 16px;
+  }
+  .viz-cap {
+    text-align: left;
+  }
+}
+
+/* zkBTC subpage: flow + matrix under 640px */
+@media (max-width: 640px) {
+  .flow-item {
+    grid-template-columns: 44px 1fr;
+    gap: 8px 14px;
+    padding: 16px 18px;
+  }
+  .flow-item .where {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .matrix-wrap {
+    overflow-x: visible;
+  }
+  table.matrix thead {
+    display: none;
+  }
+  table.matrix tbody tr {
+    display: block;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line-2);
+  }
+  table.matrix tbody tr:last-child {
+    border-bottom: 0;
+  }
+  table.matrix tbody th,
+  table.matrix td {
+    display: block;
+    width: auto;
+    text-align: left;
+    padding: 0;
+    border-bottom: 0;
+  }
+  table.matrix tbody th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fg);
+    margin-bottom: 9px;
+  }
+  table.matrix td {
+    padding: 5px 0 0;
+  }
+  table.matrix td::before {
+    content: attr(data-label);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    display: inline-block;
+    min-width: 92px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a.link.zk::after {
+    display: none;
+  }
+}
+
+/* Wide screens: grow the column; breakpoint above visual-suite viewports */
+@media (min-width: 1600px) {
+  :root {
+    --maxw: 1100px;
+  }
+  .abstract,
+  .paper-note,
+  .compare-cap,
+  .phase-lede,
+  .phase-card li .why,
+  .roadmap-note,
+  .viz-d,
+  .flow-item .d,
+  .gate .d,
+  .zkbtc-limits li,
+  .cta p {
+    max-width: 74ch;
+  }
+  .compare-cap,
+  .viz-cap {
+    max-width: 74ch;
+    margin-inline: auto;
+  }
+}
+@media (min-width: 2200px) {
+  :root {
+    --maxw: 1240px;
   }
 }

@@ -171,11 +171,12 @@ export function faqFromJsonLd(parsed) {
 // --- link classification -----------------------------------------------------
 
 // Classify a single href/src value against the site origin:
-//   { kind: 'skip' }               — mailto/tel/js/data/protocol-relative/empty
-//   { kind: 'anchor', id }         — same-page #id (id must exist in the doc)
-//   { kind: 'external' }           — absolute URL on a different origin
-//   { kind: 'internal', pathname } — same-origin/relative path to resolve to a file
-//   { kind: 'invalid', reason }    — an absolute URL that will not parse
+//   { kind: 'skip' }                          — mailto/tel/js/data/protocol-relative/empty
+//   { kind: 'anchor', id }                    — same-page #id (id must exist in the doc)
+//   { kind: 'external' }                      — absolute URL on a different origin
+//   { kind: 'internal', pathname, fragment }  — same-origin/relative path; fragment is
+//                                               the hash target without '#' or null
+//   { kind: 'invalid', reason }               — an absolute URL that will not parse
 export function classifyReference(raw, origin) {
   const value = raw.trim();
   if (value === '') return { kind: 'skip' };
@@ -191,11 +192,15 @@ export function classifyReference(raw, origin) {
       return { kind: 'invalid', reason: `unparsable URL "${raw}"` };
     }
     if (url.origin !== origin) return { kind: 'external' };
-    return { kind: 'internal', pathname: url.pathname };
+    const fragment = url.hash.length > 1 ? url.hash.slice(1) : null;
+    return { kind: 'internal', pathname: url.pathname, fragment };
   }
 
-  const pathname = ('/' + value.replace(/^\.?\//, '')).split('#')[0].split('?')[0];
-  return { kind: 'internal', pathname };
+  const hashIdx = value.indexOf('#');
+  const beforeHash = hashIdx === -1 ? value : value.slice(0, hashIdx);
+  const fragment = hashIdx === -1 || hashIdx === value.length - 1 ? null : value.slice(hashIdx + 1);
+  const pathname = ('/' + beforeHash.replace(/^\.?\//, '')).split('?')[0];
+  return { kind: 'internal', pathname, fragment };
 }
 
 // Map a URL pathname to the repo-relative file it must resolve to (mirrors the

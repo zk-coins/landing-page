@@ -1,6 +1,8 @@
 // Single source of truth for supported locales. Imported by pages.mjs and
 // check-site so the language matrix cannot drift between tooling layers.
 // en is served from the site root; every other code is a directory prefix.
+// Optional page slug (path segment under the language root; "" = home) is the
+// second dimension — same helpers serve every public page.
 
 export const DEFAULT_LANG = 'en';
 
@@ -50,29 +52,46 @@ export const LANGS = Object.freeze([
 
 export const LANG_CODES = Object.freeze(LANGS.map((l) => l.code));
 
-/** Public URL path for a language's home page (trailing slash; en is `/`). */
-export function pathForLang(code) {
-  if (code === DEFAULT_LANG) return '/';
+/**
+ * Public URL path for a language page (trailing slash; en home is `/`).
+ * @param {string} code
+ * @param {string} [slug=""] path segment under the language root ("" = home)
+ */
+export function pathForLang(code, slug = '') {
   const lang = LANGS.find((l) => l.code === code);
   if (lang === undefined) {
     throw new Error(`unknown language code: ${code}`);
   }
-  return `/${lang.dir}`;
+  if (code === DEFAULT_LANG) {
+    return slug ? `/${slug}/` : '/';
+  }
+  return slug ? `/${lang.dir}${slug}/` : `/${lang.dir}`;
 }
 
-/** Repo-relative HTML file for a language home page. */
-export function fileForLang(code) {
-  if (code === DEFAULT_LANG) return 'index.html';
+/**
+ * Repo-relative HTML file for a language page.
+ * @param {string} code
+ * @param {string} [slug=""]
+ */
+export function fileForLang(code, slug = '') {
   const lang = LANGS.find((l) => l.code === code);
   if (lang === undefined) {
     throw new Error(`unknown language code: ${code}`);
   }
-  return `${lang.dir}index.html`;
+  if (code === DEFAULT_LANG) {
+    return slug ? `${slug}/index.html` : 'index.html';
+  }
+  return slug ? `${lang.dir}${slug}/index.html` : `${lang.dir}index.html`;
 }
 
-/** Absolute site URL for a language home page. */
-export function urlForLang(origin, code) {
-  return `${origin}${pathForLang(code)}`;
+/**
+ * Absolute site URL for a language page.
+ * @param {string} origin
+ * @param {string} code
+ * @param {string} [slug=""]
+ */
+export function urlForLang(origin, code, slug = '') {
+  return `${origin}${pathForLang(code, slug)}`;
 }
 
 /**
@@ -91,23 +110,26 @@ export function extractHreflangMap(html) {
 }
 
 /**
- * Expected hreflang map for any public locale page: every language + x-default
- * pointing at the English root.
+ * Expected hreflang map for a public locale page: every language + x-default
+ * pointing at the English page for the same slug.
+ * @param {string} origin
+ * @param {string} [slug=""]
  */
-export function expectedHreflangMap(origin) {
-  const map = { 'x-default': urlForLang(origin, DEFAULT_LANG) };
+export function expectedHreflangMap(origin, slug = '') {
+  const map = { 'x-default': urlForLang(origin, DEFAULT_LANG, slug) };
   for (const lang of LANGS) {
-    map[lang.hreflang] = urlForLang(origin, lang.code);
+    map[lang.hreflang] = urlForLang(origin, lang.code, slug);
   }
   return map;
 }
 
 /**
- * Language-switcher hrefs (root-absolute paths) expected on every page.
- * Same set for the single-page site: each language's home.
+ * Language-switcher hrefs (root-absolute paths) expected on a page of the given
+ * slug: each language's copy of that same page (not always the language home).
+ * @param {string} [slug=""]
  */
-export function expectedSwitcherPaths() {
-  return LANGS.map((l) => pathForLang(l.code));
+export function expectedSwitcherPaths(slug = '') {
+  return LANGS.map((l) => pathForLang(l.code, slug));
 }
 
 /**

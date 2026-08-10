@@ -3,7 +3,9 @@ import {
   PAGES,
   PORT,
   PROJECTS,
+  SITE_PAGES,
   VIEWS,
+  pathsFromSitePages,
   projectsForView,
   screenshotName,
   slugFor,
@@ -13,8 +15,60 @@ import {
 describe('constants', () => {
   test('PORT is a number and PAGES/PROJECTS cover the locale matrix', () => {
     expect(typeof PORT).toBe('number');
-    expect(PAGES).toEqual(['/', '/de/', '/fr/', '/it/', '/es/']);
+    expect(SITE_PAGES).toEqual([
+      { slug: '', hasFaq: true },
+      { slug: 'zkbtc', hasFaq: true },
+    ]);
+    expect(PAGES).toEqual([
+      '/',
+      '/de/',
+      '/fr/',
+      '/it/',
+      '/es/',
+      '/zkbtc/',
+      '/de/zkbtc/',
+      '/fr/zkbtc/',
+      '/it/zkbtc/',
+      '/es/zkbtc/',
+    ]);
     expect(PROJECTS).toEqual(['desktop-chromium', 'tablet-chromium', 'mobile-safari']);
+  });
+});
+
+describe('pathsFromSitePages', () => {
+  test('expands every page × language when requireFaq is false', () => {
+    expect(
+      pathsFromSitePages([
+        { slug: '', hasFaq: true },
+        { slug: 'zkbtc', hasFaq: false },
+      ]),
+    ).toEqual([
+      '/',
+      '/de/',
+      '/fr/',
+      '/it/',
+      '/es/',
+      '/zkbtc/',
+      '/de/zkbtc/',
+      '/fr/zkbtc/',
+      '/it/zkbtc/',
+      '/es/zkbtc/',
+    ]);
+  });
+
+  test('with requireFaq only keeps pages that declare hasFaq', () => {
+    expect(
+      pathsFromSitePages(
+        [
+          { slug: '', hasFaq: true },
+          { slug: 'zkbtc', hasFaq: false },
+        ],
+        { requireFaq: true },
+      ),
+    ).toEqual(['/', '/de/', '/fr/', '/it/', '/es/']);
+    expect(pathsFromSitePages([{ slug: 'zkbtc', hasFaq: false }], { requireFaq: true })).toEqual(
+      [],
+    );
   });
 });
 
@@ -57,8 +111,18 @@ describe('VIEWS', () => {
     expect(slugs).toContain('home-de');
     expect(slugs).toContain('home-faq-open');
     expect(slugs).toContain('home-de-faq-open');
-    // default load + faq-open for each of 5 locales
-    expect(VIEWS).toHaveLength(10);
+    // default load + faq-open for each page × locale with hasFaq
+    // 2 pages × 5 locales × 2 states = 20
+    expect(VIEWS).toHaveLength(20);
+    expect(slugs).toContain('zkbtc');
+    expect(slugs).toContain('de-zkbtc');
+    expect(slugs).toContain('zkbtc-faq-open');
+  });
+
+  test('faq-open views only cover SITE_PAGES with hasFaq', () => {
+    const faqOpen = VIEWS.filter((v) => v.state === 'faqOpen');
+    const faqPages = SITE_PAGES.filter((p) => p.hasFaq);
+    expect(faqOpen).toHaveLength(faqPages.length * 5);
   });
 });
 

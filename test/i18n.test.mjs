@@ -34,9 +34,19 @@ describe('pathForLang / fileForLang / urlForLang', () => {
     expect(urlForLang('https://zkcoins.com', 'fr')).toBe('https://zkcoins.com/fr/');
   });
 
+  test('maps a non-empty slug under the language root', () => {
+    expect(pathForLang('en', 'zkbtc')).toBe('/zkbtc/');
+    expect(pathForLang('de', 'zkbtc')).toBe('/de/zkbtc/');
+    expect(fileForLang('en', 'zkbtc')).toBe('zkbtc/index.html');
+    expect(fileForLang('de', 'zkbtc')).toBe('de/zkbtc/index.html');
+    expect(urlForLang('https://zkcoins.com', 'es', 'zkbtc')).toBe('https://zkcoins.com/es/zkbtc/');
+  });
+
   test('throws on an unknown language code', () => {
     expect(() => pathForLang('pt')).toThrow(/unknown language code/);
     expect(() => fileForLang('pt')).toThrow(/unknown language code/);
+    expect(() => pathForLang('pt', 'zkbtc')).toThrow(/unknown language code/);
+    expect(() => fileForLang('pt', 'zkbtc')).toThrow(/unknown language code/);
   });
 });
 
@@ -47,6 +57,14 @@ describe('hreflang helpers', () => {
     expect(map.en).toBe('https://zkcoins.com/');
     expect(map.de).toBe('https://zkcoins.com/de/');
     expect(Object.keys(map).sort()).toEqual(['de', 'en', 'es', 'fr', 'it', 'x-default'].sort());
+  });
+
+  test('expectedHreflangMap with a slug points every language at that page', () => {
+    const map = expectedHreflangMap('https://zkcoins.com', 'zkbtc');
+    expect(map['x-default']).toBe('https://zkcoins.com/zkbtc/');
+    expect(map.en).toBe('https://zkcoins.com/zkbtc/');
+    expect(map.de).toBe('https://zkcoins.com/de/zkbtc/');
+    expect(map.fr).toBe('https://zkcoins.com/fr/zkbtc/');
   });
 
   test('extractHreflangMap reads alternate links and ignores others', () => {
@@ -70,6 +88,16 @@ describe('hreflang helpers', () => {
 describe('switcher helpers', () => {
   test('expectedSwitcherPaths lists every locale home', () => {
     expect(expectedSwitcherPaths()).toEqual(['/', '/de/', '/fr/', '/it/', '/es/']);
+  });
+
+  test('expectedSwitcherPaths with a slug lists the same page per language', () => {
+    expect(expectedSwitcherPaths('zkbtc')).toEqual([
+      '/zkbtc/',
+      '/de/zkbtc/',
+      '/fr/zkbtc/',
+      '/it/zkbtc/',
+      '/es/zkbtc/',
+    ]);
   });
 
   test('extractSwitcherHrefs reads the lang menu', () => {

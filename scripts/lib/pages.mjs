@@ -8,8 +8,35 @@ import { LANG_CODES, pathForLang } from './i18n.mjs';
 
 export const PORT = 4173;
 
-// Public, indexed pages — one home per supported language.
-export const PAGES = LANG_CODES.map((code) => pathForLang(code));
+/**
+ * Site page definitions. `slug` is the path segment under the language root
+ * ("" = home). Keep in sync with PAGES in scripts/i18n/generate.py.
+ * @type {readonly { slug: string, hasFaq: boolean }[]}
+ */
+export const SITE_PAGES = Object.freeze([
+  { slug: '', hasFaq: true },
+  { slug: 'zkbtc', hasFaq: true },
+]);
+
+/**
+ * Expand site-page defs × languages into public URL paths.
+ * When `requireFaq` is true, only pages with `hasFaq` are included (for the
+ * faqOpen visual state).
+ * @param {readonly { slug: string, hasFaq: boolean }[]} pages
+ * @param {{ requireFaq?: boolean }} [opts]
+ */
+export function pathsFromSitePages(pages, { requireFaq = false } = {}) {
+  return pages
+    .filter((p) => (requireFaq ? p.hasFaq : true))
+    .flatMap((page) => LANG_CODES.map((code) => pathForLang(code, page.slug)));
+}
+
+// Public, indexed pages — every site page × every supported language.
+// Order: page-major (all langs of page 1, then page 2, …), matching generate.py.
+export const PAGES = pathsFromSitePages(SITE_PAGES);
+
+// Paths that expose a FAQ section (faqOpen visual state applies only here).
+const FAQ_PATHS = pathsFromSitePages(SITE_PAGES, { requireFaq: true });
 
 // Viewports the visual suite renders: desktop (>720px, full layout), a mid width
 // that exercises the `@media (max-width: 720px)` and `640px` responsive layers,
@@ -44,13 +71,13 @@ export function slugFor(path) {
 //   projects — optional subset of PROJECTS this view applies to (default: all)
 //
 // Coverage = every public page at default load on all three viewports, plus the
-// expanded-FAQ state on every locale (native <details>, no JS).
+// expanded-FAQ state on every page that has a FAQ (native <details>, no JS).
 export const VIEWS = [
-  // 1) Default load, every locale × every viewport.
+  // 1) Default load, every public page × every viewport.
   ...PAGES.map((path) => ({ slug: slugFor(path), path })),
 
-  // 2) Expanded FAQ on every locale.
-  ...PAGES.map((path) => ({
+  // 2) Expanded FAQ only on pages that declare hasFaq.
+  ...FAQ_PATHS.map((path) => ({
     slug: `${slugFor(path)}-faq-open`,
     path,
     state: 'faqOpen',

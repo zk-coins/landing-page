@@ -225,6 +225,20 @@ describe('classifyReference', () => {
     expect(classifyReference('https://zkcoins.com/favicon.svg', ORIGIN)).toEqual({
       kind: 'internal',
       pathname: '/favicon.svg',
+      fragment: null,
+    });
+  });
+
+  test('preserves the fragment on a same-origin absolute URL', () => {
+    expect(classifyReference('https://zkcoins.com/#investors', ORIGIN)).toEqual({
+      kind: 'internal',
+      pathname: '/',
+      fragment: 'investors',
+    });
+    expect(classifyReference('https://zkcoins.com/de/zkbtc/#trust', ORIGIN)).toEqual({
+      kind: 'internal',
+      pathname: '/de/zkbtc/',
+      fragment: 'trust',
     });
   });
 
@@ -232,11 +246,39 @@ describe('classifyReference', () => {
     expect(classifyReference('https://', ORIGIN).kind).toBe('invalid');
   });
 
-  test('treats a relative reference as internal and strips query/hash', () => {
+  test('treats a relative reference as internal and keeps the fragment separately', () => {
     expect(classifyReference('./favicon.png?x=1#y', ORIGIN)).toEqual({
       kind: 'internal',
       pathname: '/favicon.png',
+      fragment: 'y',
     });
+  });
+
+  test('treats a root-absolute path with fragment as internal', () => {
+    expect(classifyReference('/#gibtesnicht', ORIGIN)).toEqual({
+      kind: 'internal',
+      pathname: '/',
+      fragment: 'gibtesnicht',
+    });
+    expect(classifyReference('/zkbtc/#trust', ORIGIN)).toEqual({
+      kind: 'internal',
+      pathname: '/zkbtc/',
+      fragment: 'trust',
+    });
+  });
+
+  test('uses null fragment when the hash is empty or absent', () => {
+    expect(classifyReference('/de/', ORIGIN)).toEqual({
+      kind: 'internal',
+      pathname: '/de/',
+      fragment: null,
+    });
+    expect(classifyReference('/de/#', ORIGIN)).toEqual({
+      kind: 'internal',
+      pathname: '/de/',
+      fragment: null,
+    });
+    expect(classifyReference('https://zkcoins.com/de/', ORIGIN).fragment).toBeNull();
   });
 });
 

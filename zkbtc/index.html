@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>zkBTC — Bitcoin-backed private coins on zkCoins</title>
+<meta name="description" content="zkBTC is token standard 3 on the zkCoins protocol: lock real Bitcoin, hold it as a private and freely transferable coin, and redeem it back into on-chain BTC without a central party's permission. The reserve sits in BitVM2 vaults, not with a custodian. A design specification — no implementation code, unaudited, not production-ready." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<meta property="og:title" content="zkBTC — Bitcoin-backed private coins on zkCoins" />
+<meta property="og:description" content="Lock real Bitcoin, hold it privately, redeem it without asking anyone. Reserve on BitVM2, open permissionless operator registration, optional gatekeeper at the entrance only." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zkcoins.com/zkbtc/" />
+<meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@zkcoinsbtc" />
+<meta name="twitter:creator" content="@zkcoinsbtc" />
+<link rel="canonical" href="https://zkcoins.com/zkbtc/" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="author" content="zkCoins" />
+<meta name="application-name" content="zkCoins" />
+<meta property="og:site_name" content="zkCoins" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="de_DE" />
+<meta property="og:locale:alternate" content="fr_FR" />
+<meta property="og:locale:alternate" content="it_IT" />
+<meta property="og:locale:alternate" content="es_ES" />
+<link rel="alternate" hreflang="en" href="https://zkcoins.com/zkbtc/" />
+<link rel="alternate" hreflang="de" href="https://zkcoins.com/de/zkbtc/" />
+<link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/zkbtc/" />
+<link rel="alternate" hreflang="it" href="https://zkcoins.com/it/zkbtc/" />
+<link rel="alternate" hreflang="es" href="https://zkcoins.com/es/zkbtc/" />
+<link rel="alternate" hreflang="x-default" href="https://zkcoins.com/zkbtc/" />
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+<link rel="stylesheet" href="/styles.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://zkcoins.com/#organization",
+      "name": "zkCoins",
+      "url": "https://zkcoins.com/",
+      "logo": "https://zkcoins.com/favicon.png",
+      "description": "zkCoins is a self-custodial wallet for Shielded CSV — private, client-side-validated Bitcoin transactions anchored on Bitcoin L1.",
+      "sameAs": [
+        "https://x.com/zkcoinsbtc",
+        "https://t.me/zkcoinsbtc",
+        "https://github.com/zk-coins",
+        "https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "investor relations",
+          "email": "investors@zkcoins.com",
+          "url": "https://zkcoins.com/#investors",
+          "availableLanguage": [
+            "en",
+            "de",
+            "fr",
+            "it",
+            "es"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://zkcoins.com/#website",
+      "url": "https://zkcoins.com/",
+      "name": "zkCoins",
+      "description": "Private Bitcoin transactions via Shielded CSV. Coin data stays off-chain — each transfer publishes only a ~64-byte nullifier to Bitcoin.",
+      "inLanguage": [
+        "en",
+        "de",
+        "fr",
+        "it",
+        "es"
+      ],
+      "publisher": {
+        "@id": "https://zkcoins.com/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://zkcoins.com/#wallet",
+      "name": "zkCoins Wallet",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web, iOS, Android (PWA)",
+      "url": "https://zkcoins.app",
+      "description": "Self-custodial wallet for sending and receiving private Bitcoin via the Shielded CSV protocol. Keys are generated and stored locally in the browser.",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "isBasedOn": {
+        "@id": "https://zkcoins.com/#paper"
+      },
+      "publisher": {
+        "@id": "https://zkcoins.com/#organization"
+      }
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://zkcoins.com/#paper",
+      "name": "Shielded CSV: Private and Efficient Client-Side Validation",
+      "url": "https://eprint.iacr.org/2025/068",
+      "identifier": "IACR ePrint 2025/068",
+      "datePublished": "2025-01",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Jonas Nick"
+        },
+        {
+          "@type": "Person",
+          "name": "Liam Eagen"
+        },
+        {
+          "@type": "Person",
+          "name": "Robin Linus"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://zkcoins.com/zkbtc/#webpage",
+      "url": "https://zkcoins.com/zkbtc/",
+      "name": "zkBTC — Bitcoin-backed private coins on zkCoins",
+      "description": "zkBTC is token standard 3 on the zkCoins protocol: lock real Bitcoin, hold it as a private and freely transferable coin, and redeem it back into on-chain BTC without a central party's permission. The reserve sits in BitVM2 vaults, not with a custodian. A design specification — no implementation code, unaudited, not production-ready.",
+      "inLanguage": "en",
+      "dateModified": "2026-08-10",
+      "isPartOf": {
+        "@id": "https://zkcoins.com/#website"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://zkcoins.com/zkbtc/#article",
+      "headline": "zkBTC: Bitcoin-backed private coins on the zkCoins protocol",
+      "description": "Token standard 3 on the zkCoins protocol: lock real Bitcoin, hold it as a private and freely transferable coin, and redeem it back into on-chain BTC without a central party's permission. Reserve construction BitVM2, open permissionless operator registration, optional gatekeeper at mint time only. A design specification — no implementation code, unaudited, not production-ready.",
+      "mainEntityOfPage": {
+        "@id": "https://zkcoins.com/zkbtc/#webpage"
+      },
+      "isBasedOn": {
+        "@id": "https://zkcoins.com/#paper"
+      },
+      "author": {
+        "@id": "https://zkcoins.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://zkcoins.com/#organization"
+      },
+      "datePublished": "2026-08-06",
+      "dateModified": "2026-08-10",
+      "about": {
+        "@id": "https://zkcoins.com/#zkbtc"
+      },
+      "inLanguage": "en",
+      "license": "https://opensource.org/licenses/MIT"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://zkcoins.com/#zkbtc",
+      "name": "zkBTC",
+      "description": "A one-for-one Bitcoin-backed, freely transferable and redeemable token standard (token standard 3, issuance_version 3) on the zkCoins protocol."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://zkcoins.com/zkbtc/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "zkCoins",
+          "item": "https://zkcoins.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "zkBTC"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://zkcoins.com/zkbtc/#faq",
+      "inLanguage": "en",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is zkBTC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "zkBTC is token standard 3 on the zkCoins protocol: lock real Bitcoin, hold it as a private and freely transferable coin, and redeem it back into on-chain BTC without a central party's permission. Today it is a design specification — no implementation code, unaudited, not production-ready."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is zkBTC custodial?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The reserve sits in vaults that can only be spent along pre-signed BitVM2 fraud-proof paths; there is no key that lets anyone move it at will. What zkBTC does depend on is liveness: redeeming needs at least one registered operator that is live, liquid and willing to front the BTC."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can the gatekeeper actually do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can refuse or approve new mints at the entrance and see where a deposit came from. It cannot freeze coins, block a transfer, refuse a redemption, redirect a mint, or touch the vault. It has no role at peg-out at all. In gated mode it is still a real trust concentration: a compromised or negligent gatekeeper can enable a drain of the pooled reserve."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How private is zkBTC really?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Transfers inside the shielded pool reveal no amounts, no parties and no lineage. Peg-in and peg-out are ordinary Bitcoin events, so amounts and timing at the boundary are visible and can be correlated. Privacy is complete in the middle and absent at the edges — the specification states this plainly rather than glossing over it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use zkBTC today?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Four conditions have to clear first: BitVM2 on mainnet is met, but the open operator market, the conversion of the compliance predicate, and an external audit of circuit and graph are all still open. Until then zkBTC is a published design, not a product."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is zkBTC a new coin?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. zkBTC holds real Bitcoin one-for-one; it is not a separate currency and not a native protocol token. zkCoins deliberately has none. What zkBTC adds is a standard for how bitcoin enters the shielded pool and how any holder gets it back out."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<!-- zkCoins mark — canonical 12×12 pixel monogram (Brand Guide v1.0) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="zk" viewBox="0 0 12 12">
+    <rect x="3" y="1" width="6" height="1"/>
+    <rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+    <rect x="2" y="3" width="8" height="1"/>
+    <rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+    <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+    <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+    <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+    <rect x="2" y="8" width="8" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+    <rect x="3" y="10" width="6" height="1"/>
+  </symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/" aria-label="zkCoins home">
+      <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+      <span class="word"><b>zk</b>Coins</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="link" href="/#paper">Whitepaper</a>
+      <a class="link" href="/#how">How it works</a>
+      <a class="link zk" href="/zkbtc/">zkBTC</a>
+      <a class="link" href="/#roadmap">Roadmap</a>
+      <a class="link" href="https://docs.zkcoins.com">Docs</a>
+      <a class="app-btn" href="https://zkcoins.app">
+        Open Wallet
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <details class="lang">
+        <summary aria-label="Language (EN)">EN</summary>
+        <div class="lang__menu">
+          <a href="/zkbtc/" lang="en" hreflang="en" aria-current="page">English <span>EN</span></a>
+          <a href="/de/zkbtc/" lang="de" hreflang="de">Deutsch <span>DE</span></a>
+          <a href="/fr/zkbtc/" lang="fr" hreflang="fr">Français <span>FR</span></a>
+          <a href="/it/zkbtc/" lang="it" hreflang="it">Italiano <span>IT</span></a>
+          <a href="/es/zkbtc/" lang="es" hreflang="es">Español <span>ES</span></a>
+        </div>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/">zkCoins</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">zkBTC</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero zkbtc-hero">
+    <span class="eyebrow">Token standard 3 · zkCoins</span>
+    <p class="eyebrow-note">The protocol's third issuance standard: standard 1 mints without a cap, standard 2 with a fixed cap — standard 3 only against deposited Bitcoin.</p>
+    <h1>Private Bitcoin<br><span class="accent">no custodian, redeemable at any time</span></h1>
+    <p class="lede">zkBTC is a token on the zkCoins protocol, <b>backed one-for-one by Bitcoin</b>. The reserve sits in vaults that can only move along pre-signed <b>BitVM2</b> fraud-proof paths — not with a custodian. Every holder can redeem to on-chain BTC as long as a single operator from an open set is reachable.</p>
+    <div class="pillars">
+      <span class="pill">Freely transferable</span>
+      <span class="pill">No custodian</span>
+      <span class="pill">BitVM2 reserve</span>
+      <span class="pill">Open operator set</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">Read the whitepaper
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#reifegrad">Maturity and risks</a>
+    </div>
+  </section>
+
+  <!-- STATBAND -->
+  <section class="statband" aria-label="zkBTC at a glance">
+    <div class="stat"><span class="num">3</span><span class="lab">token standard</span></div>
+    <div class="stat"><span class="num">1<span class="u">-of-N</span></span><span class="lab">trust assumption</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">ways to freeze a coin</span></div>
+    <div class="stat"><span class="num">3</span><span class="lab">gates open before mainnet</span></div>
+  </section>
+
+  <!-- WHITEPAPER -->
+  <section id="whitepaper">
+    <blockquote class="quote quote-lead">
+      <span>"A purely peer-to-peer version of private electronic cash backed by bitcoin would allow payments to be sent without revealing amounts or the transaction graph and without a custodian."</span>
+      <cite>— zkBTC, abstract</cite>
+    </blockquote>
+    <article class="paper" aria-labelledby="wp-title">
+      <div class="eyebrow">Whitepaper · nine pages</div>
+      <h2 id="wp-title">zkBTC: Private Electronic Cash Backed by Bitcoin</h2>
+      <div class="subtitle">Built like Satoshi's Bitcoin paper — twelve sections, from what a transaction is to how the Bitcoin reserve holds.</div>
+
+      <dl class="meta">
+        <dt>Author</dt>
+        <dd>TaprootFreak</dd>
+        <dt>Length</dt>
+        <dd>9 pages · Typst source in the repository</dd>
+        <dt>Builds on</dt>
+        <dd>Shielded CSV (<a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>) · BitVM2</dd>
+        <dt>License</dt>
+        <dd>MIT — free to read, free to cite</dd>
+      </dl>
+
+      <p class="abstract">Digital signatures and zero-knowledge validity proofs solve part of the problem — but the benefit is gone as long as a trusted party still orders the transactions or holds the backing bitcoin. The paper proposes a system that uses Bitcoin as an ordering layer and nothing else: every state transition carries its own recursive validity proof, and the only thing that reaches the chain is a <b>64-byte nullifier</b>. zkBTC is the one-for-one backed Bitcoin token on that protocol.</p>
+      <p class="paper-note"><b>Why it is worth reading:</b> the paper derives the construction from first principles and states its assumptions in plain words instead of hiding them — 1-of-N setup honesty, at least one honest challenger acting inside the challenge window, sound circuit and graph cryptography. Anyone who wants to check whether the arithmetic holds will find everything needed to do so.</p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">Whitepaper (PDF)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">Normative specification</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- WHAT IT IS -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">In one sentence</span>
+      <h2>Not a protocol token — an asset on the protocol</h2>
+      <p>zkCoins deliberately has no native token. zkBTC is a different thing: a published standard for how real Bitcoin enters the shielded pool, changes hands privately inside it, and comes back out — verified by the same circuit and the same nullifier accumulator as every other zkCoins asset.</p>
+    </div>
+    <div class="concepts">
+      <div class="concept">
+        <div class="k">Asset model</div>
+        <div class="h">An ordinary zkCoins coin</div>
+        <p class="v">zkBTC is <b>token standard 3</b> on the zkCoins protocol. No second protocol, no separate chain, no consensus of its own.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Transfer</div>
+        <div class="h">Free once minted</div>
+        <p class="v">Any holder may send zkBTC to any address — <b>without the gatekeeper's permission</b>, without its signature, without it being online.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Redemption</div>
+        <div class="h">Exit without the gatekeeper</div>
+        <p class="v">The reserve rests on <b>BitVM2</b> — no federation multisig. Exit depends only on at least one registered operator being live.</p>
+      </div>
+      <div class="concept">
+        <div class="k">Gatekeeper</div>
+        <div class="h">Entry control, never custody</div>
+        <p class="v">An optional gatekeeper screens the source of <b>new deposits at mint time</b> — and has <b>no role at peg-out</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- PRIVACY VIZ -->
+  <section class="band" id="privatsphaere">
+    <div class="band-head">
+      <span class="eyebrow">Privacy</span>
+      <h2>Public at the edges, private in between</h2>
+      <p>Entry and exit are ordinary Bitcoin events and therefore visible to everyone. Everything in between is not.</p>
+    </div>
+    <div class="viz">
+      <div class="viz-rail">Bitcoin L1</div>
+      <div class="viz-line" aria-hidden="true"><span><i class="viz-dot"></i></span><span></span><span><i class="viz-dot"></i></span></div>
+      <div class="viz-grid">
+        <div class="viz-cell">
+          <div class="viz-k">Visible</div>
+          <p class="viz-t">Peg-in</p>
+          <p class="viz-d">BTC is locked. Amount and time are on the chain.</p>
+        </div>
+        <div class="viz-pool" aria-hidden="true"><s></s><i></i><s></s><i></i><s></s><i></i><s></s><i></i><s></s></div>
+        <div class="viz-cell viz-cell--pool">
+          <div class="viz-k">Not readable</div>
+          <p class="viz-t">Shielded pool</p>
+          <p class="viz-d">Any number of transfers — no amount, no parties, no lineage.</p>
+        </div>
+        <div class="viz-cell">
+          <div class="viz-k">Visible</div>
+          <p class="viz-t">Peg-out</p>
+          <p class="viz-d">BTC flows back. Amount and time are on the chain.</p>
+        </div>
+      </div>
+      <p class="viz-cap"><b>The edges are public.</b> Who locks bitcoin and who takes it back is traceable with amount and time — no design changes that. What stays hidden is everything that happens in between.</p>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- FLOW -->
+  <section class="band" id="ablauf">
+    <div class="band-head">
+      <span class="eyebrow">How it runs</span>
+      <h2>From locked bitcoin and back</h2>
+      <p>Six steps. The marker on the right says whether the step lands on the chain or stays in the pool.</p>
+    </div>
+    <ol class="flow">
+      <li class="flow-item"><span class="n">01</span><div><p class="t">Deposit</p><p class="d">The depositor locks BTC in a vault whose spending paths were pre-signed by every operator of the epoch.</p></div><span class="where where-public">On the chain</span></li>
+      <li class="flow-item"><span class="n">02</span><div><p class="t">Entry check — optional</p><p class="d">If the asset carries a gatekeeper, it checks the source of funds and its own view of the chain before releasing the mint. <b>Without it no new zkBTC comes into existence — and it cannot reach the ones that already do.</b></p></div><span class="where where-public">On the chain</span></li>
+      <li class="flow-item"><span class="n">03</span><div><p class="t">Mint</p><p class="d">The coin appears in the pool, bound to exactly the recipient address committed beforehand. Redirecting it is ruled out.</p></div><span class="where where-private">In the pool</span></li>
+      <li class="flow-item"><span class="n">04</span><div><p class="t">Transfer freely</p><p class="d">From here zkBTC is an ordinary zkCoins coin: pass it on as often as you like, without asking anyone and without anyone reading along.</p></div><span class="where where-private">In the pool</span></li>
+      <li class="flow-item"><span class="n">05</span><div><p class="t">Announce redemption</p><p class="d">The holder burns the coin and names the highest fee they are willing to pay. <b>The gatekeeper has no role here.</b></p></div><span class="where where-private">In the pool</span></li>
+      <li class="flow-item"><span class="n">06</span><div><p class="t">Payout</p><p class="d">A registered operator fronts the BTC and reclaims it from the vault. Who takes that on is decided by the market — the holder themselves if need be.</p></div><span class="where where-public">On the chain</span></li>
+    </ol>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- ROLES MATRIX -->
+  <section class="band" id="rollen">
+    <div class="band-head">
+      <span class="eyebrow">Roles</span>
+      <h2>Who is allowed to do what</h2>
+      <p>The list from the specification, with nothing left out. The telling rows are the ones where nobody is allowed to do anything.</p>
+    </div>
+    <div class="matrix-wrap"><table class="matrix" aria-label="What each role can and cannot do under token standard 3">
+      <thead>
+        <tr><th scope="col">Ability</th><th scope="col" class="role">Gatekeeper</th><th scope="col" class="role">Operator</th><th scope="col" class="role">Holder</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Refuse a new deposit</th>
+          <td data-label="Gatekeeper"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Yes</span></td>
+          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Holder"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">See where a deposit came from</th>
+          <td data-label="Gatekeeper"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Yes</span></td>
+          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Holder"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">Block a transfer</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Holder"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">Freeze or seize coins</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Holder"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">Refuse or censor a redemption</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Holder"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">Redirect a mint to another address</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Holder"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">Empty the vault unilaterally</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Holder"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">Front a payout and charge a fee</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operator"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Yes</span></td>
+          <td data-label="Holder"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Yes</span></td></tr>
+        <tr><th scope="row">Register as an operator</th>
+          <td data-label="Gatekeeper"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Yes</span></td>
+          <td data-label="Operator"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Yes</span></td>
+          <td data-label="Holder"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Yes</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- RESIDUAL RISKS -->
+  <section class="band" id="risiken">
+    <div class="band-head">
+      <span class="eyebrow">Honestly counted</span>
+      <h2>Costs and residual risks</h2>
+      <p>What the specification itself names as open flanks. Anyone evaluating zkBTC should have read this list.</p>
+    </div>
+    <div class="zkbtc-limits">
+      <h3>Residual risks</h3>
+      <ul>
+        <li><b>Conditional guarantees, not unconditional ones.</b> "No operator can steal" holds under 1-of-N setup honesty, at least one honest challenger acting inside the challenge window, and sound circuit and BitVM2-graph cryptography. A critical soundness bug enables actual theft.</li>
+        <li><b>Liveness, not custody.</b> Exit needs at least one registered operator that is live, liquid and willing to front BTC. A redemption burns the coin first — a fee set too low leaves it unserved until someone takes it on.</li>
+        <li><b>The gatekeeper is a real trust concentration.</b> In gated mode a compromised or negligent gatekeeper can enable a backing drain of the entire pooled reserve.</li>
+        <li><b>Pooled contagion.</b> The reserve is pooled and the token is fungible — a single drained vault dilutes every holder, not just the counterparty of one deposit.</li>
+        <li><b>The edges are public.</b> Amounts and timing at peg-in and peg-out are observable and correlatable, even though transfers inside the pool stay shielded.</li>
+        <li><b>Burned is burned.</b> With no security council and no admin keys, the worst case under the trust model is a freeze or burn of the affected deposits — potentially permanent.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- MATURITY GATES -->
+  <section class="band" id="reifegrad">
+    <div class="band-head">
+      <span class="eyebrow">Maturity</span>
+      <h2>What is still missing</h2>
+      <p>The specification names four conditions before an asset may be called zkBTC. One of them is met.</p>
+    </div>
+    <p class="zkbtc-status">
+      <span class="zkbtc-badge">Design specification</span>
+      <span>No implementation code exists yet, the design is not externally audited and not production-ready. zkBTC is a fully worked-out draft — not a running system, and no bitcoin at stake.</span>
+    </p>
+    <ul class="gates">
+      <li class="gate done"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">BitVM2 running on mainnet<span class="state state-done">Met</span></p><p class="d">Bitlayer's BitVM bridge since July 2025, Citrea's Clementine since January 2026. The reserve construction is no longer research.</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Open operator market<span class="state state-open">Open</span></p><p class="d">Bonding, registration ceremony, and a policy that keeps any single party from dominating an epoch.</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Compliance-predicate conversion<span class="state state-open">Open</span></p><p class="d">The zkCoins predicate has to be brought into a form BitVM2 can verify at all.</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">External audit<span class="state state-open">Open</span></p><p class="d">Circuit, BitVM2 graph and pre-signed graphs, published before mainnet. Exactly the class of fault that would otherwise enable real theft.</p></div></li>
+    </ul>
+    <p class="gates-note"><strong>On top of these</strong> come the four conditions the redemption guarantee itself hangs on. As long as even one of these boxes is empty, zkBTC is a specification and not a product.</p>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <div class="band-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>What is zkBTC?</summary>
+        <p>zkBTC is token standard 3 on the zkCoins protocol: lock real Bitcoin, hold it as a private and freely transferable coin, and redeem it back into on-chain BTC without a central party's permission. Today it is a design specification — no implementation code, unaudited, not production-ready.</p>
+      </details>
+      <details>
+        <summary>Is zkBTC custodial?</summary>
+        <p>No. The reserve sits in vaults that can only be spent along pre-signed BitVM2 fraud-proof paths; there is no key that lets anyone move it at will. What zkBTC does depend on is liveness: redeeming needs at least one registered operator that is live, liquid and willing to front the BTC.</p>
+      </details>
+      <details>
+        <summary>What can the gatekeeper actually do?</summary>
+        <p>It can refuse or approve new mints at the entrance and see where a deposit came from. It cannot freeze coins, block a transfer, refuse a redemption, redirect a mint, or touch the vault. It has no role at peg-out at all. In gated mode it is still a real trust concentration: a compromised or negligent gatekeeper can enable a drain of the pooled reserve.</p>
+      </details>
+      <details>
+        <summary>How private is zkBTC really?</summary>
+        <p>Transfers inside the shielded pool reveal no amounts, no parties and no lineage. Peg-in and peg-out are ordinary Bitcoin events, so amounts and timing at the boundary are visible and can be correlated. Privacy is complete in the middle and absent at the edges — the specification states this plainly rather than glossing over it.</p>
+      </details>
+      <details>
+        <summary>Can I use zkBTC today?</summary>
+        <p>No. Four conditions have to clear first: BitVM2 on mainnet is met, but the open operator market, the conversion of the compliance predicate, and an external audit of circuit and graph are all still open. Until then zkBTC is a published design, not a product.</p>
+      </details>
+      <details>
+        <summary>Is zkBTC a new coin?</summary>
+        <p>No. zkBTC holds real Bitcoin one-for-one; it is not a separate currency and not a native protocol token. zkCoins deliberately has none. What zkBTC adds is a standard for how bitcoin enters the shielded pool and how any holder gets it back out.</p>
+      </details>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- SOURCES -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">Further reading</span>
+      <h2>Sources</h2>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">
+        <div class="label">Normative <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">Specification</div>
+        <div class="domain">ZKBTC_TOKEN.md</div>
+      </a>
+      <a class="card" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">
+        <div class="label">Introduction <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">Whitepaper</div>
+        <div class="domain">nine pages, PDF</div>
+      </a>
+      <a class="card" href="https://github.com/zk-coins/zkbtc">
+        <div class="label">Source <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">Repository</div>
+        <div class="domain">github.com/zk-coins/zkbtc</div>
+      </a>
+      <a class="card" href="/#roadmap">
+        <div class="label">Context <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">Roadmap, phase 03</div>
+        <div class="domain">zkcoins.com</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="/" aria-label="zkCoins home">
+        <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+        <span class="word"><b>zk</b>Coins</span>
+      </a>
+      <span class="tag">Private Bitcoin transactions via Shielded CSV. Settled on Bitcoin, verified client-side.</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>Protocol</h3>
+        <a href="/#paper">Whitepaper</a>
+        <a href="/#how">How it works</a>
+        <a href="/#roadmap">Roadmap</a>
+        <a href="/zkbtc/">zkBTC</a>
+        <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
+      </div>
+      <div class="footer-col">
+        <h3>Build</h3>
+        <a href="https://zkcoins.app">Wallet</a>
+        <a href="https://docs.zkcoins.com">Documentation</a>
+        <a href="https://github.com/zk-coins">GitHub</a>
+        <a href="https://github.com/zk-coins/landing-page/tree/HEAD/brand">Brand kit</a>
+      </div>
+      <div class="footer-col">
+        <h3>Community</h3>
+        <a href="https://x.com/zkcoinsbtc">X / Twitter</a>
+        <a href="https://t.me/zkcoinsbtc">Telegram</a>
+        <a href="https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m" title="zkcoins@zkcoins.com — NIP-05 verified">Nostr</a>
+      </div>
+      <div class="footer-col">
+        <h3>Investors</h3>
+        <a href="/#investors">Investor relations</a>
+        <a href="mailto:investors@zkcoins.com">investors@zkcoins.com</a>
+        <a href="https://github.com/zk-coins">Source code</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>© 2026 zkCoins · MIT-licensed</span>
+    <span>Not investment advice · Testnet software</span>
+  </div>
+</footer>
+</body>
+</html>

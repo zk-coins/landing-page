@@ -46,4 +46,49 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/"/>
   </url>
+  <url>
+    <loc>https://zkcoins.com/zkbtc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/zkbtc/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/de/zkbtc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/zkbtc/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/fr/zkbtc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/zkbtc/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/it/zkbtc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/zkbtc/"/>
+  </url>
+  <url>
+    <loc>https://zkcoins.com/es/zkbtc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zkcoins.com/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://zkcoins.com/de/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zkcoins.com/fr/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://zkcoins.com/it/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://zkcoins.com/es/zkbtc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zkcoins.com/zkbtc/"/>
+  </url>
 </urlset>

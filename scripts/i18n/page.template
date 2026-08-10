@@ -10,7 +10,7 @@
 <link rel="icon" href="/favicon.png" type="image/png" />
 <meta property="og:title" content="{{og_title}}" />
 <meta property="og:description" content="{{og_description}}" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="{{og_type}}" />
 <meta property="og:url" content="{{canonical_url}}" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
 <meta name="twitter:card" content="summary" />
@@ -57,7 +57,7 @@
     <nav class="nav-links" aria-label="{{nav_aria}}">
       <a class="link" href="#paper">{{nav_paper}}</a>
       <a class="link" href="#how">{{nav_how}}</a>
-      <a class="link" href="#zkbtc">{{nav_zkbtc}}</a>
+      <a class="link zk" href="{{locale_zkbtc}}">{{nav_zkbtc}}</a>
       <a class="link" href="#roadmap">{{nav_roadmap}}</a>
       <a class="link" href="https://docs.zkcoins.com">{{nav_docs}}</a>
       <a class="app-btn" href="https://zkcoins.app">
@@ -252,7 +252,7 @@
 
   <hr class="hr" />
 
-  <!-- zkBTC -->
+  <!-- zkBTC (teaser → /zkbtc/) -->
   <section id="zkbtc" class="band" aria-labelledby="zkbtc-title">
     <div class="band-head">
       <span class="eyebrow">{{zkbtc_eyebrow}}</span>
@@ -285,22 +285,11 @@
         <p class="v">{{zkbtc_c4_v}}</p>
       </div>
     </div>
-    <div class="zkbtc-limits">
-      <h3>{{zkbtc_limits_title}}</h3>
-      <ul>
-        <li>{{zkbtc_limit1}}</li>
-        <li>{{zkbtc_limit2}}</li>
-        <li>{{zkbtc_limit3}}</li>
-        <li>{{zkbtc_limit4}}</li>
-      </ul>
-    </div>
     <div class="actions zkbtc-actions">
-      <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">
-        {{zkbtc_btn_spec}}
+      <a class="btn btn-primary" href="{{locale_zkbtc}}">
+        {{zkbtc_btn_detail}}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
       </a>
-      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">{{zkbtc_btn_paper}}</a>
-      <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc">{{zkbtc_btn_repo}}</a>
     </div>
   </section>
 
@@ -436,10 +425,10 @@
         <div class="name">{{card_docs_name}}</div>
         <div class="domain">docs.zkcoins.com</div>
       </a>
-      <a class="card" href="https://github.com/zk-coins/zkbtc">
+      <a class="card" href="{{locale_zkbtc}}">
         <div class="label">{{card_zkbtc_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
         <div class="name">{{card_zkbtc_name}}</div>
-        <div class="domain">github.com/zk-coins/zkbtc</div>
+        <div class="domain">{{card_zkbtc_domain}}</div>
       </a>
       <a class="card" href="https://github.com/zk-coins">
         <div class="label">{{card_source_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
@@ -551,7 +540,7 @@
         <a href="#paper">{{footer_whitepaper}}</a>
         <a href="#how">{{footer_how}}</a>
         <a href="#roadmap">{{footer_roadmap}}</a>
-        <a href="#zkbtc">{{footer_zkbtc}}</a>
+        <a href="{{locale_zkbtc}}">{{footer_zkbtc}}</a>
         <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
       </div>
       <div class="footer-col">

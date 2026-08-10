@@ -67,9 +67,12 @@ ALL_LANG_CODES = [lang["code"] for lang in LANGS]
 
 PLACEHOLDER_RE = re.compile(r"\{\{(\w+)\}\}")
 # Optional markup-free FAQ answer variant used only in FAQPage JSON-LD.
-FAQ_A_JSON_RE = re.compile(r"^faq_a(\d+)_json$")
+FAQ_A_JSON_RE = re.compile(r"^(?:zkbtc_)?faq_a(\d+)_json$")
 # Character references (named or numeric); semicolon optional for legacy forms.
 CHAR_REF_RE = re.compile(r"&(?:#[0-9]+;?|#[xX][0-9a-fA-F]+;?|[a-zA-Z][a-zA-Z0-9]*;?)")
+
+# dateModified for the home WebPage node (no dedicated string key).
+HOME_DATE_MODIFIED = "2026-08-10"
 
 
 def resolvable_refs(value: str) -> list[str]:
@@ -127,36 +130,153 @@ ATTR_KEYS = frozenset(
         "footer_nostr_title",
         "perf_bitcoin_regular",
         "perf_zkcoins_v1",
+        "zkbtc_meta_title",
+        "zkbtc_meta_description",
+        "zkbtc_og_title",
+        "zkbtc_og_description",
+        "zkbtc_stats_aria",
+        "zkbtc_bc_aria",
+        "zkbtc_roles_caption",
     }
 )
 
-# FAQ question/answer indices that feed the FAQPage JSON-LD graph.
-FAQ_NS = range(1, 10)
+# Shared chrome keys every page needs (nav, footer, JSON-LD core).
+_CHROME_REQUIRED = {
+    "skip_to_content",
+    "brand_aria",
+    "nav_aria",
+    "nav_paper",
+    "nav_how",
+    "nav_zkbtc",
+    "nav_roadmap",
+    "nav_docs",
+    "nav_open_wallet",
+    "lang_switcher_aria",
+    "footer_tag",
+    "footer_protocol",
+    "footer_whitepaper",
+    "footer_how",
+    "footer_roadmap",
+    "footer_zkbtc",
+    "footer_build",
+    "footer_wallet",
+    "footer_documentation",
+    "footer_github",
+    "footer_brand_kit",
+    "footer_community",
+    "footer_x",
+    "footer_telegram",
+    "footer_nostr",
+    "footer_nostr_title",
+    "footer_investors_col",
+    "footer_investor_relations",
+    "footer_source_code",
+    "footer_legal_copy",
+    "footer_legal_disclaimer",
+    "jsonld_org_description",
+    "jsonld_website_description",
+    "jsonld_wallet_description",
+}
+
+HOME_REQUIRED = _CHROME_REQUIRED | {
+    "meta_title",
+    "meta_description",
+    "og_title",
+    "og_description",
+    "faq_q1",
+    "faq_a1",
+    "faq_q7",
+    "faq_a7",
+    "faq_q8",
+    "faq_a8",
+    "faq_q9",
+    "faq_a9",
+}
+
+ZKBTC_REQUIRED = _CHROME_REQUIRED | {
+    "zkbtc_meta_title",
+    "zkbtc_meta_description",
+    "zkbtc_og_title",
+    "zkbtc_og_description",
+    "zkbtc_h1_line1",
+    "zkbtc_h1_accent",
+    "zkbtc_bc_home",
+    "zkbtc_bc_current",
+    "zkbtc_bc_aria",
+    "zkbtc_faq_q1",
+    "zkbtc_faq_a1",
+    "zkbtc_faq_q2",
+    "zkbtc_faq_a2",
+    "zkbtc_faq_q3",
+    "zkbtc_faq_a3",
+    "zkbtc_faq_q4",
+    "zkbtc_faq_a4",
+    "zkbtc_faq_q5",
+    "zkbtc_faq_a5",
+    "zkbtc_faq_q6",
+    "zkbtc_faq_a6",
+    "jsonld_zkbtc_headline",
+    "jsonld_zkbtc_description",
+    "jsonld_zkbtc_term_name",
+    "jsonld_zkbtc_term_description",
+    "jsonld_zkbtc_published",
+    "jsonld_zkbtc_modified",
+}
+
+# Site pages. "slug" is the path segment under the language root ("" = home),
+# "template" the file, "required" keys that must exist before build,
+# "faq_prefix"/"faq_count" the FAQPage namespace for that page.
+# Keep in sync with SITE_PAGES in scripts/lib/pages.mjs.
+PAGES = [
+    {
+        "slug": "",
+        "template": "page.template",
+        "required": HOME_REQUIRED,
+        "faq_prefix": "faq_",
+        "faq_count": 9,
+        "og_type": "website",
+    },
+    {
+        "slug": "zkbtc",
+        "template": "zkbtc.template",
+        "required": ZKBTC_REQUIRED,
+        "faq_prefix": "zkbtc_faq_",
+        "faq_count": 6,
+        "og_type": "article",
+    },
+]
+
+
+# Visible breadcrumb labels also feed BreadcrumbList JSON-LD.
+BREADCRUMB_JSONLD_KEYS = frozenset({"zkbtc_bc_home", "zkbtc_bc_current"})
 
 
 def is_unsafe_sink_key(key: str) -> bool:
     """True if this string key is injected into an attribute or JSON-LD."""
-    if key in ATTR_KEYS or key.startswith("jsonld_"):
+    if key in ATTR_KEYS or key in BREADCRUMB_JSONLD_KEYS or key.startswith("jsonld_"):
         return True
-    if key in {f"faq_q{n}" for n in FAQ_NS} or key in {f"faq_a{n}" for n in FAQ_NS}:
-        return True
+    for page in PAGES:
+        prefix = page["faq_prefix"]
+        for n in range(1, page["faq_count"] + 1):
+            if key in (f"{prefix}q{n}", f"{prefix}a{n}", f"{prefix}a{n}_json"):
+                return True
     return FAQ_A_JSON_RE.fullmatch(key) is not None
 
 
-def path_for(code: str) -> str:
+def path_for(code: str, slug: str = "") -> str:
     if code == "en":
-        return "/"
-    return f"/{code}/"
+        return f"/{slug}/" if slug else "/"
+    return f"/{code}/{slug}/" if slug else f"/{code}/"
 
 
-def url_for(code: str) -> str:
-    return f"{ORIGIN}{path_for(code)}"
+def url_for(code: str, slug: str = "") -> str:
+    return f"{ORIGIN}{path_for(code, slug)}"
 
 
-def file_for(code: str) -> str:
+def file_for(code: str, slug: str = "") -> str:
     if code == "en":
-        return "index.html"
-    return f"{code}/index.html"
+        return f"{slug}/index.html" if slug else "index.html"
+    return f"{code}/{slug}/index.html" if slug else f"{code}/index.html"
 
 
 def strings_path_for(code: str) -> Path:
@@ -212,19 +332,21 @@ def load_strings(code: str) -> dict[str, str]:
     return data
 
 
-def build_hreflang_links() -> str:
+def build_hreflang_links(slug: str = "") -> str:
     lines = []
     for lang in LANGS:
         lines.append(
-            f'<link rel="alternate" hreflang="{lang["hreflang"]}" href="{url_for(lang["code"])}" />'
+            f'<link rel="alternate" hreflang="{lang["hreflang"]}" '
+            f'href="{url_for(lang["code"], slug)}" />'
         )
     lines.append(
-        f'<link rel="alternate" hreflang="x-default" href="{url_for("en")}" />'
+        f'<link rel="alternate" hreflang="x-default" href="{url_for("en", slug)}" />'
     )
     return "\n".join(lines)
 
 
 def build_og_locale_alternates(current_code: str) -> str:
+    # Locale tags only — independent of page slug.
     lines = []
     for lang in LANGS:
         if lang["code"] == current_code:
@@ -235,7 +357,7 @@ def build_og_locale_alternates(current_code: str) -> str:
     return "\n".join(lines)
 
 
-def build_lang_switcher(current_code: str, aria_label: str) -> str:
+def build_lang_switcher(current_code: str, aria_label: str, slug: str = "") -> str:
     accessible_label = f"{aria_label} ({current_code.upper()})"
     lines = [
         '<details class="lang">',
@@ -244,7 +366,7 @@ def build_lang_switcher(current_code: str, aria_label: str) -> str:
     ]
     for lang in LANGS:
         code = lang["code"]
-        href = path_for(code)
+        href = path_for(code, slug)
         current = ' aria-current="page"' if code == current_code else ""
         lines.append(
             f'    <a href="{href}" lang="{code}" hreflang="{code}"{current}>'
@@ -279,13 +401,15 @@ def check_jsonld_value(code: str, key: str, value: str) -> str:
     return value
 
 
-def faq_answer_for_json(code: str, strings: dict[str, str], n: int) -> str:
+def faq_answer_for_json(
+    code: str, strings: dict[str, str], n: int, prefix: str = "faq_"
+) -> str:
     # A visible answer containing any HTML markup MUST have a markup-free
-    # "faq_a{n}_json" variant for the FAQPage structured data (a missing variant
-    # in that case is a hard error). When a "_json" variant is present it always
-    # takes precedence over the visible answer, whether or not the visible
-    # answer contains markup.
-    visible_key = f"faq_a{n}"
+    # "{prefix}a{n}_json" variant for the FAQPage structured data (a missing
+    # variant in that case is a hard error). When a "_json" variant is present
+    # it always takes precedence over the visible answer, whether or not the
+    # visible answer contains markup.
+    visible_key = f"{prefix}a{n}"
     visible_answer = strings[visible_key]
     json_key = f"{visible_key}_json"
     if json_key in strings:
@@ -313,11 +437,24 @@ def jsonld_string(strings: dict[str, str], code: str, key: str) -> str:
 
 def build_json_ld(
     code: str,
-    locale_url: str,
+    page_url: str,
+    home_url: str,
+    slug: str,
+    faq_prefix: str,
+    faq_count: int,
     get_string: Callable[[str], str],
     get_faq_answer: Callable[[int], str],
 ) -> str:
-    graph = [
+    if slug == "zkbtc":
+        page_name = get_string("zkbtc_meta_title")
+        page_desc = get_string("zkbtc_meta_description")
+        page_modified = get_string("jsonld_zkbtc_modified")
+    else:
+        page_name = get_string("meta_title")
+        page_desc = get_string("meta_description")
+        page_modified = HOME_DATE_MODIFIED
+
+    graph: list[dict] = [
         {
             "@type": "Organization",
             "@id": f"{ORIGIN}/#organization",
@@ -336,7 +473,7 @@ def build_json_ld(
                     "@type": "ContactPoint",
                     "contactType": "investor relations",
                     "email": "investors@zkcoins.com",
-                    "url": f"{locale_url}#investors",
+                    "url": f"{home_url}#investors",
                     "availableLanguage": list(ALL_LANG_CODES),
                 }
             ],
@@ -377,22 +514,82 @@ def build_json_ld(
             ],
         },
         {
+            "@type": "WebPage",
+            "@id": f"{page_url}#webpage",
+            "url": page_url,
+            "name": page_name,
+            "description": page_desc,
+            "inLanguage": code,
+            "dateModified": page_modified,
+            "isPartOf": {"@id": f"{ORIGIN}/#website"},
+        },
+    ]
+
+    if slug == "zkbtc":
+        graph.append(
+            {
+                "@type": "TechArticle",
+                "@id": f"{page_url}#article",
+                "headline": get_string("jsonld_zkbtc_headline"),
+                "description": get_string("jsonld_zkbtc_description"),
+                "mainEntityOfPage": {"@id": f"{page_url}#webpage"},
+                "isBasedOn": {"@id": f"{ORIGIN}/#paper"},
+                "author": {"@id": f"{ORIGIN}/#organization"},
+                "publisher": {"@id": f"{ORIGIN}/#organization"},
+                "datePublished": get_string("jsonld_zkbtc_published"),
+                "dateModified": get_string("jsonld_zkbtc_modified"),
+                "about": {"@id": f"{ORIGIN}/#zkbtc"},
+                "inLanguage": code,
+                "license": "https://opensource.org/licenses/MIT",
+            }
+        )
+        graph.append(
+            {
+                "@type": "DefinedTerm",
+                "@id": f"{ORIGIN}/#zkbtc",
+                "name": get_string("jsonld_zkbtc_term_name"),
+                "description": get_string("jsonld_zkbtc_term_description"),
+            }
+        )
+        graph.append(
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{page_url}#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": get_string("zkbtc_bc_home"),
+                        "item": home_url,
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": get_string("zkbtc_bc_current"),
+                    },
+                ],
+            }
+        )
+
+    graph.append(
+        {
             "@type": "FAQPage",
-            "@id": f"{locale_url}#faq",
+            "@id": f"{page_url}#faq",
             "inLanguage": code,
             "mainEntity": [
                 {
                     "@type": "Question",
-                    "name": get_string(f"faq_q{n}"),
+                    "name": get_string(f"{faq_prefix}q{n}"),
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": get_faq_answer(n),
                     },
                 }
-                for n in FAQ_NS
+                for n in range(1, faq_count + 1)
             ],
-        },
-    ]
+        }
+    )
+
     payload = {"@context": "https://schema.org", "@graph": graph}
     return json.dumps(payload, ensure_ascii=False, indent=2)
 
@@ -432,123 +629,135 @@ def build_sitemap() -> str:
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
         '        xmlns:xhtml="http://www.w3.org/1999/xhtml">',
     ]
-    for lang in LANGS:
-        loc = url_for(lang["code"])
-        lines.append("  <url>")
-        lines.append(f"    <loc>{loc}</loc>")
-        for alt in LANGS:
+    # Page-major order: all langs of page 1, then all langs of page 2, …
+    for page in PAGES:
+        slug = page["slug"]
+        for lang in LANGS:
+            loc = url_for(lang["code"], slug)
+            lines.append("  <url>")
+            lines.append(f"    <loc>{loc}</loc>")
+            for alt in LANGS:
+                lines.append(
+                    f'    <xhtml:link rel="alternate" hreflang="{alt["hreflang"]}" '
+                    f'href="{url_for(alt["code"], slug)}"/>'
+                )
             lines.append(
-                f'    <xhtml:link rel="alternate" hreflang="{alt["hreflang"]}" '
-                f'href="{url_for(alt["code"])}"/>'
+                f'    <xhtml:link rel="alternate" hreflang="x-default" '
+                f'href="{url_for("en", slug)}"/>'
             )
-        lines.append(
-            f'    <xhtml:link rel="alternate" hreflang="x-default" href="{url_for("en")}"/>'
-        )
-        lines.append("  </url>")
+            lines.append("  </url>")
     lines.append("</urlset>")
     lines.append("")
     return "\n".join(lines)
 
 
 def main() -> int:
-    template_path = I18N_DIR / "page.template"
-    if not template_path.is_file():
-        print(f"error: missing {template_path}", file=sys.stderr)
-        return 1
+    # Pre-flight: every template must exist before any file is written.
+    templates: dict[str, str] = {}
+    for page in PAGES:
+        template_path = I18N_DIR / page["template"]
+        if not template_path.is_file():
+            print(f"error: missing {template_path}", file=sys.stderr)
+            return 1
+        templates[page["template"]] = template_path.read_text(encoding="utf-8")
 
-    template = template_path.read_text(encoding="utf-8")
     en = load_strings("en")
     en_keys = set(en.keys())
 
-    required = {
-        "meta_title",
-        "meta_description",
-        "og_title",
-        "og_description",
-        "skip_to_content",
-        "brand_aria",
-        "nav_aria",
-        "nav_paper",
-        "nav_how",
-        "nav_roadmap",
-        "nav_docs",
-        "nav_open_wallet",
-        "lang_switcher_aria",
-        "faq_q1",
-        "faq_a1",
-        "faq_q7",
-        "faq_a7",
-        "faq_q8",
-        "faq_a8",
-        "faq_q9",
-        "faq_a9",
-        "jsonld_org_description",
-        "jsonld_website_description",
-        "jsonld_wallet_description",
-    }
-    missing_en = sorted(required - en_keys)
-    if missing_en:
-        print(f"error: en.json missing keys: {', '.join(missing_en)}", file=sys.stderr)
-        return 1
-
-    written: list[str] = []
-    for lang in LANGS:
-        code = lang["code"]
-        strings = load_strings(code)
-        keys = set(strings.keys())
-        if keys != en_keys:
-            only_en = sorted(en_keys - keys)
-            only_loc = sorted(keys - en_keys)
-            msg = [f"error: {code}.json key set differs from en.json"]
-            if only_en:
-                msg.append(f"  missing: {', '.join(only_en)}")
-            if only_loc:
-                msg.append(f"  extra: {', '.join(only_loc)}")
-            print("\n".join(msg), file=sys.stderr)
+    for page in PAGES:
+        missing_en = sorted(page["required"] - en_keys)
+        if missing_en:
+            print(
+                f"error: en.json missing keys for page "
+                f"{page['slug'] or 'home'!r}: {', '.join(missing_en)}",
+                file=sys.stderr,
+            )
             return 1
 
-        locale_url = url_for(code)
-        mapping: dict[str, str] = dict(strings)
+    written: list[str] = []
+    for page in PAGES:
+        slug = page["slug"]
+        template = templates[page["template"]]
+        faq_prefix = page["faq_prefix"]
+        faq_count = page["faq_count"]
 
-        for key in ATTR_KEYS:
-            if key in mapping:
-                mapping[key] = html_attr(mapping[key])
+        for lang in LANGS:
+            code = lang["code"]
+            strings = load_strings(code)
+            keys = set(strings.keys())
+            if keys != en_keys:
+                only_en = sorted(en_keys - keys)
+                only_loc = sorted(keys - en_keys)
+                msg = [f"error: {code}.json key set differs from en.json"]
+                if only_en:
+                    msg.append(f"  missing: {', '.join(only_en)}")
+                if only_loc:
+                    msg.append(f"  extra: {', '.join(only_loc)}")
+                print("\n".join(msg), file=sys.stderr)
+                return 1
 
-        # FAQ keys are injected raw into the HTML body via page.template, but
-        # are also guarded against character references because they feed the
-        # JSON-LD payload. Authors write a literal "&"; this pass escapes it
-        # only for the body-copy mapping. JSON-LD reads from strings (untouched)
-        # and keeps the plain character — JSON needs no HTML escaping.
-        for n in FAQ_NS:
-            for key in (f"faq_q{n}", f"faq_a{n}"):
+            page_url = url_for(code, slug)
+            home_url = url_for(code, "")
+            mapping: dict[str, str] = dict(strings)
+
+            for key in ATTR_KEYS:
                 if key in mapping:
-                    mapping[key] = mapping[key].replace("&", "&amp;")
+                    mapping[key] = html_attr(mapping[key])
 
-        mapping["html_lang"] = code
-        mapping["canonical_url"] = locale_url
-        mapping["og_locale"] = lang["ogLocale"]
-        mapping["locale_home"] = path_for(code)
-        mapping["hreflang_links"] = build_hreflang_links()
-        mapping["og_locale_alternates"] = build_og_locale_alternates(code)
-        mapping["lang_switcher"] = build_lang_switcher(
-            code, strings["lang_switcher_aria"]
-        )
+            # FAQ keys are injected raw into the HTML body via the template, but
+            # are also guarded against character references because they feed the
+            # JSON-LD payload. Authors write a literal "&"; this pass escapes it
+            # only for the body-copy mapping. JSON-LD reads from strings (untouched)
+            # and keeps the plain character — JSON needs no HTML escaping.
+            for n in range(1, faq_count + 1):
+                for key in (f"{faq_prefix}q{n}", f"{faq_prefix}a{n}"):
+                    if key in mapping:
+                        mapping[key] = mapping[key].replace("&", "&amp;")
 
-        def get_string(key: str) -> str:
-            return jsonld_string(strings, code, key)
+            mapping["html_lang"] = code
+            mapping["canonical_url"] = page_url
+            mapping["og_locale"] = lang["ogLocale"]
+            mapping["og_type"] = page["og_type"]
+            mapping["locale_home"] = path_for(code, "")
+            mapping["locale_zkbtc"] = path_for(code, "zkbtc")
+            mapping["hreflang_links"] = build_hreflang_links(slug)
+            mapping["og_locale_alternates"] = build_og_locale_alternates(code)
+            mapping["lang_switcher"] = build_lang_switcher(
+                code, strings["lang_switcher_aria"], slug
+            )
 
-        def get_faq_answer(n: int) -> str:
-            return faq_answer_for_json(code, strings, n)
+            def get_string(key: str, _code: str = code, _strings: dict = strings) -> str:
+                return jsonld_string(_strings, _code, key)
 
-        mapping["json_ld"] = build_json_ld(code, locale_url, get_string, get_faq_answer)
+            def get_faq_answer(
+                n: int,
+                _code: str = code,
+                _strings: dict = strings,
+                _prefix: str = faq_prefix,
+            ) -> str:
+                return faq_answer_for_json(_code, _strings, n, _prefix)
 
-        html = render(template, mapping)
-        out_rel = file_for(code)
-        out_path = ROOT / out_rel
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(html, encoding="utf-8")
-        written.append(out_rel)
-        print(f"wrote {out_rel}")
+            mapping["json_ld"] = build_json_ld(
+                code,
+                page_url,
+                home_url,
+                slug,
+                faq_prefix,
+                faq_count,
+                get_string,
+                get_faq_answer,
+            )
+
+            # Meta/OG: zkbtc page uses zkbtc_* keys in the template directly.
+            # Home uses meta_* / og_*.
+
+            html = render(template, mapping)
+            out_rel = file_for(code, slug)
+            out_path = ROOT / out_rel
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(html, encoding="utf-8")
+            written.append(out_rel)
+            print(f"wrote {out_rel}")
 
     sitemap = build_sitemap()
     sitemap_path = ROOT / "sitemap.xml"

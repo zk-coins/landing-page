@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="{{html_lang}}">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>{{zkbtc_meta_title}}</title>
+<meta name="description" content="{{zkbtc_meta_description}}" />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.png" type="image/png" />
+<meta property="og:title" content="{{zkbtc_og_title}}" />
+<meta property="og:description" content="{{zkbtc_og_description}}" />
+<meta property="og:type" content="{{og_type}}" />
+<meta property="og:url" content="{{canonical_url}}" />
+<meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@zkcoinsbtc" />
+<meta name="twitter:creator" content="@zkcoinsbtc" />
+<link rel="canonical" href="{{canonical_url}}" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="author" content="zkCoins" />
+<meta name="application-name" content="zkCoins" />
+<meta property="og:site_name" content="zkCoins" />
+<meta property="og:locale" content="{{og_locale}}" />
+{{og_locale_alternates}}
+{{hreflang_links}}
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+<link rel="stylesheet" href="/styles.css" />
+<script type="application/ld+json">
+{{json_ld}}
+</script>
+</head>
+<body>
+<!-- zkCoins mark — canonical 12×12 pixel monogram (Brand Guide v1.0) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="zk" viewBox="0 0 12 12">
+    <rect x="3" y="1" width="6" height="1"/>
+    <rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+    <rect x="2" y="3" width="8" height="1"/>
+    <rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+    <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+    <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+    <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+    <rect x="2" y="8" width="8" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+    <rect x="3" y="10" width="6" height="1"/>
+  </symbol>
+</svg>
+<a class="skip" href="#main">{{skip_to_content}}</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="{{locale_home}}" aria-label="{{brand_aria}}">
+      <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+      <span class="word"><b>zk</b>Coins</span>
+    </a>
+    <nav class="nav-links" aria-label="{{nav_aria}}">
+      <a class="link" href="{{locale_home}}#paper">{{nav_paper}}</a>
+      <a class="link" href="{{locale_home}}#how">{{nav_how}}</a>
+      <a class="link zk" href="{{locale_zkbtc}}">{{nav_zkbtc}}</a>
+      <a class="link" href="{{locale_home}}#roadmap">{{nav_roadmap}}</a>
+      <a class="link" href="https://docs.zkcoins.com">{{nav_docs}}</a>
+      <a class="app-btn" href="https://zkcoins.app">
+        {{nav_open_wallet}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      {{lang_switcher}}
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="crumbs" aria-label="{{zkbtc_bc_aria}}">
+    <a href="{{locale_home}}">{{zkbtc_bc_home}}</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">{{zkbtc_bc_current}}</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero zkbtc-hero">
+    <span class="eyebrow">{{zkbtc_eyebrow}}</span>
+    <p class="eyebrow-note">{{zkbtc_standards_note}}</p>
+    <h1>{{zkbtc_h1_line1}}<br><span class="accent">{{zkbtc_h1_accent}}</span></h1>
+    <p class="lede">{{zkbtc_lede}}</p>
+    <div class="pillars">
+      <span class="pill">{{zkbtc_pill_1}}</span>
+      <span class="pill">{{zkbtc_pill_2}}</span>
+      <span class="pill">{{zkbtc_pill_3}}</span>
+      <span class="pill">{{zkbtc_pill_4}}</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">{{zkbtc_cta_paper}}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#reifegrad">{{zkbtc_cta_maturity}}</a>
+    </div>
+  </section>
+
+  <!-- STATBAND -->
+  <section class="statband" aria-label="{{zkbtc_stats_aria}}">
+    <div class="stat"><span class="num">3</span><span class="lab">{{zkbtc_stat1_lab}}</span></div>
+    <div class="stat"><span class="num">1<span class="u">-of-N</span></span><span class="lab">{{zkbtc_stat2_lab}}</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">{{zkbtc_stat3_lab}}</span></div>
+    <div class="stat"><span class="num">3</span><span class="lab">{{zkbtc_stat4_lab}}</span></div>
+  </section>
+
+  <!-- WHITEPAPER -->
+  <section id="whitepaper">
+    <blockquote class="quote quote-lead">
+      <span>{{zkbtc_quote}}</span>
+      <cite>{{zkbtc_quote_cite}}</cite>
+    </blockquote>
+    <article class="paper" aria-labelledby="wp-title">
+      <div class="eyebrow">{{zkbtc_paper_eyebrow}}</div>
+      <h2 id="wp-title">{{zkbtc_paper_title}}</h2>
+      <div class="subtitle">{{zkbtc_paper_subtitle}}</div>
+
+      <dl class="meta">
+        <dt>{{zkbtc_paper_dt_author}}</dt>
+        <dd>{{zkbtc_paper_dd_author}}</dd>
+        <dt>{{zkbtc_paper_dt_length}}</dt>
+        <dd>{{zkbtc_paper_dd_length}}</dd>
+        <dt>{{zkbtc_paper_dt_builds}}</dt>
+        <dd>Shielded CSV (<a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>) · BitVM2</dd>
+        <dt>{{zkbtc_paper_dt_license}}</dt>
+        <dd>{{zkbtc_paper_dd_license}}</dd>
+      </dl>
+
+      <p class="abstract">{{zkbtc_paper_abstract}}</p>
+      <p class="paper-note">{{zkbtc_paper_note}}</p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">{{zkbtc_btn_paper}}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">{{zkbtc_btn_spec}}</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- WHAT IT IS -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_what_eyebrow}}</span>
+      <h2>{{zkbtc_what_h2}}</h2>
+      <p>{{zkbtc_what_p}}</p>
+    </div>
+    <div class="concepts">
+      <div class="concept">
+        <div class="k">{{zkbtc_c1_k}}</div>
+        <div class="h">{{zkbtc_c1_h}}</div>
+        <p class="v">{{zkbtc_c1_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{zkbtc_c2_k}}</div>
+        <div class="h">{{zkbtc_c2_h}}</div>
+        <p class="v">{{zkbtc_c2_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{zkbtc_c3_k}}</div>
+        <div class="h">{{zkbtc_c3_h}}</div>
+        <p class="v">{{zkbtc_c3_v}}</p>
+      </div>
+      <div class="concept">
+        <div class="k">{{zkbtc_c4_k}}</div>
+        <div class="h">{{zkbtc_c4_h}}</div>
+        <p class="v">{{zkbtc_c4_v}}</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- PRIVACY VIZ -->
+  <section class="band" id="privatsphaere">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_privacy_eyebrow}}</span>
+      <h2>{{zkbtc_privacy_h2}}</h2>
+      <p>{{zkbtc_privacy_p}}</p>
+    </div>
+    <div class="viz">
+      <div class="viz-rail">{{zkbtc_viz_rail}}</div>
+      <div class="viz-line" aria-hidden="true"><span><i class="viz-dot"></i></span><span></span><span><i class="viz-dot"></i></span></div>
+      <div class="viz-grid">
+        <div class="viz-cell">
+          <div class="viz-k">{{zkbtc_viz_visible}}</div>
+          <p class="viz-t">{{zkbtc_viz_in_t}}</p>
+          <p class="viz-d">{{zkbtc_viz_in_d}}</p>
+        </div>
+        <div class="viz-pool" aria-hidden="true"><s></s><i></i><s></s><i></i><s></s><i></i><s></s><i></i><s></s></div>
+        <div class="viz-cell viz-cell--pool">
+          <div class="viz-k">{{zkbtc_viz_hidden}}</div>
+          <p class="viz-t">{{zkbtc_viz_pool_t}}</p>
+          <p class="viz-d">{{zkbtc_viz_pool_d}}</p>
+        </div>
+        <div class="viz-cell">
+          <div class="viz-k">{{zkbtc_viz_visible}}</div>
+          <p class="viz-t">{{zkbtc_viz_out_t}}</p>
+          <p class="viz-d">{{zkbtc_viz_out_d}}</p>
+        </div>
+      </div>
+      <p class="viz-cap">{{zkbtc_viz_cap}}</p>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- FLOW -->
+  <section class="band" id="ablauf">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_flow_eyebrow}}</span>
+      <h2>{{zkbtc_flow_h2}}</h2>
+      <p>{{zkbtc_flow_p}}</p>
+    </div>
+    <ol class="flow">
+      <li class="flow-item"><span class="n">01</span><div><p class="t">{{zkbtc_s1_t}}</p><p class="d">{{zkbtc_s1_d}}</p></div><span class="where where-public">{{zkbtc_where_public}}</span></li>
+      <li class="flow-item"><span class="n">02</span><div><p class="t">{{zkbtc_s2_t}}</p><p class="d">{{zkbtc_s2_d}}</p></div><span class="where where-public">{{zkbtc_where_public}}</span></li>
+      <li class="flow-item"><span class="n">03</span><div><p class="t">{{zkbtc_s3_t}}</p><p class="d">{{zkbtc_s3_d}}</p></div><span class="where where-private">{{zkbtc_where_private}}</span></li>
+      <li class="flow-item"><span class="n">04</span><div><p class="t">{{zkbtc_s4_t}}</p><p class="d">{{zkbtc_s4_d}}</p></div><span class="where where-private">{{zkbtc_where_private}}</span></li>
+      <li class="flow-item"><span class="n">05</span><div><p class="t">{{zkbtc_s5_t}}</p><p class="d">{{zkbtc_s5_d}}</p></div><span class="where where-private">{{zkbtc_where_private}}</span></li>
+      <li class="flow-item"><span class="n">06</span><div><p class="t">{{zkbtc_s6_t}}</p><p class="d">{{zkbtc_s6_d}}</p></div><span class="where where-public">{{zkbtc_where_public}}</span></li>
+    </ol>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- ROLES MATRIX -->
+  <section class="band" id="rollen">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_roles_eyebrow}}</span>
+      <h2>{{zkbtc_roles_h2}}</h2>
+      <p>{{zkbtc_roles_p}}</p>
+    </div>
+    <div class="matrix-wrap"><table class="matrix" aria-label="{{zkbtc_roles_caption}}">
+      <thead>
+        <tr><th scope="col">{{zkbtc_col_ability}}</th><th scope="col" class="role">{{zkbtc_col_gatekeeper}}</th><th scope="col" class="role">{{zkbtc_col_operator}}</th><th scope="col" class="role">{{zkbtc_col_holder}}</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">{{zkbtc_r1}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{zkbtc_yes}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r2}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{zkbtc_yes}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r3}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r4}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r5}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r6}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r7}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r8}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{{zkbtc_no}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{zkbtc_yes}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{zkbtc_yes}}</span></td></tr>
+        <tr><th scope="row">{{zkbtc_r9}}</th>
+          <td data-label="{{zkbtc_col_gatekeeper}}"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{zkbtc_yes}}</span></td>
+          <td data-label="{{zkbtc_col_operator}}"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{zkbtc_yes}}</span></td>
+          <td data-label="{{zkbtc_col_holder}}"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{zkbtc_yes}}</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- RESIDUAL RISKS -->
+  <section class="band" id="risiken">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_risks_eyebrow}}</span>
+      <h2>{{zkbtc_risks_h2}}</h2>
+      <p>{{zkbtc_risks_p}}</p>
+    </div>
+    <div class="zkbtc-limits">
+      <h3>{{zkbtc_risks_title}}</h3>
+      <ul>
+        <li>{{zkbtc_risk1}}</li>
+        <li>{{zkbtc_risk2}}</li>
+        <li>{{zkbtc_risk3}}</li>
+        <li>{{zkbtc_risk4}}</li>
+        <li>{{zkbtc_risk5}}</li>
+        <li>{{zkbtc_risk6}}</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- MATURITY GATES -->
+  <section class="band" id="reifegrad">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_gates_eyebrow}}</span>
+      <h2>{{zkbtc_gates_h2}}</h2>
+      <p>{{zkbtc_gates_p}}</p>
+    </div>
+    <p class="zkbtc-status">
+      <span class="zkbtc-badge">{{zkbtc_status_badge}}</span>
+      <span>{{zkbtc_status_text}}</span>
+    </p>
+    <ul class="gates">
+      <li class="gate done"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">{{zkbtc_g1_t}}<span class="state state-done">{{zkbtc_state_done}}</span></p><p class="d">{{zkbtc_g1_d}}</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">{{zkbtc_g2_t}}<span class="state state-open">{{zkbtc_state_open}}</span></p><p class="d">{{zkbtc_g2_d}}</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">{{zkbtc_g3_t}}<span class="state state-open">{{zkbtc_state_open}}</span></p><p class="d">{{zkbtc_g3_d}}</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">{{zkbtc_g4_t}}<span class="state state-open">{{zkbtc_state_open}}</span></p><p class="d">{{zkbtc_g4_d}}</p></div></li>
+    </ul>
+    <p class="gates-note">{{zkbtc_gates_note}}</p>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_faq_eyebrow}}</span>
+      <h2>{{zkbtc_faq_h2}}</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>{{zkbtc_faq_q1}}</summary>
+        <p>{{zkbtc_faq_a1}}</p>
+      </details>
+      <details>
+        <summary>{{zkbtc_faq_q2}}</summary>
+        <p>{{zkbtc_faq_a2}}</p>
+      </details>
+      <details>
+        <summary>{{zkbtc_faq_q3}}</summary>
+        <p>{{zkbtc_faq_a3}}</p>
+      </details>
+      <details>
+        <summary>{{zkbtc_faq_q4}}</summary>
+        <p>{{zkbtc_faq_a4}}</p>
+      </details>
+      <details>
+        <summary>{{zkbtc_faq_q5}}</summary>
+        <p>{{zkbtc_faq_a5}}</p>
+      </details>
+      <details>
+        <summary>{{zkbtc_faq_q6}}</summary>
+        <p>{{zkbtc_faq_a6}}</p>
+      </details>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <!-- SOURCES -->
+  <section class="band">
+    <div class="band-head">
+      <span class="eyebrow">{{zkbtc_sources_eyebrow}}</span>
+      <h2>{{zkbtc_sources_h2}}</h2>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/zk-coins/zkbtc/blob/HEAD/spec/ZKBTC_TOKEN.md">
+        <div class="label">{{zkbtc_src1_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{zkbtc_src1_name}}</div>
+        <div class="domain">ZKBTC_TOKEN.md</div>
+      </a>
+      <a class="card" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">
+        <div class="label">{{zkbtc_src2_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{zkbtc_src2_name}}</div>
+        <div class="domain">{{zkbtc_src2_domain}}</div>
+      </a>
+      <a class="card" href="https://github.com/zk-coins/zkbtc">
+        <div class="label">{{zkbtc_src3_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{zkbtc_src3_name}}</div>
+        <div class="domain">github.com/zk-coins/zkbtc</div>
+      </a>
+      <a class="card" href="{{locale_home}}#roadmap">
+        <div class="label">{{zkbtc_src4_label}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+        <div class="name">{{zkbtc_src4_name}}</div>
+        <div class="domain">zkcoins.com</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="{{locale_home}}" aria-label="{{brand_aria}}">
+        <svg class="mark" aria-hidden="true"><use href="#zk"/></svg>
+        <span class="word"><b>zk</b>Coins</span>
+      </a>
+      <span class="tag">{{footer_tag}}</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>{{footer_protocol}}</h3>
+        <a href="{{locale_home}}#paper">{{footer_whitepaper}}</a>
+        <a href="{{locale_home}}#how">{{footer_how}}</a>
+        <a href="{{locale_home}}#roadmap">{{footer_roadmap}}</a>
+        <a href="{{locale_zkbtc}}">{{footer_zkbtc}}</a>
+        <a href="https://eprint.iacr.org/2025/068">ePrint 2025/068</a>
+      </div>
+      <div class="footer-col">
+        <h3>{{footer_build}}</h3>
+        <a href="https://zkcoins.app">{{footer_wallet}}</a>
+        <a href="https://docs.zkcoins.com">{{footer_documentation}}</a>
+        <a href="https://github.com/zk-coins">{{footer_github}}</a>
+        <a href="https://github.com/zk-coins/landing-page/tree/HEAD/brand">{{footer_brand_kit}}</a>
+      </div>
+      <div class="footer-col">
+        <h3>{{footer_community}}</h3>
+        <a href="https://x.com/zkcoinsbtc">{{footer_x}}</a>
+        <a href="https://t.me/zkcoinsbtc">{{footer_telegram}}</a>
+        <a href="https://njump.me/npub126ap5uuyez2puq363jp8ntveyhy35p4xts2xgu8k70s727spzeash2e85m" title="{{footer_nostr_title}}">{{footer_nostr}}</a>
+      </div>
+      <div class="footer-col">
+        <h3>{{footer_investors_col}}</h3>
+        <a href="{{locale_home}}#investors">{{footer_investor_relations}}</a>
+        <a href="mailto:investors@zkcoins.com">investors@zkcoins.com</a>
+        <a href="https://github.com/zk-coins">{{footer_source_code}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <span>{{footer_legal_copy}}</span>
+    <span>{{footer_legal_disclaimer}}</span>
+  </div>
+</footer>
+</body>
+</html>
