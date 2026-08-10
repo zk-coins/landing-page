@@ -13,9 +13,12 @@
 <meta property="og:type" content="{{og_type}}" />
 <meta property="og:url" content="{{canonical_url}}" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta property="og:image:alt" content="{{og_image_alt}}" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@zkcoinsbtc" />
 <meta name="twitter:creator" content="@zkcoinsbtc" />
+<meta name="twitter:title" content="{{og_title}}" />
+<meta name="twitter:description" content="{{og_description}}" />
 <link rel="canonical" href="{{canonical_url}}" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="author" content="zkCoins" />

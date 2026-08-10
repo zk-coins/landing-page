@@ -13,9 +13,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zkcoins.com/de/zkbtc/" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta property="og:image:alt" content="zkCoins-Zeichen — das Pixel-Monogramm der Marke" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@zkcoinsbtc" />
 <meta name="twitter:creator" content="@zkcoinsbtc" />
+<meta name="twitter:title" content="zkBTC — durch Bitcoin gedeckte private Coins auf zkCoins" />
+<meta name="twitter:description" content="Echtes Bitcoin sperren, privat halten, ohne jemanden zu fragen wieder einlösen. Reserve auf BitVM2, offene Operator-Registrierung, optionaler Gatekeeper nur am Eingang." />
+<meta property="article:published_time" content="2026-08-06" />
+<meta property="article:modified_time" content="2026-08-10" />
 <link rel="canonical" href="https://zkcoins.com/de/zkbtc/" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="author" content="zkCoins" />
@@ -72,7 +77,7 @@
       "@id": "https://zkcoins.com/#website",
       "url": "https://zkcoins.com/",
       "name": "zkCoins",
-      "description": "Private Bitcoin-Transaktionen via Shielded CSV. Coin-Daten bleiben off-chain — jeder Transfer veröffentlicht nur einen ~64-Byte-Nullifier auf Bitcoin.",
+      "description": "Private Bitcoin-Transaktionen über Shielded CSV. Coin-Daten bleiben off-chain — jeder zustandsverändernde Schritt veröffentlicht nur einen ~64-Byte-Nullifier auf Bitcoin.",
       "inLanguage": [
         "en",
         "de",
@@ -91,7 +96,7 @@
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Web, iOS, Android (PWA)",
       "url": "https://zkcoins.app",
-      "description": "Self-custodial Wallet zum Senden und Empfangen von privatem Bitcoin via dem Shielded-CSV-Protokoll. Keys werden lokal im Browser erzeugt und gespeichert.",
+      "description": "Selbstverwahrende Wallet zum Senden und Empfangen privater Bitcoin über das Shielded-CSV-Protokoll. Seed und Spend-Key werden lokal im Browser erzeugt und gespeichert und verlassen das Gerät nie.",
       "isAccessibleForFree": true,
       "offers": {
         "@type": "Offer",
@@ -168,7 +173,7 @@
       "@type": "DefinedTerm",
       "@id": "https://zkcoins.com/#zkbtc",
       "name": "zkBTC",
-      "description": "Ein 1:1 durch Bitcoin gedeckter, frei übertragbarer und einlösbarer Token-Standard (Token-Standard 3, issuance_version 3) auf dem zkCoins-Protokoll."
+      "description": "Ein frei übertragbarer und einlösbarer, durch Bitcoin gedeckter Token-Standard (Token-Standard 3, issuance_version 3) auf dem zkCoins-Protokoll, geprägt 1:1 gegen eine gesperrte Bitcoin-Einlage."
     },
     {
       "@type": "BreadcrumbList",
@@ -205,7 +210,7 @@
           "name": "Ist zkBTC verwahrt?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nein. Die Reserve liegt in Vaults, die sich nur entlang vorsignierter BitVM2-Fraud-Proof-Pfade ausgeben lassen; es gibt keinen Schlüssel, mit dem jemand sie nach Belieben bewegen könnte. Wovon zkBTC abhängt, ist Liveness: Für die Einlösung braucht es mindestens einen registrierten Operator, der live und liquide ist und das BTC vorstreckt."
+            "text": "Nein. Die Reserve liegt in Vaults, die sich nur entlang vorsignierter BitVM2-Fraud-Proof-Pfade ausgeben lassen; es gibt keinen Schlüssel, mit dem jemand sie nach Belieben bewegen könnte. Wovon zkBTC abhängt, ist Liveness — für die Einlösung braucht es mindestens einen registrierten Operator, der live, liquide und bereit ist. Und im gated Mode hängt es daran, dass der Gatekeeper seine Eingangsprüfungen ehrlich macht: Das ist eine Abhängigkeit für die Deckungssicherheit, nicht nur für die Erreichbarkeit."
           }
         },
         {
@@ -221,7 +226,7 @@
           "name": "Wie privat ist zkBTC wirklich?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Transfers innerhalb des abgeschirmten Pools geben weder Beträge noch Beteiligte noch die Kette preis. Peg-in und Peg-out sind gewöhnliche Bitcoin-Vorgänge, also sind Beträge und Zeitpunkte am Rand sichtbar und korrelierbar. Die Privatsphäre ist in der Mitte vollständig und am Rand nicht vorhanden — die Spezifikation sagt das offen, statt es zu beschönigen."
+            "text": "Transfers innerhalb des abgeschirmten Pools geben weder Beträge noch Beteiligte noch die Kette preis — auf der Blockchain hinterlässt jeder nur einen 64-Byte-Nullifier. Peg-in und Peg-out sind gewöhnliche Bitcoin-Vorgänge, also sind Beträge und Zeitpunkte am Rand sichtbar und korrelierbar; und sobald ein Operator seine Erstattung beansprucht, verknüpft dieser Claim-Marker die Einlösung mit ihrer Auszahlung. Die Spezifikation sagt offen, dass zkCoins mit Bridge weniger Privatsphäre hat als ohne."
           }
         },
         {
@@ -229,7 +234,7 @@
           "name": "Kann ich zkBTC heute nutzen?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nein. Vier Bedingungen müssen erst erfüllt sein: BitVM2 auf Mainnet ist erledigt, offen sind der offene Operator-Markt, die Konversion des Compliance-Predicate und ein externes Audit von Circuit und Graph. Bis dahin ist zkBTC ein veröffentlichter Entwurf und kein Produkt."
+            "text": "Nein. Zwei Gate-Familien müssen erst erfüllt sein. BitVM2 auf Mainnet ist erledigt; offen sind der Operator-Markt, die Konversion des Compliance-Predicate, ein externes Audit von Circuit und Graph sowie die vier REQ-4-Gates, die die Einlösegarantie tragen. Bis dahin ist zkBTC ein veröffentlichter Entwurf und kein Produkt."
           }
         },
         {
@@ -237,7 +242,7 @@
           "name": "Ist zkBTC ein neuer Coin?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nein. zkBTC hält echtes Bitcoin im Verhältnis 1:1; es ist keine eigene Währung und kein natives Protokoll-Token. zkCoins hat bewusst keines. Was zkBTC hinzufügt, ist ein Standard dafür, wie Bitcoin in den abgeschirmten Pool kommt und wie jeder Inhaber es wieder herausbekommt."
+            "text": "Nein. Jedes zkBTC entsteht gegen eine gleich hohe, in diesem Moment real gesperrte Bitcoin-Einlage; es ist keine eigene Währung und kein natives Protokoll-Token. zkCoins hat bewusst keines. Dass die Deckung danach hält, ist eine bedingte Eigenschaft und keine unbedingte Invariante — die Bedingungen stehen bei den Restrisiken."
           }
         }
       ]
@@ -304,9 +309,9 @@
   <!-- HERO -->
   <section class="hero zkbtc-hero">
     <span class="eyebrow">Token-Standard 3 · zkCoins</span>
-    <p class="eyebrow-note">Der dritte Ausgabestandard des Protokolls: Standard 1 prägt ohne Obergrenze, Standard 2 mit fester Obergrenze — Standard 3 nur gegen hinterlegtes Bitcoin.</p>
-    <h1>Privates Bitcoin<br><span class="accent">ohne Verwahrer, jederzeit einlösbar</span></h1>
-    <p class="lede">zkBTC ist ein Token auf dem zkCoins-Protokoll, <b>1:1 durch Bitcoin gedeckt</b>. Die Reserve liegt in Vaults, die sich nur entlang vorsignierter <b>BitVM2</b>-Fraud-Proof-Pfade bewegen lassen — nicht bei einem Verwahrer. Jeder Inhaber löst zu On-Chain-BTC aus, solange ein einziger Operator aus einem offenen Kreis erreichbar ist.</p>
+    <p class="eyebrow-note">Der dritte Ausgabestandard, den die zkBTC-Spezifikation für das Protokoll vorschlägt: Standard 1 prägt ohne Obergrenze, Standard 2 mit fester Obergrenze — Standard 3 nur gegen hinterlegtes Bitcoin.</p>
+    <h1>Privates Bitcoin<br><span class="accent">ohne Verwahrer, einlösbar ohne jemandes Erlaubnis</span></h1>
+    <p class="lede">zkBTC ist ein Token auf dem zkCoins-Protokoll: Jeder Coin entsteht gegen eine gleich hohe, in diesem Moment real gesperrte Bitcoin-Einlage. Die Reserve liegt in Vaults, die sich nur entlang vorsignierter <b>BitVM2</b>-Fraud-Proof-Pfade bewegen lassen — nicht bei einem Verwahrer. Das Einlösen braucht niemandes Erlaubnis; es braucht einen registrierten Operator, der erreichbar, liquide und bereit ist.</p>
     <div class="pillars">
       <span class="pill">Frei übertragbar</span>
       <span class="pill">Ohne Verwahrer</span>
@@ -324,9 +329,9 @@
   <!-- STATBAND -->
   <section class="statband" aria-label="zkBTC auf einen Blick">
     <div class="stat"><span class="num">3</span><span class="lab">Token-Standard</span></div>
-    <div class="stat"><span class="num">1<span class="u">-of-N</span></span><span class="lab">Vertrauensannahme</span></div>
-    <div class="stat"><span class="num">0</span><span class="lab">Wege, Coins einzufrieren</span></div>
-    <div class="stat"><span class="num">3</span><span class="lab">offene Gates bis Mainnet</span></div>
+    <div class="stat"><span class="num">1<span class="u">-of-N</span></span><span class="lab">Kern-Sicherheitsannahme</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">Wege, einen zirkulierenden Coin einzufrieren</span></div>
+    <div class="stat"><span class="num">7</span><span class="lab">offene Gates bis Mainnet</span></div>
   </section>
 
   <!-- WHITEPAPER -->
@@ -384,7 +389,7 @@
       <div class="concept">
         <div class="k">Einlösung</div>
         <div class="h">Exit ohne den Gatekeeper</div>
-        <p class="v">Die Reserve steht auf <b>BitVM2</b> — kein Federation-Multisig. Der Exit hängt nur daran, dass mindestens ein registrierter Operator live ist.</p>
+        <p class="v">Die Reserve steht auf <b>BitVM2</b> — kein Federation-Multisig. Der Exit braucht einen registrierten Operator, der live, <b>liquide und bereit</b> ist, in einer Epoche mit freier Vault-Kapazität.</p>
       </div>
       <div class="concept">
         <div class="k">Gatekeeper</div>
@@ -416,7 +421,7 @@
         <div class="viz-cell viz-cell--pool">
           <div class="viz-k">Nicht lesbar</div>
           <p class="viz-t">Abgeschirmter Pool</p>
-          <p class="viz-d">Beliebig viele Übertragungen — kein Betrag, keine Beteiligten, keine Kette.</p>
+          <p class="viz-d">Beliebig viele Übertragungen — jede hinterlässt einen 64-Byte-Nullifier und sonst nichts.</p>
         </div>
         <div class="viz-cell">
           <div class="viz-k">Sichtbar</div>
@@ -424,7 +429,7 @@
           <p class="viz-d">BTC fließt zurück. Betrag und Zeitpunkt stehen auf der Kette.</p>
         </div>
       </div>
-      <p class="viz-cap"><b>Der Rand ist öffentlich.</b> Wer Bitcoin sperrt und wer es zurückholt, ist mit Betrag und Zeitpunkt nachvollziehbar — daran ändert kein Entwurf etwas. Verborgen bleibt, was dazwischen geschieht.</p>
+      <p class="viz-cap"><b>Der Rand ist öffentlich.</b> Wer Bitcoin sperrt und wer es zurückholt, ist mit Betrag und Zeitpunkt nachvollziehbar — daran ändert kein Entwurf etwas. Dazwischen hinterlässt jeder Schritt einen 64-Byte-Nullifier auf der Kette und sonst nichts: keinen Betrag, keine Beteiligten, keine Herkunft.</p>
     </div>
   </section>
 
@@ -435,15 +440,15 @@
     <div class="band-head">
       <span class="eyebrow">So läuft es</span>
       <h2>Vom gesperrten Bitcoin und zurück</h2>
-      <p>Sechs Schritte. Der Marker rechts sagt, ob der Schritt auf der Kette landet oder im Pool bleibt.</p>
+      <p>Sechs Schritte. Der Marker rechts sagt, ob der Schritt lesbar auf der Kette landet oder nichts hinterlässt als einen 64-Byte-Nullifier — jeder zustandsverändernde Schritt veröffentlicht einen.</p>
     </div>
     <ol class="flow">
-      <li class="flow-item"><span class="n">01</span><div><p class="t">Einzahlen</p><p class="d">Der Einzahler sperrt BTC in einem Vault, dessen Ausgabepfade vorab von allen Operatoren der Epoche signiert wurden.</p></div><span class="where where-public">Auf der Kette</span></li>
-      <li class="flow-item"><span class="n">02</span><div><p class="t">Eintrittsprüfung — optional</p><p class="d">Trägt das Asset einen Gatekeeper, prüft er die Herkunft der Mittel und seine eigene Sicht auf die Kette, bevor er den Mint freigibt. <b>Ohne ihn entsteht kein neuer zkBTC — an bestehende kommt er nicht heran.</b></p></div><span class="where where-public">Auf der Kette</span></li>
-      <li class="flow-item"><span class="n">03</span><div><p class="t">Prägen</p><p class="d">Der Coin entsteht im Pool, gebunden an genau die vorher festgelegte Empfängeradresse. Umleiten ist ausgeschlossen.</p></div><span class="where where-private">Im Pool</span></li>
-      <li class="flow-item"><span class="n">04</span><div><p class="t">Frei übertragen</p><p class="d">Ab hier ist zkBTC ein gewöhnlicher zkCoins-Coin: beliebig oft weitergeben, ohne jemanden um Erlaubnis zu fragen und ohne dass jemand mitliest.</p></div><span class="where where-private">Im Pool</span></li>
-      <li class="flow-item"><span class="n">05</span><div><p class="t">Einlösung anmelden</p><p class="d">Der Inhaber verbrennt den Coin und nennt die Gebühr, die er höchstens zu zahlen bereit ist. <b>Der Gatekeeper hat hier keine Rolle.</b></p></div><span class="where where-private">Im Pool</span></li>
-      <li class="flow-item"><span class="n">06</span><div><p class="t">Auszahlen</p><p class="d">Ein registrierter Operator streckt das BTC vor und holt es sich aus dem Vault zurück. Wer das übernimmt, entscheidet der Markt — notfalls der Inhaber selbst.</p></div><span class="where where-public">Auf der Kette</span></li>
+      <li class="flow-item"><span class="n">01</span><div><p class="t">Einzahlen</p><p class="d">Der Einzahler zahlt auf eine Deposit-Adresse. Erst wenn alle Operatoren der Epoche die Ausgabepfade vorsigniert haben, wandert das BTC in den Vault — davor kann der Einzahler es über den Refund-Pfad zurückholen.</p></div><span class="where where-public">Lesbar auf der Kette</span></li>
+      <li class="flow-item"><span class="n">02</span><div><p class="t">Eintrittsprüfung — optional</p><p class="d">Trägt das Asset einen Gatekeeper, prüft er die Herkunft der Mittel, seine eigene Sicht auf die Kette und ob die Operator-Gruppe der Epoche mindestens einen unabhängigen ehrlichen Signierer enthält, bevor er den Mint freigibt. <b>Ohne ihn entsteht kein neuer zkBTC — an bestehende kommt er nicht heran.</b></p></div><span class="where where-public">Lesbar auf der Kette</span></li>
+      <li class="flow-item"><span class="n">03</span><div><p class="t">Prägen</p><p class="d">Der Coin entsteht im Pool, gebunden an genau die vorher festgelegte Empfängeradresse. Umleiten ist ausgeschlossen.</p></div><span class="where where-private">Nur ein 64-Byte-Marker</span></li>
+      <li class="flow-item"><span class="n">04</span><div><p class="t">Frei übertragen</p><p class="d">Ab hier ist zkBTC ein gewöhnlicher zkCoins-Coin: beliebig oft weitergeben, ohne jemanden um Erlaubnis zu fragen und ohne dass jemand mitliest.</p></div><span class="where where-private">Nur ein 64-Byte-Marker</span></li>
+      <li class="flow-item"><span class="n">05</span><div><p class="t">Einlösung anmelden</p><p class="d">Der Inhaber verbrennt den Coin und nennt die Gebühr, die er höchstens zu zahlen bereit ist. <b>Der Gatekeeper hat hier keine Rolle.</b></p></div><span class="where where-private">Nur ein 64-Byte-Marker</span></li>
+      <li class="flow-item"><span class="n">06</span><div><p class="t">Auszahlen</p><p class="d">Ein registrierter Operator streckt das BTC vor und holt es sich aus dem Vault zurück. Wer das übernimmt, entscheidet der Markt — auch der Inhaber selbst, sofern er sich vor der Epoche als Operator registriert und einen Bond hinterlegt hat.</p></div><span class="where where-public">Lesbar auf der Kette</span></li>
     </ol>
   </section>
 
@@ -454,7 +459,7 @@
     <div class="band-head">
       <span class="eyebrow">Rollen</span>
       <h2>Wer darf was</h2>
-      <p>Die Liste aus der Spezifikation, ohne Auslassung. Die aussagekräftigen Zeilen sind die, in denen niemand etwas darf.</p>
+      <p>Die tragenden Zeilen aus der Spezifikation. Die aussagekräftigen sind die, in denen niemand handeln kann — und die eine direkt darunter, die den Unterschied zwischen „kann nicht" und „will nicht" macht.</p>
     </div>
     <div class="matrix-wrap"><table class="matrix" aria-label="Was jede Rolle unter Token-Standard 3 darf und was nicht">
       <thead>
@@ -463,9 +468,9 @@
       <tbody>
         <tr><th scope="row">Eine neue Einzahlung ablehnen</th>
           <td data-label="Gatekeeper"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ja</span></td>
-          <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
+          <td data-label="Operator"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ja</span></td>
           <td data-label="Inhaber"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td></tr>
-        <tr><th scope="row">Die Herkunft einer Einzahlung sehen</th>
+        <tr><th scope="row">Die Identitätsdaten eines Einzahlers außerhalb des Protokolls sehen</th>
           <td data-label="Gatekeeper"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ja</span></td>
           <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
           <td data-label="Inhaber"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td></tr>
@@ -477,9 +482,13 @@
           <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
           <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
           <td data-label="Inhaber"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td></tr>
-        <tr><th scope="row">Eine Einlösung verweigern oder zensieren</th>
+        <tr><th scope="row">Eine Einlösung im Protokoll blockieren</th>
           <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
           <td data-label="Operator"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
+          <td data-label="Inhaber"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td></tr>
+        <tr><th scope="row">Eine Einlösung unbedient lassen</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
+          <td data-label="Operator"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ja</span></td>
           <td data-label="Inhaber"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td></tr>
         <tr><th scope="row">Einen Mint auf eine andere Adresse umleiten</th>
           <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Nein</span></td>
@@ -498,7 +507,9 @@
           <td data-label="Operator"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ja</span></td>
           <td data-label="Inhaber"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ja</span></td></tr>
       </tbody>
-    </table></div>
+    </table>
+    <p class="matrix-note"><b>„Kann nicht" ist nicht „will nicht".</b> Niemand kann eine Einlösung im Protokoll blockieren — aber der Coin ist zuerst verbrannt und bleibt unbedient, bis irgendein registrierter Operator das BTC innerhalb der Maximalgebühr des Inhabers vorstreckt. Die Spezifikation benennt diesen Fall und führt ihn unter Liveness, nicht unter Diebstahl. Zwei weitere Bedingungen gehören zu den Zeilen darüber: Kein Operator kann den Vault leeren, <i>solange mindestens ein ehrlicher Challenger im Challenge-Fenster handelt und die Circuit- und Graph-Kryptografie korrekt ist</i>, und ein Inhaber kann eine Auszahlung nur vorstrecken oder sich als Operator registrieren, wenn er vor der Epoche einen Bond hinterlegt hat.</p>
+    </div>
   </section>
 
   <hr class="hr" />
@@ -508,14 +519,14 @@
     <div class="band-head">
       <span class="eyebrow">Ehrlich gerechnet</span>
       <h2>Kosten und Restrisiken</h2>
-      <p>Was die Spezifikation selbst als offene Flanken benennt. Wer zkBTC bewertet, sollte diese Liste gelesen haben.</p>
+      <p>Die sechs Punkte, die eine Bewertung als Erstes berühren. Die Spezifikation nennt zwölf — dies ist nicht die vollständige Liste, und die vollständige lohnt die Lektüre.</p>
     </div>
     <div class="zkbtc-limits">
       <h3>Restrisiken</h3>
       <ul>
         <li><b>Bedingte Garantien, keine unbedingten.</b> „Kein Operator kann stehlen" gilt unter 1-of-N-Setup-Ehrlichkeit, mindestens einem ehrlichen Challenger im Challenge-Fenster und korrekter Circuit- und BitVM2-Graph-Kryptografie. Ein kritischer Soundness-Bug ermöglicht echten Diebstahl.</li>
         <li><b>Liveness, nicht Verwahrung.</b> Der Exit braucht mindestens einen registrierten Operator, der live und liquide ist und BTC vorstreckt. Eine Einlösung verbrennt den Coin zuerst — eine zu niedrig gesetzte Gebühr lässt ihn liegen, bis ihn jemand übernimmt.</li>
-        <li><b>Der Gatekeeper ist eine echte Vertrauenskonzentration.</b> Im gated Mode kann ein kompromittierter oder nachlässiger Gatekeeper einen Backing-Drain der gesamten gepoolten Reserve ermöglichen.</li>
+        <li><b>Der Gatekeeper ist eine echte Vertrauenskonzentration.</b> Im gated Mode kann ein kompromittierter oder nachlässiger Gatekeeper einen Backing-Drain der gesamten gepoolten Reserve ermöglichen. Und verweigert er seine Mint-Signatur <b>nachdem</b> die Deckungstransaktion gefeuert hat, wird das bereits eingezahlte BTC zu einem unwiderruflichen Beitrag an die Reserve — ein Verlustpfad auf Seiten des Einzahlers.</li>
         <li><b>Gepoolte Ansteckung.</b> Die Reserve ist gepoolt und das Token fungibel — ein einziges geleertes Vault verwässert alle Inhaber, nicht nur die Gegenpartei einer Einzahlung.</li>
         <li><b>Der Rand ist öffentlich.</b> Beträge und Zeitpunkte bei Peg-in und Peg-out sind sichtbar und korrelierbar, auch wenn die Transfers im Pool geschützt bleiben.</li>
         <li><b>Verbrannt heißt verbrannt.</b> Ohne Security Council und ohne Admin-Keys ist der schlimmste Fall unter dem Trust-Modell ein Freeze oder Burn der betroffenen Einzahlungen — möglicherweise dauerhaft.</li>
@@ -530,19 +541,19 @@
     <div class="band-head">
       <span class="eyebrow">Reifegrad</span>
       <h2>Was noch fehlt</h2>
-      <p>Vier Bedingungen nennt die Spezifikation, bevor ein Asset zkBTC heißen darf. Eine davon ist erfüllt.</p>
+      <p>Die Spezifikation nennt zwei Gate-Familien, die beide erfüllt sein müssen, bevor ein Asset zkBTC heißen darf: vier Reifegrad-Gates, davon eines erfüllt, und vier REQ-4-Gates, die die Einlösegarantie selbst tragen.</p>
     </div>
     <p class="zkbtc-status">
       <span class="zkbtc-badge">Design-Spezifikation</span>
-      <span>Es existiert noch kein Implementierungscode, das Design ist nicht extern auditiert und nicht produktionsreif. zkBTC ist ein vollständig ausgearbeiteter Entwurf — kein laufendes System, und noch kein Bitcoin im Einsatz.</span>
+      <span>Es existiert noch kein Implementierungscode, das Design ist nicht extern auditiert und nicht produktionsreif. zkBTC ist ein ausgearbeiteter Entwurf, der seine offenen Fragen selbst benennt — die Spezifikation listet vierzehn davon, darunter eine Schranke auf der Einlöseseite, die noch nicht mechanisiert ist.</span>
     </p>
     <ul class="gates">
       <li class="gate done"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">BitVM2 läuft auf Mainnet<span class="state state-done">Erfüllt</span></p><p class="d">Bitlayers BitVM-Bridge seit Juli 2025, Citreas Clementine seit Januar 2026. Die Reservekonstruktion ist keine Forschung mehr.</p></div></li>
       <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Offener Operator-Markt<span class="state state-open">Offen</span></p><p class="d">Bonding, Registrierungszeremonie und eine Politik, die verhindert, dass eine einzelne Partei eine Epoche beherrscht.</p></div></li>
       <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Konversion des Compliance-Predicate<span class="state state-open">Offen</span></p><p class="d">Das zkCoins-Predicate muss in eine Form gebracht werden, die BitVM2 überhaupt prüfen kann.</p></div></li>
-      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Externes Audit<span class="state state-open">Offen</span></p><p class="d">Circuit, BitVM2-Graph und vorsignierte Graphen, veröffentlicht vor Mainnet. Genau die Fehlerklasse, die sonst echten Diebstahl ermöglicht.</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Externes Audit<span class="state state-open">Offen</span></p><p class="d">Circuit, BitVM2-Graph und vorsignierte Graphen, veröffentlicht vor Mainnet. Genau die Fehlerklasse, die sonst echten Diebstahl ermöglicht — und korrekte Circuit- und Graph-Kryptografie bleibt auch nach dem Audit eine stehende Annahme.</p></div></li>
     </ul>
-    <p class="gates-note"><strong>Dazu kommen</strong> die vier Bedingungen, an denen die Einlösegarantie selbst hängt. Solange auch nur eines dieser Kästchen leer ist, ist zkBTC eine Spezifikation und kein Produkt.</p>
+    <p class="gates-note"><strong>Sieben der acht sind noch offen.</strong> Neben den vier Reifegrad-Gates oben stehen vier REQ-4-Gates — Anti-Dominanz im Operator-Markt, Setup-Integrität der Vorsignierungs-Zeremonie, dokumentiertes Onboarding vom Inhaber zum Operator und die Ökonomie der Challenger. Solange ein Kästchen leer ist, ist zkBTC eine Spezifikation und kein Produkt.</p>
   </section>
 
   <hr class="hr" />
@@ -560,7 +571,7 @@
       </details>
       <details>
         <summary>Ist zkBTC verwahrt?</summary>
-        <p>Nein. Die Reserve liegt in Vaults, die sich nur entlang vorsignierter BitVM2-Fraud-Proof-Pfade ausgeben lassen; es gibt keinen Schlüssel, mit dem jemand sie nach Belieben bewegen könnte. Wovon zkBTC abhängt, ist Liveness: Für die Einlösung braucht es mindestens einen registrierten Operator, der live und liquide ist und das BTC vorstreckt.</p>
+        <p>Nein. Die Reserve liegt in Vaults, die sich nur entlang vorsignierter BitVM2-Fraud-Proof-Pfade ausgeben lassen; es gibt keinen Schlüssel, mit dem jemand sie nach Belieben bewegen könnte. Wovon zkBTC abhängt, ist Liveness — für die Einlösung braucht es mindestens einen registrierten Operator, der live, liquide und bereit ist. Und im gated Mode hängt es daran, dass der Gatekeeper seine Eingangsprüfungen ehrlich macht: Das ist eine Abhängigkeit für die Deckungssicherheit, nicht nur für die Erreichbarkeit.</p>
       </details>
       <details>
         <summary>Was kann der Gatekeeper wirklich?</summary>
@@ -568,15 +579,15 @@
       </details>
       <details>
         <summary>Wie privat ist zkBTC wirklich?</summary>
-        <p>Transfers innerhalb des abgeschirmten Pools geben weder Beträge noch Beteiligte noch die Kette preis. Peg-in und Peg-out sind gewöhnliche Bitcoin-Vorgänge, also sind Beträge und Zeitpunkte am Rand sichtbar und korrelierbar. Die Privatsphäre ist in der Mitte vollständig und am Rand nicht vorhanden — die Spezifikation sagt das offen, statt es zu beschönigen.</p>
+        <p>Transfers innerhalb des abgeschirmten Pools geben weder Beträge noch Beteiligte noch die Kette preis — auf der Blockchain hinterlässt jeder nur einen 64-Byte-Nullifier. Peg-in und Peg-out sind gewöhnliche Bitcoin-Vorgänge, also sind Beträge und Zeitpunkte am Rand sichtbar und korrelierbar; und sobald ein Operator seine Erstattung beansprucht, verknüpft dieser Claim-Marker die Einlösung mit ihrer Auszahlung. Die Spezifikation sagt offen, dass zkCoins mit Bridge weniger Privatsphäre hat als ohne.</p>
       </details>
       <details>
         <summary>Kann ich zkBTC heute nutzen?</summary>
-        <p>Nein. Vier Bedingungen müssen erst erfüllt sein: BitVM2 auf Mainnet ist erledigt, offen sind der offene Operator-Markt, die Konversion des Compliance-Predicate und ein externes Audit von Circuit und Graph. Bis dahin ist zkBTC ein veröffentlichter Entwurf und kein Produkt.</p>
+        <p>Nein. Zwei Gate-Familien müssen erst erfüllt sein. BitVM2 auf Mainnet ist erledigt; offen sind der Operator-Markt, die Konversion des Compliance-Predicate, ein externes Audit von Circuit und Graph sowie die vier REQ-4-Gates, die die Einlösegarantie tragen. Bis dahin ist zkBTC ein veröffentlichter Entwurf und kein Produkt.</p>
       </details>
       <details>
         <summary>Ist zkBTC ein neuer Coin?</summary>
-        <p>Nein. zkBTC hält echtes Bitcoin im Verhältnis 1:1; es ist keine eigene Währung und kein natives Protokoll-Token. zkCoins hat bewusst keines. Was zkBTC hinzufügt, ist ein Standard dafür, wie Bitcoin in den abgeschirmten Pool kommt und wie jeder Inhaber es wieder herausbekommt.</p>
+        <p>Nein. Jedes zkBTC entsteht gegen eine gleich hohe, in diesem Moment real gesperrte Bitcoin-Einlage; es ist keine eigene Währung und kein natives Protokoll-Token. zkCoins hat bewusst keines. Dass die Deckung danach hält, ist eine bedingte Eigenschaft und keine unbedingte Invariante — die Bedingungen stehen bei den Restrisiken.</p>
       </details>
     </div>
   </section>

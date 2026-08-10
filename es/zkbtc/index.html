@@ -13,9 +13,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zkcoins.com/es/zkbtc/" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta property="og:image:alt" content="Marca zkCoins — el monograma de píxeles de la marca" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@zkcoinsbtc" />
 <meta name="twitter:creator" content="@zkcoinsbtc" />
+<meta name="twitter:title" content="zkBTC — monedas privadas respaldadas por Bitcoin en zkCoins" />
+<meta name="twitter:description" content="Bloquear Bitcoin real, mantenerlo en privado, canjearlo sin pedir permiso a nadie. Reserva sobre BitVM2, registro de operadores abierto, gatekeeper opcional solo en la entrada." />
+<meta property="article:published_time" content="2026-08-06" />
+<meta property="article:modified_time" content="2026-08-10" />
 <link rel="canonical" href="https://zkcoins.com/es/zkbtc/" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="author" content="zkCoins" />
@@ -72,7 +77,7 @@
       "@id": "https://zkcoins.com/#website",
       "url": "https://zkcoins.com/",
       "name": "zkCoins",
-      "description": "Transacciones Bitcoin privadas vía Shielded CSV. Los datos de las monedas permanecen off-chain — cada transferencia publica en Bitcoin solo un nullifier de ~64 bytes.",
+      "description": "Transacciones Bitcoin privadas mediante Shielded CSV. Los datos de la moneda quedan off-chain — cada paso que avanza el estado publica solo un nullifier de ~64 bytes en Bitcoin.",
       "inLanguage": [
         "en",
         "de",
@@ -91,7 +96,7 @@
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Web, iOS, Android (PWA)",
       "url": "https://zkcoins.app",
-      "description": "Wallet self-custodial para enviar y recibir Bitcoin privado vía el protocolo Shielded CSV. Las claves se generan y almacenan localmente en el navegador.",
+      "description": "Wallet de autocustodia para enviar y recibir Bitcoin privado mediante el protocolo Shielded CSV. La seed y la clave de gasto se generan y guardan localmente en el navegador y nunca salen del dispositivo.",
       "isAccessibleForFree": true,
       "offers": {
         "@type": "Offer",
@@ -168,7 +173,7 @@
       "@type": "DefinedTerm",
       "@id": "https://zkcoins.com/#zkbtc",
       "name": "zkBTC",
-      "description": "Un estándar de token respaldado uno a uno por Bitcoin, libremente transferible y canjeable (estándar de token 3, issuance_version 3) sobre el protocolo zkCoins."
+      "description": "Un estándar de token respaldado por Bitcoin, libremente transferible y canjeable (estándar de token 3, issuance_version 3) sobre el protocolo zkCoins, acuñado uno a uno contra un depósito de Bitcoin bloqueado."
     },
     {
       "@type": "BreadcrumbList",
@@ -205,7 +210,7 @@
           "name": "¿zkBTC es custodial?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. La reserva está en vaults que solo pueden gastarse por rutas de fraud proof BitVM2 prefirmadas; no existe ninguna clave que permita moverla a voluntad. De lo que zkBTC sí depende es de la liveness: canjear necesita al menos un operador registrado activo, líquido y dispuesto a adelantar el BTC."
+            "text": "No. La reserva está en vaults que solo pueden gastarse por rutas de fraud proof BitVM2 prefirmadas; no existe clave alguna para moverla a voluntad. De lo que zkBTC sí depende es de la liveness — canjear necesita al menos un operador registrado activo, líquido y dispuesto. Y en modo gated depende de que el gatekeeper haga sus comprobaciones de entrada con honestidad: es una dependencia para la seguridad del respaldo, no solo para la disponibilidad."
           }
         },
         {
@@ -221,7 +226,7 @@
           "name": "¿Cuán privado es zkBTC en realidad?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Las transferencias dentro del shielded pool no revelan importes, ni partes, ni trazabilidad. El peg-in y el peg-out son eventos ordinarios de Bitcoin, así que los importes y los momentos en el borde son visibles y correlacionables. La privacidad es completa en medio y ausente en los bordes — la especificación lo dice sin rodeos en vez de adornarlo."
+            "text": "Las transferencias dentro del shielded pool no revelan importes, ni partes, ni trazabilidad — en la cadena cada una no deja más que un nullifier de 64 bytes. El peg-in y el peg-out son eventos ordinarios de Bitcoin, así que importes y momentos en el borde son visibles y correlacionables; y en cuanto un operador reclama su reembolso, ese marcador enlaza el canje con su pago. La especificación dice sin rodeos que zkCoins con bridge tiene menos privacidad que sin él."
           }
         },
         {
@@ -229,7 +234,7 @@
           "name": "¿Puedo usar zkBTC hoy?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Antes deben cumplirse cuatro condiciones: BitVM2 en mainnet está hecho; siguen abiertos el mercado abierto de operadores, la conversión del compliance predicate y una auditoría externa del circuit y el grafo. Hasta entonces zkBTC es un diseño publicado, no un producto."
+            "text": "No. Primero deben superarse dos familias de gates. BitVM2 en mainnet está hecho; siguen abiertos el mercado de operadores, la conversión del compliance predicate, una auditoría externa del circuit y del grafo, y los cuatro gates REQ-4 que sostienen la garantía de canje. Hasta entonces zkBTC es un diseño publicado, no un producto."
           }
         },
         {
@@ -237,7 +242,7 @@
           "name": "¿zkBTC es una moneda nueva?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. zkBTC guarda Bitcoin real en proporción uno a uno; no es una moneda aparte ni un token nativo de protocolo. zkCoins deliberadamente no tiene ninguno. Lo que zkBTC añade es un estándar sobre cómo el bitcoin entra en el shielded pool y cómo cualquier tenedor lo saca de nuevo."
+            "text": "No. Cada zkBTC se acuña contra una cantidad igual de Bitcoin real bloqueada en ese momento; no es una moneda aparte ni un token nativo de protocolo. zkCoins deliberadamente no tiene ninguno. Que el respaldo se mantenga después es una propiedad condicional, no un invariante — las condiciones están en los riesgos residuales."
           }
         }
       ]
@@ -304,9 +309,9 @@
   <!-- HERO -->
   <section class="hero zkbtc-hero">
     <span class="eyebrow">Estándar de token 3 · zkCoins</span>
-    <p class="eyebrow-note">El tercer estándar de emisión del protocolo: el estándar 1 acuña sin tope, el estándar 2 con un tope fijo — el estándar 3 solo contra Bitcoin depositado.</p>
-    <h1>Bitcoin privado<br><span class="accent">sin custodio, canjeable en cualquier momento</span></h1>
-    <p class="lede">zkBTC es un token sobre el protocolo zkCoins, <b>respaldado uno a uno por Bitcoin</b>. La reserva está en vaults que solo pueden moverse por rutas de fraud proof <b>BitVM2</b> prefirmadas — no en manos de un custodio. Cualquier tenedor canjea a BTC on-chain mientras haya un solo operador alcanzable de un conjunto abierto.</p>
+    <p class="eyebrow-note">El tercer estándar de emisión que la especificación de zkBTC propone para el protocolo: el estándar 1 acuña sin tope, el estándar 2 con tope fijo — el estándar 3 solo contra Bitcoin depositado.</p>
+    <h1>Bitcoin privado<br><span class="accent">sin custodio, canjeable sin el permiso de nadie</span></h1>
+    <p class="lede">zkBTC es un token sobre el protocolo zkCoins: cada moneda se acuña contra una cantidad igual de Bitcoin real bloqueada en ese momento. La reserva está en vaults que solo se mueven por rutas de fraud proof <b>BitVM2</b> prefirmadas — no en manos de un custodio. Canjear no requiere el permiso de nadie; requiere un operador registrado localizable, líquido y dispuesto.</p>
     <div class="pillars">
       <span class="pill">Libremente transferible</span>
       <span class="pill">Sin custodio</span>
@@ -324,9 +329,9 @@
   <!-- STATBAND -->
   <section class="statband" aria-label="zkBTC de un vistazo">
     <div class="stat"><span class="num">3</span><span class="lab">estándar de token</span></div>
-    <div class="stat"><span class="num">1<span class="u">-of-N</span></span><span class="lab">supuesto de confianza</span></div>
-    <div class="stat"><span class="num">0</span><span class="lab">formas de congelar una moneda</span></div>
-    <div class="stat"><span class="num">3</span><span class="lab">gates abiertos antes del mainnet</span></div>
+    <div class="stat"><span class="num">1<span class="u">-of-N</span></span><span class="lab">supuesto de seguridad central</span></div>
+    <div class="stat"><span class="num">0</span><span class="lab">formas de congelar una moneda en circulación</span></div>
+    <div class="stat"><span class="num">7</span><span class="lab">gates abiertos antes del mainnet</span></div>
   </section>
 
   <!-- WHITEPAPER -->
@@ -384,7 +389,7 @@
       <div class="concept">
         <div class="k">Canje</div>
         <div class="h">Salir sin el gatekeeper</div>
-        <p class="v">La reserva se apoya en <b>BitVM2</b> — sin multisig de federación. La salida solo depende de que al menos un operador registrado esté activo.</p>
+        <p class="v">La reserva se apoya en <b>BitVM2</b> — sin multisig de federación. La salida necesita un operador registrado activo, <b>líquido y dispuesto</b>, en una época con capacidad de vault disponible.</p>
       </div>
       <div class="concept">
         <div class="k">Gatekeeper</div>
@@ -416,7 +421,7 @@
         <div class="viz-cell viz-cell--pool">
           <div class="viz-k">Ilegible</div>
           <p class="viz-t">Shielded pool</p>
-          <p class="viz-d">Tantas transferencias como se quiera — sin importe, sin partes, sin trazabilidad.</p>
+          <p class="viz-d">Tantas transferencias como se quiera — cada una deja un nullifier de 64 bytes y nada más.</p>
         </div>
         <div class="viz-cell">
           <div class="viz-k">Visible</div>
@@ -424,7 +429,7 @@
           <p class="viz-d">El BTC vuelve. Importe y momento están en la cadena.</p>
         </div>
       </div>
-      <p class="viz-cap"><b>Los bordes son públicos.</b> Quién bloquea bitcoin y quién lo recupera es rastreable con importe y momento — ningún diseño cambia eso. Lo que queda oculto es todo lo que ocurre en medio.</p>
+      <p class="viz-cap"><b>Los bordes son públicos.</b> Quién bloquea bitcoin y quién lo recupera es rastreable con importe y momento — ningún diseño cambia eso. En medio, cada paso deja en la cadena un nullifier de 64 bytes y nada más: ni importe, ni partes, ni procedencia.</p>
     </div>
   </section>
 
@@ -435,15 +440,15 @@
     <div class="band-head">
       <span class="eyebrow">Cómo transcurre</span>
       <h2>Del bitcoin bloqueado y de vuelta</h2>
-      <p>Seis pasos. El marcador de la derecha dice si el paso acaba en la cadena o se queda en el pool.</p>
+      <p>Seis pasos. El marcador de la derecha dice si el paso queda legible en la cadena o no deja más que un nullifier de 64 bytes — cada paso que avanza el estado publica uno.</p>
     </div>
     <ol class="flow">
-      <li class="flow-item"><span class="n">01</span><div><p class="t">Depositar</p><p class="d">El depositante bloquea BTC en un vault cuyas rutas de gasto fueron prefirmadas por todos los operadores de la época.</p></div><span class="where where-public">En la cadena</span></li>
-      <li class="flow-item"><span class="n">02</span><div><p class="t">Control de entrada — opcional</p><p class="d">Si el activo designa un gatekeeper, este revisa el origen de los fondos y su propia vista de la cadena antes de liberar el mint. <b>Sin él no nace ningún zkBTC nuevo — y a los que ya existen no llega.</b></p></div><span class="where where-public">En la cadena</span></li>
-      <li class="flow-item"><span class="n">03</span><div><p class="t">Acuñar</p><p class="d">La moneda nace en el pool, ligada exactamente a la dirección de destino fijada de antemano. Redirigirla está descartado.</p></div><span class="where where-private">En el pool</span></li>
-      <li class="flow-item"><span class="n">04</span><div><p class="t">Transferir libremente</p><p class="d">A partir de aquí zkBTC es una moneda zkCoins ordinaria: pasarla cuantas veces se quiera, sin pedir permiso a nadie y sin que nadie lea por encima del hombro.</p></div><span class="where where-private">En el pool</span></li>
-      <li class="flow-item"><span class="n">05</span><div><p class="t">Anunciar el canje</p><p class="d">El tenedor quema la moneda e indica la comisión máxima que está dispuesto a pagar. <b>El gatekeeper no tiene ningún papel aquí.</b></p></div><span class="where where-private">En el pool</span></li>
-      <li class="flow-item"><span class="n">06</span><div><p class="t">Pagar</p><p class="d">Un operador registrado adelanta el BTC y se lo cobra del vault. Quién se encarga lo decide el mercado — el propio tenedor si hace falta.</p></div><span class="where where-public">En la cadena</span></li>
+      <li class="flow-item"><span class="n">01</span><div><p class="t">Depositar</p><p class="d">El depositante ingresa en una dirección de depósito. Solo cuando todos los operadores de la época han prefirmado las rutas de gasto pasa el BTC al vault — antes de eso, el depositante puede recuperarlo por la ruta de reembolso.</p></div><span class="where where-public">Legible en la cadena</span></li>
+      <li class="flow-item"><span class="n">02</span><div><p class="t">Control de entrada — opcional</p><p class="d">Si el activo designa un gatekeeper, este revisa el origen de los fondos, su propia vista de la cadena y si el conjunto de operadores de la época contiene al menos un firmante honesto independiente, antes de liberar el mint. <b>Sin él no nace ningún zkBTC nuevo — y a los que ya existen no llega.</b></p></div><span class="where where-public">Legible en la cadena</span></li>
+      <li class="flow-item"><span class="n">03</span><div><p class="t">Acuñar</p><p class="d">La moneda nace en el pool, ligada exactamente a la dirección de destino fijada de antemano. Redirigirla está descartado.</p></div><span class="where where-private">Solo un marcador de 64 bytes</span></li>
+      <li class="flow-item"><span class="n">04</span><div><p class="t">Transferir libremente</p><p class="d">A partir de aquí zkBTC es una moneda zkCoins ordinaria: pasarla cuantas veces se quiera, sin pedir permiso a nadie y sin que nadie lea por encima del hombro.</p></div><span class="where where-private">Solo un marcador de 64 bytes</span></li>
+      <li class="flow-item"><span class="n">05</span><div><p class="t">Anunciar el canje</p><p class="d">El tenedor quema la moneda e indica la comisión máxima que está dispuesto a pagar. <b>El gatekeeper no tiene ningún papel aquí.</b></p></div><span class="where where-private">Solo un marcador de 64 bytes</span></li>
+      <li class="flow-item"><span class="n">06</span><div><p class="t">Pagar</p><p class="d">Un operador registrado adelanta el BTC y se lo cobra del vault. Quién se encarga lo decide el mercado — también el propio tenedor, si se registró como operador y depositó un bond antes de la época.</p></div><span class="where where-public">Legible en la cadena</span></li>
     </ol>
   </section>
 
@@ -454,7 +459,7 @@
     <div class="band-head">
       <span class="eyebrow">Roles</span>
       <h2>Quién puede hacer qué</h2>
-      <p>La lista de la especificación, sin omisiones. Las filas que hablan son aquellas en las que nadie puede hacer nada.</p>
+      <p>Las filas portantes de la especificación. Las más elocuentes son aquellas en las que nadie puede actuar — y la que va justo debajo, que marca la diferencia entre «no puede» y «no quiere».</p>
     </div>
     <div class="matrix-wrap"><table class="matrix" aria-label="Lo que cada rol puede y no puede hacer bajo el estándar de token 3">
       <thead>
@@ -463,9 +468,9 @@
       <tbody>
         <tr><th scope="row">Rechazar un depósito nuevo</th>
           <td data-label="Gatekeeper"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sí</span></td>
-          <td data-label="Operador"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operador"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sí</span></td>
           <td data-label="Tenedor"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
-        <tr><th scope="row">Ver de dónde viene un depósito</th>
+        <tr><th scope="row">Ver los datos de identidad fuera de protocolo de un depositante</th>
           <td data-label="Gatekeeper"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sí</span></td>
           <td data-label="Operador"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
           <td data-label="Tenedor"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
@@ -477,9 +482,13 @@
           <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
           <td data-label="Operador"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
           <td data-label="Tenedor"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
-        <tr><th scope="row">Denegar o censurar un canje</th>
+        <tr><th scope="row">Bloquear un canje en el protocolo</th>
           <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
           <td data-label="Operador"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Tenedor"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
+        <tr><th scope="row">Dejar un canje sin atender</th>
+          <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
+          <td data-label="Operador"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sí</span></td>
           <td data-label="Tenedor"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td></tr>
         <tr><th scope="row">Redirigir un mint a otra dirección</th>
           <td data-label="Gatekeeper"><span class="mk mk-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>No</span></td>
@@ -498,7 +507,9 @@
           <td data-label="Operador"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sí</span></td>
           <td data-label="Tenedor"><span class="mk mk-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sí</span></td></tr>
       </tbody>
-    </table></div>
+    </table>
+    <p class="matrix-note"><b>«No puede» no es «no quiere».</b> Nadie puede bloquear un canje en el protocolo — pero la moneda se quema primero y queda sin atender hasta que algún operador registrado adelante el BTC dentro de la comisión máxima del tenedor. La especificación nombra este caso y lo clasifica bajo liveness, no bajo robo. Otras dos condiciones aplican a las filas de arriba: ningún operador puede vaciar el vault <i>mientras al menos un challenger honesto actúe dentro de la ventana y la criptografía del circuit y del grafo sea correcta</i>, y un tenedor solo puede adelantar un pago o registrarse como operador tras depositar un bond antes de la época.</p>
+    </div>
   </section>
 
   <hr class="hr" />
@@ -508,14 +519,14 @@
     <div class="band-head">
       <span class="eyebrow">Contado con honestidad</span>
       <h2>Costes y riesgos residuales</h2>
-      <p>Lo que la propia especificación señala como flancos abiertos. Quien evalúe zkBTC debería haber leído esta lista.</p>
+      <p>Los seis puntos con los que una valoración se topa primero. La especificación enumera doce — esta no es la lista completa, y la completa merece leerse.</p>
     </div>
     <div class="zkbtc-limits">
       <h3>Riesgos residuales</h3>
       <ul>
         <li><b>Garantías condicionales, no absolutas.</b> «Ningún operador puede robar» se sostiene bajo honestidad 1-of-N del setup, al menos un challenger honesto actuando dentro de la ventana de challenge, y criptografía correcta del circuit y del grafo BitVM2. Un bug de soundness crítico hace posible un robo real.</li>
         <li><b>Liveness, no custodia.</b> La salida necesita al menos un operador registrado activo, líquido y dispuesto a adelantar BTC. Un canje quema primero la moneda — una comisión demasiado baja la deja sin atender hasta que alguien se ocupe.</li>
-        <li><b>El gatekeeper es una concentración de confianza real.</b> En modo gated, un gatekeeper comprometido o negligente puede habilitar un drenaje del respaldo de toda la reserva agrupada.</li>
+        <li><b>El gatekeeper es una concentración de confianza real.</b> En modo gated, un gatekeeper comprometido o negligente puede habilitar un drenaje del respaldo de toda la reserva agrupada. Y si retiene su firma de mint <b>después</b> de que la transacción de respaldo se haya emitido, el BTC ya depositado en el vault se convierte en una aportación irrevocable a la reserva — una vía de pérdida del lado del depositante.</li>
         <li><b>Contagio del pool.</b> La reserva está agrupada y el token es fungible — un único vault vaciado diluye a todos los tenedores, no solo a la contraparte de un depósito.</li>
         <li><b>Los bordes son públicos.</b> Importes y momentos en el peg-in y el peg-out son observables y correlacionables, aunque las transferencias dentro del pool sigan protegidas.</li>
         <li><b>Quemado es quemado.</b> Sin security council y sin claves de administración, el peor caso bajo el modelo de confianza es un freeze o un burn de los depósitos afectados — posiblemente permanente.</li>
@@ -530,19 +541,19 @@
     <div class="band-head">
       <span class="eyebrow">Madurez</span>
       <h2>Lo que todavía falta</h2>
-      <p>La especificación nombra cuatro condiciones antes de que un activo pueda llamarse zkBTC. Una de ellas está cumplida.</p>
+      <p>La especificación nombra dos familias de gates que deben superarse ambas antes de que un activo pueda llamarse zkBTC: cuatro gates de madurez, uno de ellos cumplido, y cuatro gates REQ-4 que sostienen la propia garantía de canje.</p>
     </div>
     <p class="zkbtc-status">
       <span class="zkbtc-badge">Especificación de diseño</span>
-      <span>Todavía no existe código de implementación, el diseño no está auditado externamente y no está listo para producción. zkBTC es un proyecto plenamente elaborado — no un sistema en funcionamiento, y ningún bitcoin en juego.</span>
+      <span>Todavía no existe código de implementación, el diseño no está auditado externamente y no está listo para producción. zkBTC es un proyecto elaborado que nombra sus propias preguntas abiertas — la especificación enumera catorce, entre ellas una cota del lado del canje que aún no está mecanizada.</span>
     </p>
     <ul class="gates">
       <li class="gate done"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">BitVM2 corre en mainnet<span class="state state-done">Cumplido</span></p><p class="d">El bridge BitVM de Bitlayer desde julio de 2025, Clementine de Citrea desde enero de 2026. La construcción de la reserva ya no es investigación.</p></div></li>
       <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Mercado abierto de operadores<span class="state state-open">Abierto</span></p><p class="d">Bonding, ceremonia de registro y una política que impida que una sola parte domine una época.</p></div></li>
       <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Conversión del compliance predicate<span class="state state-open">Abierto</span></p><p class="d">El predicate de zkCoins tiene que llevarse a una forma que BitVM2 pueda verificar.</p></div></li>
-      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Auditoría externa<span class="state state-open">Abierto</span></p><p class="d">Circuit, grafo BitVM2 y grafos prefirmados, publicados antes del mainnet. Justo la clase de fallo que de otro modo haría posible un robo real.</p></div></li>
+      <li class="gate"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><div><p class="t">Auditoría externa<span class="state state-open">Abierto</span></p><p class="d">Circuit, grafo BitVM2 y grafos prefirmados, publicados antes del mainnet. Justo la clase de fallo que de otro modo haría posible un robo real — y una criptografía correcta del circuit y del grafo sigue siendo un supuesto permanente incluso tras la auditoría.</p></div></li>
     </ul>
-    <p class="gates-note"><strong>A esto se suman</strong> las cuatro condiciones de las que depende la propia garantía de canje. Mientras una sola de estas casillas siga vacía, zkBTC es una especificación y no un producto.</p>
+    <p class="gates-note"><strong>Siete de los ocho siguen abiertos.</strong> Junto a los cuatro gates de madurez de arriba hay cuatro gates REQ-4 — anti-dominación en el mercado de operadores, integridad de la ceremonia de prefirma, onboarding documentado de tenedor a operador y economía de los challengers. Mientras una casilla siga vacía, zkBTC es una especificación y no un producto.</p>
   </section>
 
   <hr class="hr" />
@@ -560,7 +571,7 @@
       </details>
       <details>
         <summary>¿zkBTC es custodial?</summary>
-        <p>No. La reserva está en vaults que solo pueden gastarse por rutas de fraud proof BitVM2 prefirmadas; no existe ninguna clave que permita moverla a voluntad. De lo que zkBTC sí depende es de la liveness: canjear necesita al menos un operador registrado activo, líquido y dispuesto a adelantar el BTC.</p>
+        <p>No. La reserva está en vaults que solo pueden gastarse por rutas de fraud proof BitVM2 prefirmadas; no existe clave alguna para moverla a voluntad. De lo que zkBTC sí depende es de la liveness — canjear necesita al menos un operador registrado activo, líquido y dispuesto. Y en modo gated depende de que el gatekeeper haga sus comprobaciones de entrada con honestidad: es una dependencia para la seguridad del respaldo, no solo para la disponibilidad.</p>
       </details>
       <details>
         <summary>¿Qué puede hacer realmente el gatekeeper?</summary>
@@ -568,15 +579,15 @@
       </details>
       <details>
         <summary>¿Cuán privado es zkBTC en realidad?</summary>
-        <p>Las transferencias dentro del shielded pool no revelan importes, ni partes, ni trazabilidad. El peg-in y el peg-out son eventos ordinarios de Bitcoin, así que los importes y los momentos en el borde son visibles y correlacionables. La privacidad es completa en medio y ausente en los bordes — la especificación lo dice sin rodeos en vez de adornarlo.</p>
+        <p>Las transferencias dentro del shielded pool no revelan importes, ni partes, ni trazabilidad — en la cadena cada una no deja más que un nullifier de 64 bytes. El peg-in y el peg-out son eventos ordinarios de Bitcoin, así que importes y momentos en el borde son visibles y correlacionables; y en cuanto un operador reclama su reembolso, ese marcador enlaza el canje con su pago. La especificación dice sin rodeos que zkCoins con bridge tiene menos privacidad que sin él.</p>
       </details>
       <details>
         <summary>¿Puedo usar zkBTC hoy?</summary>
-        <p>No. Antes deben cumplirse cuatro condiciones: BitVM2 en mainnet está hecho; siguen abiertos el mercado abierto de operadores, la conversión del compliance predicate y una auditoría externa del circuit y el grafo. Hasta entonces zkBTC es un diseño publicado, no un producto.</p>
+        <p>No. Primero deben superarse dos familias de gates. BitVM2 en mainnet está hecho; siguen abiertos el mercado de operadores, la conversión del compliance predicate, una auditoría externa del circuit y del grafo, y los cuatro gates REQ-4 que sostienen la garantía de canje. Hasta entonces zkBTC es un diseño publicado, no un producto.</p>
       </details>
       <details>
         <summary>¿zkBTC es una moneda nueva?</summary>
-        <p>No. zkBTC guarda Bitcoin real en proporción uno a uno; no es una moneda aparte ni un token nativo de protocolo. zkCoins deliberadamente no tiene ninguno. Lo que zkBTC añade es un estándar sobre cómo el bitcoin entra en el shielded pool y cómo cualquier tenedor lo saca de nuevo.</p>
+        <p>No. Cada zkBTC se acuña contra una cantidad igual de Bitcoin real bloqueada en ese momento; no es una moneda aparte ni un token nativo de protocolo. zkCoins deliberadamente no tiene ninguno. Que el respaldo se mantenga después es una propiedad condicional, no un invariante — las condiciones están en los riesgos residuales.</p>
       </details>
     </div>
   </section>

@@ -4,18 +4,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>zkCoins — Bitcoin privato via Shielded CSV</title>
-<meta name="description" content="zkCoins porta vera privacy a Bitcoin via Shielded CSV: importi, mittente, destinatario e cronologia restano off-chain, provati con zero-knowledge. Ogni trasferimento pubblica su Bitcoin solo un nullifier da ~64 byte — circa 16 vByte on-chain. Nessun soft fork, self-custodial. Basato sul paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068)." />
+<meta name="description" content="zkCoins porta vera privacy a Bitcoin tramite Shielded CSV: importi, mittente, destinatario e cronologia restano off-chain, provati in zero-knowledge. Ogni passo che fa avanzare lo stato pubblica solo un nullifier da ~64 byte su Bitcoin — circa 16 vByte marginali. Nessun soft fork, auto-custodia. Basato sul paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068)." />
 <meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.png" type="image/png" />
 <meta property="og:title" content="zkCoins — Bitcoin privato via Shielded CSV" />
-<meta property="og:description" content="Vera privacy per Bitcoin via Shielded CSV — i dati dei coin restano off-chain, con ogni trasferimento che pubblica su Bitcoin solo un nullifier da ~64 byte. Nessun soft fork, self-custodial." />
+<meta property="og:description" content="Vera privacy per Bitcoin tramite Shielded CSV — i dati del coin restano off-chain e ogni passo che fa avanzare lo stato pubblica solo un nullifier da ~64 byte su Bitcoin. Nessun soft fork, auto-custodia." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zkcoins.com/it/" />
 <meta property="og:image" content="https://zkcoins.com/favicon.png" />
+<meta property="og:image:alt" content="Marchio zkCoins — il monogramma pixel del brand" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@zkcoinsbtc" />
 <meta name="twitter:creator" content="@zkcoinsbtc" />
+<meta name="twitter:title" content="zkCoins — Bitcoin privato via Shielded CSV" />
+<meta name="twitter:description" content="Vera privacy per Bitcoin tramite Shielded CSV — i dati del coin restano off-chain e ogni passo che fa avanzare lo stato pubblica solo un nullifier da ~64 byte su Bitcoin. Nessun soft fork, auto-custodia." />
 <link rel="canonical" href="https://zkcoins.com/it/" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="author" content="zkCoins" />
@@ -72,7 +75,7 @@
       "@id": "https://zkcoins.com/#website",
       "url": "https://zkcoins.com/",
       "name": "zkCoins",
-      "description": "Transazioni Bitcoin private via Shielded CSV. I dati dei coin restano off-chain — ogni trasferimento pubblica su Bitcoin solo un nullifier da ~64 byte.",
+      "description": "Transazioni Bitcoin private tramite Shielded CSV. I dati del coin restano off-chain — ogni passo che fa avanzare lo stato pubblica solo un nullifier da ~64 byte su Bitcoin.",
       "inLanguage": [
         "en",
         "de",
@@ -91,7 +94,7 @@
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Web, iOS, Android (PWA)",
       "url": "https://zkcoins.app",
-      "description": "Wallet self-custodial per inviare e ricevere Bitcoin privato via il protocollo Shielded CSV. Le chiavi sono generate e memorizzate localmente nel browser.",
+      "description": "Wallet auto-custodiale per inviare e ricevere Bitcoin privati tramite il protocollo Shielded CSV. Seed e chiave di spesa sono generati e conservati localmente nel browser e non lasciano mai il dispositivo.",
       "isAccessibleForFree": true,
       "offers": {
         "@type": "Offer",
@@ -132,7 +135,7 @@
       "@id": "https://zkcoins.com/it/#webpage",
       "url": "https://zkcoins.com/it/",
       "name": "zkCoins — Bitcoin privato via Shielded CSV",
-      "description": "zkCoins porta vera privacy a Bitcoin via Shielded CSV: importi, mittente, destinatario e cronologia restano off-chain, provati con zero-knowledge. Ogni trasferimento pubblica su Bitcoin solo un nullifier da ~64 byte — circa 16 vByte on-chain. Nessun soft fork, self-custodial. Basato sul paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068).",
+      "description": "zkCoins porta vera privacy a Bitcoin tramite Shielded CSV: importi, mittente, destinatario e cronologia restano off-chain, provati in zero-knowledge. Ogni passo che fa avanzare lo stato pubblica solo un nullifier da ~64 byte su Bitcoin — circa 16 vByte marginali. Nessun soft fork, auto-custodia. Basato sul paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068).",
       "inLanguage": "it",
       "dateModified": "2026-08-10",
       "isPartOf": {
@@ -149,7 +152,7 @@
           "name": "Cos'è zkCoins?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "zkCoins è un wallet self-custodial per Shielded CSV, un protocollo di privacy per Bitcoin. Importi, mittente, destinatario e cronologia delle transazioni restano off-chain, provati con zero-knowledge e verificati client-side. Ogni trasferimento pubblica su Bitcoin solo un nullifier da ~64 byte."
+            "text": "zkCoins è un wallet auto-custodiale per Shielded CSV, un protocollo di privacy per Bitcoin. Importi, mittente, destinatario e cronologia restano off-chain, provati in zero-knowledge e verificati client-side. Ogni passo che fa avanzare lo stato — invio, ricezione, mint — pubblica un nullifier da ~64 byte su Bitcoin."
           }
         },
         {
@@ -173,7 +176,7 @@
           "name": "Come mantiene private le transazioni zkCoins?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ogni spend è provato con una zero-knowledge proof e condiviso off-chain. I dati dei coin — importi, parti e cronologia — non toccano mai Bitcoin; sulla chain viene pubblicato solo un nullifier da ~64 byte per trasferimento."
+            "text": "Ogni spesa è provata in zero-knowledge e condivisa off-chain. I dati del coin — importi, parti, cronologia — non toccano mai Bitcoin; sulla catena finisce solo un nullifier da ~64 byte per passo che fa avanzare lo stato. Un osservatore vede on-chain quante transizioni ci sono state per blocco, nulla di più."
           }
         },
         {
@@ -181,7 +184,7 @@
           "name": "zkCoins è self-custodial?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sì. Le chiavi sono generate e memorizzate localmente nel browser e non lasciano mai il tuo dispositivo. zkCoins è peer-to-peer, senza coordinator o custodian che possa congelare fondi o spegnere la rete."
+            "text": "Sì. Seed e chiave di spesa sono generati e conservati localmente e non lasciano mai il dispositivo — nessun nodo ottiene autorità di spesa. Per il proving deleghi a un nodo un bundle operativo separato e non abilitato alla spesa; auto-ospitarlo è la via trustless. Non c'è coordinator né custode; l'unico limite documentato è il prover che scegli tu — per questo la specifica dice di auto-ospitarlo o verificarlo."
           }
         },
         {
@@ -189,7 +192,7 @@
           "name": "Cos'è Shielded CSV?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Shielded CSV (Client-Side Validation) è un protocollo Bitcoin che preserva la privacy dal paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068). zkCoins v1 si basa direttamente su di esso: ogni trasferimento pubblica su Bitcoin un nullifier da ~64 byte, tutto il resto è verificato client-side."
+            "text": "Shielded CSV (Client-Side Validation) è un protocollo Bitcoin che preserva la privacy, dal paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068). zkCoins v1 vi si basa direttamente: ogni passo che fa avanzare lo stato pubblica un nullifier da ~64 byte su Bitcoin, tutto il resto è verificato client-side."
           }
         },
         {
@@ -197,7 +200,7 @@
           "name": "Il ruolo del publisher è davvero decentralizzato?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La pubblicazione è permissionless, e qualsiasi wallet può auto-pubblicare i propri trasferimenti su Bitcoin a costo banale — questo limita quanto può chiedere un publisher dominante. L'economia competitiva favorisce l'operatore più veloce e meglio capitalizzato, quindi una certa concentrazione è attesa. È solo un rischio di liveness: un publisher non detiene mai la custody e al massimo può censurare o ritardare un trasferimento, mai rubare o forgiare coin. Analisi completa sulla pagina Risks delle docs."
+            "text": "Il publishing è permissionless e senza contesa: ogni wallet può pubblicare da sé le proprie transizioni su Bitcoin, quindi non c'è alcuno slot di ordinamento da vincere né un unico scrittore sequenziale. In v1 il publishing è sponsorizzato — un publisher paga la fee Bitcoin dell'inscription che trasmette e non viene rimborsato; il protocollo non prevede fee, fee coin né ricavi. Se nessuno sponsorizza, il mittente paga da sé il costo dell'inscription. Un publisher non ha mai custodia e può al massimo censurare o ritardare, mai rubare o falsificare. Dettaglio completo nella pagina Rischi della documentazione."
           }
         },
         {
@@ -205,7 +208,7 @@
           "name": "Dove vivono i nullifier?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Su Bitcoin. Ogni trasferimento pubblica il proprio nullifier da ~64 byte direttamente sulla chain come firma semi-aggregata, così che Bitcoin stesso garantisca la disponibilità di ogni nullifier di cui un verifier ha bisogno per controllare i double-spend — nessun dato di batch off-chain e nessun layer di data-availability separato di cui fidarsi. I dati dei coin — importi, parti e cronologia — restano comunque off-chain, provati con zero-knowledge, e non sono mai necessari per ricostruire la vista pubblica dei double-spend."
+            "text": "Su Bitcoin. Ogni passo che fa avanzare lo stato pubblica il proprio nullifier da ~64 byte direttamente sulla catena come firma semi-aggregata, così Bitcoin stesso garantisce la disponibilità di ogni nullifier che un verificatore serve per i controlli di doppia spesa — nessun dato di batch off-chain e nessun layer di disponibilità separato per l'accumulatore. I dati del coin — importi, parti, cronologia — restano off-chain, provati in zero-knowledge, e non servono mai per ricostruire la vista pubblica delle doppie spese."
           }
         },
         {
@@ -213,7 +216,7 @@
           "name": "Che cos'è zkBTC?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "zkBTC è il token standard 3 del protocollo zkCoins: bloccare Bitcoin reale, tenerlo come coin privato e liberamente trasferibile e riscattarlo in BTC on-chain senza il permesso di una parte centrale. Un gatekeeper opzionale può controllare la provenienza dei nuovi depositi al momento del mint, ma non può mai congelare, sequestrare, bloccare o annullare coin, trasferimenti o uscite di nessuno. Oggi è una specifica di design — nessun codice di implementazione, non auditata, non pronta per la produzione."
+            "text": "zkBTC è progettato come token standard 3 del protocollo zkCoins — uno slot che la specifica riserva esplicitamente a standard futuri, mentre oggi sono gli standard 1 e 2 a essere definiti normativamente. Blocca Bitcoin reale e lo tiene come coin privato e liberamente trasferibile che ogni detentore può riscattare in BTC on-chain senza il permesso di una parte centrale. È una specifica di design — nessun codice di implementazione, non auditata, non pronta per la produzione."
           }
         }
       ]
@@ -275,8 +278,8 @@
   <!-- HERO -->
   <section class="hero">
     <span class="eyebrow">Bitcoin privato · Shielded CSV</span>
-    <h1>Pagamenti privati su Bitcoin<br><span class="accent">niente di leggibile on-chain</span></h1>
-    <p class="lede">zkCoins porta <b>vera privacy</b> a Bitcoin. Importi, mittente, destinatario e cronologia restano off-chain — provati con zero-knowledge, mentre ogni trasferimento pubblica su Bitcoin solo un <b>nullifier da ~64 byte</b>.</p>
+    <h1>Pagamenti privati su Bitcoin<br><span class="accent">nulla di leggibile on-chain</span></h1>
+    <p class="lede">zkCoins porta <b>vera privacy</b> a Bitcoin. Importi, mittente, destinatario e cronologia restano off-chain — provati in zero-knowledge, mentre ogni passo che fa avanzare lo stato pubblica solo un <b>nullifier da ~64 byte</b> su Bitcoin.</p>
     <div class="pillars">
       <span class="pill">Nessun soft fork</span>
       <span class="pill">Self-custodial</span>
@@ -320,13 +323,13 @@
         <div class="tx-foot">~16 vByte on-chain · dati dei coin off-chain</div>
       </div>
     </div>
-    <p class="compare-cap">I dati dei coin non toccano mai la chain. <b>Ogni trasferimento pubblica su Bitcoin un nullifier da ~64 byte — circa 16 vByte, contro ~140 di un trasferimento classico — costante indipendentemente da quanti coin muove.</b></p>
+    <p class="compare-cap">I dati del coin non toccano mai la catena. <b>Ogni passo che fa avanzare lo stato — invio, ricezione, mint — pubblica un nullifier da ~64 byte su Bitcoin: circa 16 vByte marginali contro ~140 per un trasferimento normale, e costante per quanti coin muova.</b></p>
   </section>
 
   <!-- PAPER (dominant) -->
   <section id="paper" style="padding-bottom: 8px;">
     <blockquote class="quote quote-lead">
-      <span lang="en">"Use the chain for what the chain is good for — an immutable ordering of commitments to prevent double-spending."</span>
+      <span lang="en">"Use the chain for what the chain is good for, which is an immutable ordering of commitments to prevent double-spending."</span>
       <cite>— Robin Linus, co-autore di Shielded CSV</cite>
     </blockquote>
     <article class="paper" aria-labelledby="paper-title">
@@ -348,7 +351,7 @@
       <p class="abstract">
         Client-Side Validation disaccoppia la validazione delle transazioni dal consensus Bitcoin spostandola al destinatario. Shielded CSV migliora i design CSV precedenti nascondendo del tutto la cronologia delle transazioni: ogni trasferimento lascia trapelare solo un nullifier di 64 byte sulla chain, il resto è verificato client-side tramite succinct zero-knowledge proof. Il protocollo è compatibile con Bitcoin as-is — nessun soft fork, nessun hard fork — e punta a circa un ordine di grandezza in più di transazioni al secondo rispetto alla sola base layer.
       </p>
-      <p class="paper-note"><b>zkCoins v1 si basa direttamente sul modello on-chain del paper:</b> ogni trasferimento pubblica il proprio nullifier da ~64 byte direttamente su Bitcoin come firma semi-aggregata, così che la chain stessa garantisca ogni nullifier di cui un verifier ha bisogno per i suoi controlli double-spend — nessun dato di batch off-chain, nessuna assunzione di data-availability. Circa 16 vByte on-chain per trasferimento, nell'ordine di ~100 transazioni al secondo.</p>
+      <p class="paper-note"><b>zkCoins v1 si basa direttamente sul modello on-chain del paper:</b> ogni passo che fa avanzare lo stato pubblica il proprio nullifier da ~64 byte direttamente su Bitcoin come firma semi-aggregata, così la catena stessa garantisce ogni nullifier che serve a un verificatore per i controlli di doppia spesa — nessun dato di batch off-chain e nessuna ipotesi di disponibilità per l'accumulatore. Circa 16 vByte marginali per passo, nell'ordine di ~100 transizioni di stato al secondo.</p>
 
       <div class="actions">
         <a class="btn btn-primary" href="https://eprint.iacr.org/2025/068.pdf">
@@ -365,13 +368,13 @@
     <div class="band-head">
       <span class="eyebrow">Cosa cambia Shielded CSV</span>
       <h2>Trasferimenti privati, un minuscolo nullifier su Bitcoin</h2>
-      <p>I dati dei coin restano off-chain. Ogni trasferimento pubblica su Bitcoin solo un nullifier da ~64 byte, provato con zero-knowledge — così privacy e piccola impronta on-chain vincono insieme.</p>
+      <p>I dati del coin restano off-chain. Ogni passo che fa avanzare lo stato pubblica solo un nullifier da ~64 byte su Bitcoin, provato in zero-knowledge — privacy e impronta on-chain ridotta vincono insieme.</p>
     </div>
     <div class="concepts">
       <div class="concept">
         <div class="k">Impronta on-chain</div>
         <div class="h">Un nullifier per trasferimento</div>
-        <p class="v">I dati dei coin non toccano mai la chain. Ogni trasferimento pubblica su Bitcoin un <b>nullifier da ~64 byte</b> — niente di leggibile su importi o parti.</p>
+        <p class="v">I dati del coin non toccano mai la catena. <b>Ogni passo che fa avanzare lo stato — invio, ricezione, mint — pubblica un nullifier da ~64 byte</b> su Bitcoin, e nulla di leggibile su importi o parti.</p>
       </div>
       <div class="concept">
         <div class="k">Grafo delle transazioni</div>
@@ -402,10 +405,10 @@
     </div>
     <ol class="steps">
       <li class="step"><span class="n">1</span><div class="body"><p class="t">Il mittente prova</p><p class="d">Il mittente crea un trasferimento e genera una succinct validity proof dell'intera cronologia del coin — dimensione costante, qualunque sia l'età del coin.</p></div></li>
-      <li class="step"><span class="n">2</span><div class="body"><p class="t">La proof va al destinatario</p><p class="d">La proof viaggia <b>direttamente al destinatario, off-chain</b>. Solo mittente e destinatario vedono importi, parti e cronologia — nessun importo o parte viene scritto sulla chain.</p></div></li>
-      <li class="step"><span class="n">3</span><div class="body"><p class="t">Il nullifier viene pubblicato su Bitcoin</p><p class="d">Il <b>nullifier da ~64 byte</b> del trasferimento viene pubblicato su Bitcoin come firma semi-aggregata. La pubblicazione è permissionless — qualsiasi wallet può auto-pubblicare — e la chain stessa conserva ogni nullifier di cui un verifier ha bisogno.</p></div></li>
-      <li class="step"><span class="n">4</span><div class="body"><p class="t">Il destinatario verifica client-side</p><p class="d">Il destinatario ri-verifica localmente la zero-knowledge proof completa del coin — un singolo controllo in tempo costante, qualunque sia la lunghezza della cronologia — e la accetta senza fidarsi di terze parti.</p></div></li>
-      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin previene i double-spend</p><p class="d">Bitcoin registra ogni nullifier in ordine canonico, e la prima occorrenza on-chain della state key di un coin seleziona la sua unica transizione valida. L'unico compito della chain: garantire che ogni coin sia speso <b>esattamente una volta</b> — senza bisogno di alcun dato off-chain.</p></div></li>
+      <li class="step"><span class="n">2</span><div class="body"><p class="t">La proof va al destinatario</p><p class="d">La prova va <b>direttamente al destinatario, off-chain</b>. Solo mittente e destinatario — e il nodo a cui affidano consapevolmente il testo in chiaro — vedono importi, parti e cronologia; nulla finisce sulla catena.</p></div></li>
+      <li class="step"><span class="n">3</span><div class="body"><p class="t">Il nullifier viene pubblicato su Bitcoin</p><p class="d">Ogni passo che fa avanzare lo stato pubblica il proprio <b>nullifier da ~64 byte</b> su Bitcoin come firma semi-aggregata — invio, ricezione e mint allo stesso modo. Il publishing è permissionless e senza contesa: ogni wallet può pubblicare da sé, e la catena contiene ogni nullifier che serve.</p></div></li>
+      <li class="step"><span class="n">4</span><div class="body"><p class="t">Il destinatario verifica client-side</p><p class="d">Il destinatario riverifica localmente la prova zero-knowledge completa del coin — un unico controllo a tempo costante, per quanto lunga sia la cronologia — e lo accredita quando il nullifier che lo ha creato è stabile su Bitcoin alla profondità standard di sei conferme.</p></div></li>
+      <li class="step"><span class="n">5</span><div class="body"><p class="t">Bitcoin previene i double-spend</p><p class="d">Bitcoin registra ogni nullifier in ordine canonico, e la prima occorrenza on-chain della <b>chiave di stato dell'account</b> di una transizione seleziona la sua unica transizione valida. L'unico compito della catena: garantire che ogni stato avanzi <b>esattamente una volta</b> — senza alcun dato off-chain.</p></div></li>
     </ol>
   </section>
 
@@ -425,7 +428,7 @@
         <tbody>
           <tr><td class="metric">Dati on-chain</td><td class="btc" data-label="Bitcoin (classico)">transazione completa (~140 vByte)</td><td class="zk" data-label="zkCoins v1"><b>nullifier da ~64 byte per trasferimento</b></td></tr>
           <tr><td class="metric">Costo per trasferimento</td><td class="btc" data-label="Bitcoin (classico)">~140 vByte</td><td class="zk" data-label="zkCoins v1"><b>~16 vByte per trasferimento</b></td></tr>
-          <tr><td class="metric">Privacy</td><td class="btc" data-label="Bitcoin (classico)">Nessuna — interamente pubblico</td><td class="zk" data-label="zkCoins v1"><b>Piena — niente di leggibile on-chain</b></td></tr>
+          <tr><td class="metric">Privacy</td><td class="btc" data-label="Bitcoin (classico)">Nessuna — interamente pubblico</td><td class="zk" data-label="zkCoins v1"><b>Piena verso l'osservatore della catena — pubblico è solo il numero di transizioni per blocco</b></td></tr>
           <tr><td class="metric">Verifica</td><td class="btc" data-label="Bitcoin (classico)">Script completo per tx</td><td class="zk" data-label="zkCoins v1">1× proof di trasferimento</td></tr>
           <tr><td class="metric">Dimensione proof</td><td class="btc" data-label="Bitcoin (classico)">N/A</td><td class="zk" data-label="zkCoins v1">Costante, indipendente dalla cronologia</td></tr>
         </tbody>
@@ -462,7 +465,7 @@
     </div>
     <p class="zkbtc-status">
       <span class="zkbtc-badge">Specifica di design</span>
-      <span>Non esiste ancora codice di implementazione, il design non è auditato esternamente e non è pronto per la produzione. zkBTC è un progetto interamente elaborato — non un sistema in funzione, e nessun bitcoin in gioco.</span>
+      <span>Non esiste ancora codice di implementazione, il design non è auditato esternamente e non è pronto per la produzione. zkBTC è un progetto elaborato che nomina da sé le proprie questioni aperte — la specifica ne elenca quattordici, tra cui un limite sul lato riscatto non ancora meccanizzato.</span>
     </p>
     <div class="concepts">
       <div class="concept">
@@ -478,7 +481,7 @@
       <div class="concept">
         <div class="k">Riscatto</div>
         <div class="h">Uscita senza il gatekeeper</div>
-        <p class="v">La riserva poggia su <b>BitVM2</b> — nessun multisig di federazione. L'uscita dipende solo dal fatto che almeno un operatore registrato sia attivo.</p>
+        <p class="v">La riserva poggia su <b>BitVM2</b> — nessun multisig di federazione. L'uscita richiede un operatore registrato attivo, <b>liquido e disponibile</b>, in un'epoca con capacità di vault residua.</p>
       </div>
       <div class="concept">
         <div class="k">Gatekeeper</div>
@@ -524,7 +527,7 @@
           <ul>
             <li><span class="what">Migrazione del circuit zero-knowledge.</span><span class="why">Portare il circuit di state-transition su un sistema di proving nativo per la ricorsione con un hash SNARK-friendly.</span></li>
             <li><span class="what">Proving lato server su hardware commodity.</span><span class="why">Target Apple Silicon single-host — nessuna farm GPU, nessun servizio di proving cloud. Il wallet detiene solo la private key.</span></li>
-            <li><span class="what">Confine wallet via BIP-340 Schnorr.</span><span class="why">Il wallet firma un digest SHA-256 dello state calcolato dal server. Nessuno zero-knowledge nel browser.</span></li>
+            <li><span class="what">Confine wallet via BIP-340 Schnorr.</span><span class="why">Il wallet firma una costante di protocollo fissa e lega il digest ProofData calcolato dal nodo nel nonce della firma via sign-to-contract. Nessun zero-knowledge nel browser.</span></li>
             <li><span class="what">Roundtrip end-to-end su signet.</span><span class="why">Creare account, mintare, inviare, ricevere — il loop utente completo gira su un testnet Bitcoin pubblico.</span></li>
           </ul>
         </div>
@@ -558,10 +561,10 @@
         <p class="phase-lede">Mint e burn contro BTC nativo senza fidarsi dell'issuer. Il più grande gap di fiducia lato utente si chiude qui.</p>
         <div class="phase-card">
           <ul>
-            <li><span class="what">Bridge in stile BitVM2 / Clementine.</span><span class="why">Modello di fiducia 1-of-N honesty. La stessa costruzione in esecuzione sul mainnet Citrea.</span></li>
+            <li><span class="what">Bridge BitVM2, onestà 1-of-n.</span><span class="why">Il bridge sta fuori dal protocollo. Un bridge BitVM 1-of-n è il modello di fiducia obiettivo; se tutti gli operatori barano, i fondi vengono bruciati anziché rubati.</span></li>
             <li><span class="what">Light client Bitcoin ricorsivo.</span><span class="why">Una succinct proof che un deposito è atterrato a profondità ≥ 6 nella chain canonica.</span></li>
             <li><span class="what">Ricorsione → wrapping Groth16.</span><span class="why">Portare le nostre proof adatte alla ricorsione in un verifier che Bitcoin script può controllare.</span></li>
-            <li><span class="what">Registrazione degli operatori aperta e permissionless.</span><span class="why">Chiunque può registrarsi per epoca di deposito con un bond — nessun insieme di operatori fisso o privilegiato, e un detentore può fare da agente di uscita per sé stesso.</span></li>
+            <li><span class="what">Modello degli operatori oltre una federazione di lancio.</span><span class="why">Una federazione N-of-M è il modello di lancio oggi documentato; una federazione può censurare e, alla sua soglia, colludere. Superarla è proprio lo scopo dell'obiettivo 1-of-n.</span></li>
             <li><span class="what">Run di integrazione su signet.</span><span class="why">Roundtrip completo peg-in / peg-out incluso uno scenario di operatore deliberatamente malevolo.</span></li>
           </ul>
         </div>
@@ -597,7 +600,7 @@
           <ul>
             <li><span class="what">Sistema di proving di nuova generazione.</span><span class="why">Portare su un field più piccolo con un hash più veloce una volta stabilizzato lo stack upstream. La struttura algoritmica resta.</span></li>
             <li><span class="what">Upgrade della costruzione del bridge.</span><span class="why">I successori drop-in di BitVM2 (Glock, Mosaic) riducono il costo di dispute on-chain di due ordini di grandezza. Il contract del circuit è invariato.</span></li>
-            <li><span class="what">Diversità dell'insieme di operatori.</span><span class="why">Allargare l'insieme degli operatori registrati con parti indipendenti finché l'onestà 1-of-N del setup non è un'ipotesi solida.</span></li>
+            <li><span class="what">Diversità dell'insieme di operatori.</span><span class="why">Allargare l'insieme di operatori con parti indipendenti finché l'ipotesi di onestà 1-of-n non sia solida.</span></li>
             <li><span class="what">Trusted setup del verifier del bridge.</span><span class="why">Una ceremony con 30–60 contributor sostituisce il set di parametri Groth16 mono-contributor usato per testare il verifier del bridge — le proof proprie di zkCoins sono trasparenti (FRI) e non richiedono setup.</span></li>
           </ul>
         </div>
@@ -672,7 +675,7 @@
     <div class="faq">
       <details>
         <summary>Cos'è zkCoins?</summary>
-        <p>zkCoins è un wallet self-custodial per Shielded CSV, un protocollo di privacy per Bitcoin. Importi, mittente, destinatario e cronologia delle transazioni restano off-chain, provati con zero-knowledge e verificati client-side. Ogni trasferimento pubblica su Bitcoin solo un nullifier da ~64 byte.</p>
+        <p>zkCoins è un wallet auto-custodiale per Shielded CSV, un protocollo di privacy per Bitcoin. Importi, mittente, destinatario e cronologia restano off-chain, provati in zero-knowledge e verificati client-side. Ogni passo che fa avanzare lo stato — invio, ricezione, mint — pubblica un nullifier da ~64 byte su Bitcoin.</p>
       </details>
       <details>
         <summary>zkCoins è un nuovo token o altcoin?</summary>
@@ -684,27 +687,27 @@
       </details>
       <details>
         <summary>Come mantiene private le transazioni zkCoins?</summary>
-        <p>Ogni spend è provato con una zero-knowledge proof e condiviso off-chain. I dati dei coin — importi, parti e cronologia — non toccano mai Bitcoin; sulla chain viene pubblicato solo un nullifier da ~64 byte per trasferimento.</p>
+        <p>Ogni spesa è provata in zero-knowledge e condivisa off-chain. I dati del coin — importi, parti, cronologia — non toccano mai Bitcoin; sulla catena finisce solo un nullifier da ~64 byte per passo che fa avanzare lo stato. Un osservatore vede on-chain quante transizioni ci sono state per blocco, nulla di più.</p>
       </details>
       <details>
         <summary>zkCoins è self-custodial?</summary>
-        <p>Sì. Le chiavi sono generate e memorizzate localmente nel browser e non lasciano mai il tuo dispositivo. zkCoins è peer-to-peer, senza coordinator o custodian che possa congelare fondi o spegnere la rete.</p>
+        <p>Sì. Seed e chiave di spesa sono generati e conservati localmente e non lasciano mai il dispositivo — nessun nodo ottiene autorità di spesa. Per il proving deleghi a un nodo un bundle operativo separato e non abilitato alla spesa; auto-ospitarlo è la via trustless. Non c'è coordinator né custode; l'unico limite documentato è il prover che scegli tu — per questo la specifica dice di auto-ospitarlo o verificarlo.</p>
       </details>
       <details>
         <summary>Cos'è Shielded CSV?</summary>
-        <p>Shielded CSV (Client-Side Validation) è un protocollo Bitcoin che preserva la privacy dal paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068). zkCoins v1 si basa direttamente su di esso: ogni trasferimento pubblica su Bitcoin un nullifier da ~64 byte, tutto il resto è verificato client-side.</p>
+        <p>Shielded CSV (Client-Side Validation) è un protocollo Bitcoin che preserva la privacy, dal paper di Jonas Nick, Liam Eagen e Robin Linus (ePrint 2025/068). zkCoins v1 vi si basa direttamente: ogni passo che fa avanzare lo stato pubblica un nullifier da ~64 byte su Bitcoin, tutto il resto è verificato client-side.</p>
       </details>
       <details>
         <summary>Il ruolo del publisher è davvero decentralizzato?</summary>
-        <p>La pubblicazione è permissionless, e qualsiasi wallet può auto-pubblicare i propri trasferimenti su Bitcoin a costo banale — questo limita quanto può chiedere un publisher dominante. L'economia competitiva favorisce l'operatore più veloce e meglio capitalizzato, quindi una certa concentrazione è attesa. È solo un rischio di liveness: un publisher non detiene mai la custody e al massimo può censurare o ritardare un trasferimento, mai rubare o forgiare coin. Analisi completa sulla <a href="https://docs.zkcoins.com/risks">pagina Risks</a> delle docs.</p>
+        <p>Il publishing è permissionless e senza contesa: ogni wallet può pubblicare da sé le proprie transizioni su Bitcoin, quindi non c'è alcuno slot di ordinamento da vincere né un unico scrittore sequenziale. In v1 il publishing è sponsorizzato — un publisher paga la fee Bitcoin dell'inscription che trasmette e non viene rimborsato; il protocollo non prevede fee, fee coin né ricavi. Se nessuno sponsorizza, il mittente paga da sé il costo dell'inscription. Un publisher non ha mai custodia e può al massimo censurare o ritardare, mai rubare o falsificare. Dettaglio completo nella <a href="https://docs.zkcoins.com/risks">pagina Rischi</a> della documentazione.</p>
       </details>
       <details>
         <summary>Dove vivono i nullifier?</summary>
-        <p>Su Bitcoin. Ogni trasferimento pubblica il proprio nullifier da ~64 byte direttamente sulla chain come firma semi-aggregata, così che Bitcoin stesso garantisca la disponibilità di ogni nullifier di cui un verifier ha bisogno per controllare i double-spend — nessun dato di batch off-chain e nessun layer di data-availability separato di cui fidarsi. I dati dei coin — importi, parti e cronologia — restano comunque off-chain, provati con zero-knowledge, e non sono mai necessari per ricostruire la vista pubblica dei double-spend.</p>
+        <p>Su Bitcoin. Ogni passo che fa avanzare lo stato pubblica il proprio nullifier da ~64 byte direttamente sulla catena come firma semi-aggregata, così Bitcoin stesso garantisce la disponibilità di ogni nullifier che un verificatore serve per i controlli di doppia spesa — nessun dato di batch off-chain e nessun layer di disponibilità separato per l'accumulatore. I dati del coin — importi, parti, cronologia — restano off-chain, provati in zero-knowledge, e non servono mai per ricostruire la vista pubblica delle doppie spese.</p>
       </details>
       <details>
         <summary>Che cos'è zkBTC?</summary>
-        <p>zkBTC è il token standard 3 del protocollo zkCoins: bloccare Bitcoin reale, tenerlo come coin privato e liberamente trasferibile e riscattarlo in BTC on-chain senza il permesso di una parte centrale. Un gatekeeper opzionale può controllare la provenienza dei nuovi depositi al momento del mint, ma non può mai congelare, sequestrare, bloccare o annullare coin, trasferimenti o uscite di nessuno. Oggi è una <a href="https://github.com/zk-coins/zkbtc">specifica di design</a> — nessun codice di implementazione, non auditata, non pronta per la produzione.</p>
+        <p>zkBTC è progettato come token standard 3 del protocollo zkCoins — uno slot che la specifica riserva esplicitamente a standard futuri, mentre oggi sono gli standard 1 e 2 a essere definiti normativamente. Blocca Bitcoin reale e lo tiene come coin privato e liberamente trasferibile che ogni detentore può riscattare in BTC on-chain senza il permesso di una parte centrale. È una <a href="https://github.com/zk-coins/zkbtc">specifica di design</a> — nessun codice di implementazione, non auditata, non pronta per la produzione.</p>
       </details>
     </div>
   </section>
@@ -713,7 +716,7 @@
   <section class="band" style="padding-top:8px;">
     <div class="cta">
       <h2>Prova Bitcoin privato oggi</h2>
-      <p>Il wallet zkCoins gira nel browser. Le chiavi sono generate e memorizzate localmente — non lasciano mai il tuo dispositivo. Attualmente su una rete di test pubblica; nessun Bitcoin reale è a rischio.</p>
+      <p>Il wallet zkCoins gira nel tuo browser. Seed e chiave di spesa sono generati e conservati localmente — non lasciano mai il dispositivo. Attualmente su una rete di test pubblica; nessun Bitcoin reale è a rischio.</p>
       <div class="actions">
         <a class="btn btn-primary" href="https://zkcoins.app">
           Apri il wallet

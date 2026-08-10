@@ -137,8 +137,16 @@ ATTR_KEYS = frozenset(
         "zkbtc_stats_aria",
         "zkbtc_bc_aria",
         "zkbtc_roles_caption",
+        "og_image_alt",
     }
 )
+
+# Sitemap lastmod per page — hand-maintained, never datetime.now().
+# An auto-generated date would change every run and break i18n:check idempotency.
+SITEMAP_LASTMOD = {
+    "": "2026-08-10",  # home
+    "zkbtc": "2026-08-10",
+}
 
 # Shared chrome keys every page needs (nav, footer, JSON-LD core).
 _CHROME_REQUIRED = {
@@ -632,10 +640,12 @@ def build_sitemap() -> str:
     # Page-major order: all langs of page 1, then all langs of page 2, …
     for page in PAGES:
         slug = page["slug"]
+        lastmod = SITEMAP_LASTMOD[slug]
         for lang in LANGS:
             loc = url_for(lang["code"], slug)
             lines.append("  <url>")
             lines.append(f"    <loc>{loc}</loc>")
+            lines.append(f"    <lastmod>{lastmod}</lastmod>")
             for alt in LANGS:
                 lines.append(
                     f'    <xhtml:link rel="alternate" hreflang="{alt["hreflang"]}" '
