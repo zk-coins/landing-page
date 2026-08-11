@@ -3,7 +3,7 @@
   "meta_description": "zkCoins brings true privacy to Bitcoin via Shielded CSV: amounts, sender, receiver and history stay off-chain, proven with zero-knowledge. Every state-advancing step publishes only a ~64-byte nullifier to Bitcoin — about 16 vBytes marginal. No soft fork, self-custodial. Built on the paper by Jonas Nick, Liam Eagen and Robin Linus (ePrint 2025/068).",
   "og_title": "zkCoins — Private Bitcoin via Shielded CSV",
   "og_description": "True privacy for Bitcoin via Shielded CSV — coin data stays off-chain, with every state-advancing step publishing only a ~64-byte nullifier to Bitcoin. No soft fork, self-custodial.",
-  "og_image_alt": "zkCoins mark — the brand pixel monogram",
+  "og_image_alt": "zkCoins — private payments on Bitcoin, secured with zero-knowledge",
   "skip_to_content": "Skip to content",
   "brand_aria": "zkCoins home",
   "nav_aria": "Primary",
