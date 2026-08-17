@@ -174,7 +174,7 @@
   "phase03_status": "Geplant",
   "phase03_lede": "Mint und Burn gegen natives BTC, ohne dem Issuer zu vertrauen. Die größte user-facing Trust-Lücke schließt sich hier.",
   "phase03_i1_what": "BitVM2-Bridge, 1-of-n Honesty.",
-  "phase03_i1_why": "Die Brücke liegt ausserhalb des Protokolls. Ziel ist ein 1-of-n-BitVM2-Peg; Burn statt Diebstahl gilt nur bei 1-of-N-Setup-Ehrlichkeit, einem ehrlichen Challenger im Fenster und korrekter Circuit-/Graph-Krypto.",
+  "phase03_i1_why": "Die Bridge liegt außerhalb des Protokolls. Ziel ist ein 1-of-n-BitVM2-Peg; Burn statt Diebstahl gilt nur bei 1-of-N-Setup-Ehrlichkeit, einem ehrlichen Challenger im Fenster und korrekter Circuit-/Graph-Krypto.",
   "phase03_i2_what": "Rekursiver Bitcoin Light Client.",
   "phase03_i2_why": "Ein succinct Proof, dass ein Deposit bei Depth ≥ 6 in der kanonischen Chain gelandet ist.",
   "phase03_i3_what": "Rekursion → Groth16-Wrapping.",
