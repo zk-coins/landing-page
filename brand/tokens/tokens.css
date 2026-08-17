@@ -24,6 +24,7 @@
   --zk-border:  #2e2a26; /* hairline */
   --zk-border-strong: #3a352f;
   --zk-text-subtle: #78726a; /* non-essential, large only */
+  --zk-text-subtle-aa: #857f76; /* subtle text below 18px — WCAG AA on ground and cards */
   --zk-text-muted:  #a8a29a; /* secondary text */
   --zk-text-body:   #ece9e4; /* body copy */
   --zk-text-strong: #ffffff; /* headings */

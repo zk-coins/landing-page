@@ -15,7 +15,7 @@
   --strong: #ffffff; /* headings + the mark */
   --fg: #ece9e4; /* body — warm off-white, never dead grey */
   --muted: #a8a29a;
-  --faint: #857f76;
+  --faint: #857f76; /* = brand color.text.subtleAa — AA below 18px; brand `subtle` is large-only */
   --line: #2e2a26;
   --line-2: #221f1b;
   --paper-bg: rgba(247, 147, 26, 0.04);
