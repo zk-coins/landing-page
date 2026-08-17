@@ -22,6 +22,7 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 ├── zkbtc/                — zkBTC page (plus de/ fr/ it/ es/ variants)
 ├── styles.css            — Shared stylesheet
 ├── favicon.svg / .png    — zkCoins mark
+├── og.png / og-zkbtc.png — 1200×630 social cards
 ├── robots.txt            — crawler policy (AI answer engines welcome)
 ├── sitemap.xml           — all locales + xhtml:link alternates
 ├── llms.txt              — LLM-oriented site summary
@@ -39,7 +40,7 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 ```bash
 npm ci
 npm run serve
-# open http://127.0.0.1:4173  (also /de/, /fr/, /it/, /es/)
+# open http://127.0.0.1:4173  (also /de/, /fr/, /it/, /es/ and /zkbtc/ per locale)
 ```
 
 After editing locale strings:
