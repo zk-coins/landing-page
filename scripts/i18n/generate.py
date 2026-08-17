@@ -137,6 +137,10 @@ ATTR_KEYS = frozenset(
         "zkbtc_stats_aria",
         "zkbtc_bc_aria",
         "zkbtc_roles_caption",
+        "zkbtc_col_ability",
+        "zkbtc_col_gatekeeper",
+        "zkbtc_col_operator",
+        "zkbtc_col_holder",
         "og_image_alt",
     }
 )
