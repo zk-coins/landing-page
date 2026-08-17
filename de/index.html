@@ -558,11 +558,11 @@
           <span class="phase-when">Q4 2026</span>
           <span class="phase-status">Geplant</span>
         </div>
-        <p class="phase-lede">Mint und Burn gegen natives BTC, ohne dem Issuer zu vertrauen. Die größte user-facing Trust-Lücke schließt sich hier.</p>
+        <p class="phase-lede">Mint und Redeem gegen natives BTC über eine BitVM2-Reserve. Ein trust-minimierter gepoolter Peg braucht weiter einen Gatekeeper beim Mint und mindestens einen lebenden Operator beim Exit.</p>
         <div class="phase-card">
           <ul>
             <li><span class="what">BitVM2-Bridge, 1-of-n Honesty.</span><span class="why">Die Brücke liegt ausserhalb des Protokolls. Ziel ist ein 1-of-n-BitVM2-Peg; Burn statt Diebstahl gilt nur bei 1-of-N-Setup-Ehrlichkeit, einem ehrlichen Challenger im Fenster und korrekter Circuit-/Graph-Krypto.</span></li>
-            <li><span class="what">Rekursiver Bitcoin Light Client.</span><span class="why">Ein succinct Proof, dass ein Deposit bei Depth ≥ 6 in der kanonischen Chain gelandet ist.</span></li>
+            <li><span class="what">Rekursiver Bitcoin Light Client.</span><span class="why">Ein succinct Proof, dass MoveToBacked auf der bewiesenen Chain bei Depth ≥ D_mint bestätigt ist (rund 2016 Blöcke, nicht sechs) — der zkBTC-Mint-Horizont, nicht die Sechs-Block-Finalität gewöhnlicher zkCoins-Transfers.</span></li>
             <li><span class="what">Rekursion → Groth16-Wrapping.</span><span class="why">Unsere rekursionsfreundlichen Proofs in einen Verifier bringen, den Bitcoin Script prüfen kann.</span></li>
             <li><span class="what">Offene Operator-Registrierung.</span><span class="why">Start ist BitVM2 mit erlaubnisfreier Operator-Registrierung pro Epoche — kein Föderations-Multisig als Produktpfad. Liveness braucht weiter mindestens einen lebenden, liquiden Operator.</span></li>
             <li><span class="what">Signet-Integrationslauf.</span><span class="why">Vollständiger Peg-in- / Peg-out-Roundtrip inklusive bewusst bösartigem Operator-Szenario.</span></li>
@@ -599,7 +599,7 @@
         <div class="phase-card">
           <ul>
             <li><span class="what">Next-Generation-Proving-System.</span><span class="why">Port auf ein kleineres Field mit schnellerem Hash, sobald sich der Upstream-Stack stabilisiert hat. Algorithmische Struktur bleibt.</span></li>
-            <li><span class="what">Bridge-Construction-Upgrade.</span><span class="why">Drop-in-Nachfolger von BitVM2 (Glock, Mosaic) senken On-Chain-Dispute-Kosten um zwei Größenordnungen. Circuit-Contract unverändert.</span></li>
+            <li><span class="what">Bridge-Construction-Upgrade.</span><span class="why">Spätere Efficiency-Upgrades von BitVM2 (BitVM3/Mosaic behalten permissionless Challenge; Glock tauscht das gegen einen designated Verifier) können On-Chain-Dispute-Kosten senken. Sie sind keine Launch-Abhängigkeit.</span></li>
             <li><span class="what">Diversität des Operator-Satzes.</span><span class="why">Den Operator-Satz mit unabhängigen Parteien vergrößern, bis die 1-of-n-Ehrlichkeitsannahme belastbar ist.</span></li>
             <li><span class="what">Bridge-Verifier Trusted Setup.</span><span class="why">Eine Ceremony mit 30–60 Contributors ersetzt den Single-Contributor-Groth16-Parametersatz zum Testen des Bridge-Verifiers — zkCoins' eigene Proofs sind transparent (FRI) und brauchen kein Setup.</span></li>
           </ul>
