@@ -554,17 +554,17 @@
       <li class="phase planned">
         <div class="phase-head">
           <span class="phase-num">Phase 03</span>
-          <h3 class="phase-title">Trustless BTC bridge</h3>
+          <h3 class="phase-title">BitVM2 BTC peg</h3>
           <span class="phase-when">Q4 2026</span>
           <span class="phase-status">Planned</span>
         </div>
         <p class="phase-lede">Mint and burn against native BTC without trusting the issuer. The biggest user-facing trust gap closes here.</p>
         <div class="phase-card">
           <ul>
-            <li><span class="what">BitVM2 bridge, 1-of-n honesty.</span><span class="why">The bridge sits outside the protocol. A 1-of-n BitVM bridge is the target trust model; funds are burned rather than stolen if every operator cheats.</span></li>
+            <li><span class="what">BitVM2 bridge, 1-of-n honesty.</span><span class="why">The bridge sits outside the protocol. A 1-of-n BitVM2 peg is the target; burn-not-theft holds only under 1-of-N setup honesty, an in-window honest challenger, and sound circuit/graph crypto.</span></li>
             <li><span class="what">Recursive Bitcoin light client.</span><span class="why">A succinct proof that a deposit landed at depth ≥ 6 in the canonical chain.</span></li>
             <li><span class="what">Recursion → Groth16 wrapping.</span><span class="why">Bridge our recursion-friendly proofs into a verifier that Bitcoin script can check.</span></li>
-            <li><span class="what">Operator model beyond a launch federation.</span><span class="why">An N-of-M federation is the launch model documented today; a federation can censor and, at its threshold, collude. Moving beyond it is what the 1-of-n target is for.</span></li>
+            <li><span class="what">Open operator registration.</span><span class="why">Launch is BitVM2 with permissionless per-epoch operator registration — no federation-multisig product path. Liveness still needs at least one live, liquid operator.</span></li>
             <li><span class="what">Signet integration run.</span><span class="why">Full peg-in / peg-out roundtrip including a deliberately malicious operator scenario.</span></li>
           </ul>
         </div>
