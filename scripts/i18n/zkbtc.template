@@ -97,7 +97,7 @@
       <a class="btn btn-primary" href="https://github.com/zk-coins/zkbtc/blob/HEAD/whitepaper/zkbtc-whitepaper.pdf">{{zkbtc_cta_paper}}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
       </a>
-      <a class="btn btn-ghost" href="#reifegrad">{{zkbtc_cta_maturity}}</a>
+      <a class="btn btn-ghost" href="#maturity">{{zkbtc_cta_maturity}}</a>
     </div>
   </section>
 
@@ -177,7 +177,7 @@
   <hr class="hr" />
 
   <!-- PRIVACY VIZ -->
-  <section class="band" id="privatsphaere">
+  <section class="band" id="privacy">
     <div class="band-head">
       <span class="eyebrow">{{zkbtc_privacy_eyebrow}}</span>
       <h2>{{zkbtc_privacy_h2}}</h2>
@@ -211,7 +211,7 @@
   <hr class="hr" />
 
   <!-- FLOW -->
-  <section class="band" id="ablauf">
+  <section class="band" id="flow">
     <div class="band-head">
       <span class="eyebrow">{{zkbtc_flow_eyebrow}}</span>
       <h2>{{zkbtc_flow_h2}}</h2>
@@ -230,7 +230,7 @@
   <hr class="hr" />
 
   <!-- ROLES MATRIX -->
-  <section class="band" id="rollen">
+  <section class="band" id="roles">
     <div class="band-head">
       <span class="eyebrow">{{zkbtc_roles_eyebrow}}</span>
       <h2>{{zkbtc_roles_h2}}</h2>
@@ -290,7 +290,7 @@
   <hr class="hr" />
 
   <!-- RESIDUAL RISKS -->
-  <section class="band" id="risiken">
+  <section class="band" id="risks">
     <div class="band-head">
       <span class="eyebrow">{{zkbtc_risks_eyebrow}}</span>
       <h2>{{zkbtc_risks_h2}}</h2>
@@ -312,7 +312,7 @@
   <hr class="hr" />
 
   <!-- MATURITY GATES -->
-  <section class="band" id="reifegrad">
+  <section class="band" id="maturity">
     <div class="band-head">
       <span class="eyebrow">{{zkbtc_gates_eyebrow}}</span>
       <h2>{{zkbtc_gates_h2}}</h2>
