@@ -19,6 +19,7 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 .
 ├── index.html            — English home (default, x-default)
 ├── de/ fr/ it/ es/       — Localised homes
+├── zkbtc/                — zkBTC page (plus de/ fr/ it/ es/ variants)
 ├── styles.css            — Shared stylesheet
 ├── favicon.svg / .png    — zkCoins mark
 ├── robots.txt            — crawler policy (AI answer engines welcome)
@@ -26,7 +27,7 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 ├── llms.txt              — LLM-oriented site summary
 ├── .well-known/nostr.json — NIP-05 identity
 ├── brand/                — brand kit (logos, tokens)
-├── scripts/i18n/         — template + strings + generator (dev-only)
+├── scripts/i18n/         — templates + strings + generator (dev-only)
 ├── scripts/              — dev server + check/test tooling
 ├── tests/                — Playwright specs + committed screenshot baselines
 ├── test/                 — Vitest unit tests
