@@ -29,7 +29,7 @@
 - [Shielded CSV whitepaper — ePrint 2025/068](https://eprint.iacr.org/2025/068)
 - [ZeroSync prototype](https://github.com/ZeroSync/ZKCoins)
 - [Source code](https://github.com/zk-coins)
-- [zkBTC token standard](https://github.com/zk-coins/zkbtc): 1:1 BTC-backed, freely transferable, redeemable token on zkCoins (design specification)
+- [zkBTC token standard](https://github.com/zk-coins/zkbtc): BTC-backed, freely transferable, redeemable token on zkCoins (design specification — 1:1 at mint; circulating 1:1 is conditional)
 
 ## Community
 - [X / Twitter](https://x.com/zkcoinsbtc)
