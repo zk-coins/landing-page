@@ -18,20 +18,25 @@ ROOT = I18N_DIR.parents[1]
 ORIGIN = "https://zkcoins.com"
 
 # Wallet origin for CTAs and JSON-LD. The host is currently down, so
-# WALLET_LINKS_ENABLED stays False and hrefs are omitted (markup kept).
-# Flip the flag to restore every wallet link without rewriting the template.
+# WALLET_LINKS_ENABLED stays False and the CTA markup is HTML-commented
+# (not deleted). Flip the flag to restore every wallet link.
 WALLET_URL = "https://zkcoins.app"
 WALLET_LINKS_ENABLED = False
 
 
 def wallet_open(class_name: str = "") -> str:
-    """Open a wallet CTA. Href is omitted while WALLET_LINKS_ENABLED is False."""
+    """Open a wallet CTA, or start an HTML comment while the flag is False."""
     cls = f' class="{class_name}"' if class_name else ""
-    # Do not put WALLET_URL in HTML comments: lychee would still fetch it.
-    comment = "<!-- wallet CTA: href omitted while WALLET_LINKS_ENABLED is False -->"
     if WALLET_LINKS_ENABLED:
-        return f'{comment}<a{cls} href="{WALLET_URL}">'
-    return f'{comment}<a{cls} aria-disabled="true">'
+        return f'<a{cls} href="{WALLET_URL}">'
+    # Do not put WALLET_URL in the comment: lychee would still fetch it.
+    return "<!-- wallet CTA disabled\n"
+
+
+def wallet_close() -> str:
+    if WALLET_LINKS_ENABLED:
+        return "</a>"
+    return "-->"
 
 # Keep in sync with scripts/lib/i18n.mjs and the path lists in package.json
 # (the "i18n:check" and "validate:html" scripts).
@@ -557,7 +562,7 @@ def main() -> int:
         mapping["wallet_family_open"] = wallet_open("card")
         mapping["wallet_cta_open"] = wallet_open("btn btn-primary")
         mapping["wallet_footer_open"] = wallet_open()
-        mapping["wallet_close"] = "</a>"
+        mapping["wallet_close"] = wallet_close()
 
         def get_string(key: str) -> str:
             return jsonld_string(strings, code, key)
