@@ -17,6 +17,22 @@ I18N_DIR = Path(__file__).resolve().parent
 ROOT = I18N_DIR.parents[1]
 ORIGIN = "https://zkcoins.com"
 
+# Wallet origin for CTAs and JSON-LD. The host is currently down, so
+# WALLET_LINKS_ENABLED stays False and hrefs are omitted (markup kept).
+# Flip the flag to restore every wallet link without rewriting the template.
+WALLET_URL = "https://zkcoins.app"
+WALLET_LINKS_ENABLED = False
+
+
+def wallet_open(class_name: str = "") -> str:
+    """Open a wallet CTA. Href is omitted while WALLET_LINKS_ENABLED is False."""
+    cls = f' class="{class_name}"' if class_name else ""
+    # Do not put WALLET_URL in HTML comments: lychee would still fetch it.
+    comment = "<!-- wallet CTA: href omitted while WALLET_LINKS_ENABLED is False -->"
+    if WALLET_LINKS_ENABLED:
+        return f'{comment}<a{cls} href="{WALLET_URL}">'
+    return f'{comment}<a{cls} aria-disabled="true">'
+
 # Keep in sync with scripts/lib/i18n.mjs and the path lists in package.json
 # (the "i18n:check" and "validate:html" scripts).
 LANGS = [
@@ -357,7 +373,6 @@ def build_json_ld(
             "name": "zkCoins Wallet",
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Web, iOS, Android (PWA)",
-            "url": "https://zkcoins.app",
             "description": get_string("jsonld_wallet_description"),
             "isAccessibleForFree": True,
             "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
@@ -394,6 +409,11 @@ def build_json_ld(
             ],
         },
     ]
+    if WALLET_LINKS_ENABLED:
+        for node in graph:
+            if node.get("@id") == f"{ORIGIN}/#wallet":
+                node["url"] = WALLET_URL
+                break
     payload = {"@context": "https://schema.org", "@graph": graph}
     return json.dumps(payload, ensure_ascii=False, indent=2)
 
@@ -532,6 +552,12 @@ def main() -> int:
         mapping["lang_switcher"] = build_lang_switcher(
             code, strings["lang_switcher_aria"]
         )
+        mapping["wallet_nav_open"] = wallet_open("app-btn")
+        mapping["wallet_hero_open"] = wallet_open("btn btn-primary")
+        mapping["wallet_family_open"] = wallet_open("card")
+        mapping["wallet_cta_open"] = wallet_open("btn btn-primary")
+        mapping["wallet_footer_open"] = wallet_open()
+        mapping["wallet_close"] = "</a>"
 
         def get_string(key: str) -> str:
             return jsonld_string(strings, code, key)
