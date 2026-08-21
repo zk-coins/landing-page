@@ -118,6 +118,7 @@ ATTR_KEYS = frozenset(
         "meta_description",
         "og_title",
         "og_description",
+        "og_image_alt",
         "brand_aria",
         "nav_aria",
         "lang_switcher_aria",

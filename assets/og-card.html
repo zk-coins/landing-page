@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>zkCoins — Open Graph card source</title>
+  <style>
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'IBM Plex Sans';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('fonts/ibm-plex-sans-latin-600-normal.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'IBM Plex Sans';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('fonts/ibm-plex-sans-latin-700-normal.woff2') format('woff2');
+    }
+
+    body { margin: 0; background: #111; }
+
+    .card {
+      box-sizing: border-box;
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      padding: 84px 64px 68px;
+      display: flex;
+      flex-direction: column;
+      color: #ffffff;
+      background-color: #0a0a0a;
+      background-image: radial-gradient(1100px 700px at 50% -10%, rgba(168,106,31,.5), #120b04 78%);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 38px;
+      font-family: 'IBM Plex Mono','SF Mono',ui-monospace,Menlo,Consolas,monospace;
+    }
+
+    .brand-logo {
+      display: block;
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+      color: #f7931a;
+    }
+
+    .wordmark {
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .wordmark-zk { color: #f7931a; }
+    .wordmark-coins { color: #ffffff; }
+
+    .eyebrow {
+      margin-bottom: 28px;
+      color: #f7931a;
+      font-family: 'IBM Plex Mono','SF Mono',ui-monospace,Menlo,Consolas,monospace;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .headline {
+      margin-bottom: 36px;
+      font-family: 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    .headline-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .headline-primary { color: #ffffff; }
+    .headline-accent { color: #f7931a; }
+
+    .description {
+      color: #a8a29a;
+      font-family: 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .description-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: auto;
+      color: #857f76;
+      font-family: 'IBM Plex Mono','SF Mono',ui-monospace,Menlo,Consolas,monospace;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .footer-left {
+      letter-spacing: .03em;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .footer-right {
+      letter-spacing: .03em;
+      flex: 0 0 auto;
+      text-transform: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <!-- Rect sequence copied verbatim, not redrawn, from brand/logo/svg/zkcoins-symbol.svg.
+           The order of rows 5 and 6 distinguishes the Z from the obsolete mirrored S; preserve it when editing. -->
+      <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 12 12" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true">
+        <rect x="3" y="1" width="6" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/>
+        <rect x="2" y="3" width="8" height="1"/><rect x="2" y="4" width="2" height="1"/><rect x="8" y="4" width="2" height="1"/>
+        <rect x="2" y="5" width="4" height="1"/><rect x="8" y="5" width="2" height="1"/>
+        <rect x="2" y="6" width="2" height="1"/><rect x="6" y="6" width="4" height="1"/>
+        <rect x="2" y="7" width="2" height="1"/><rect x="8" y="7" width="2" height="1"/>
+        <rect x="2" y="8" width="8" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/>
+        <rect x="3" y="10" width="6" height="1"/>
+      </svg>
+      <div class="wordmark"><span class="wordmark-zk">zk</span><span class="wordmark-coins">Coins</span></div>
+    </div>
+
+    <div class="eyebrow"><span>—</span> A PROTOCOL ON BITCOIN · SHIELDED CSV</div>
+
+    <div class="headline">
+      <div class="headline-line headline-primary">Private payments on Bitcoin</div>
+      <div class="headline-line headline-accent">nothing legible on-chain</div>
+    </div>
+
+    <div class="description">
+      <div class="description-line">Amounts, sender, receiver and history stay off-chain —</div>
+      <div class="description-line">proven with zero-knowledge.</div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">NO SOFT FORK · SELF-CUSTODIAL · ZERO-KNOWLEDGE · NO COORDINATOR</div>
+      <div class="footer-right">zkcoins.com</div>
+    </div>
+  </div>
+</body>
+</html>

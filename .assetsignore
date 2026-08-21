@@ -2,9 +2,10 @@
 # Pages uploads the whole directory and does NOT honour .gitignore, so the test /
 # tooling assets must be listed here to keep them off the public CDN. The deployed
 # site is the static product: index.html, locale dirs (de/ fr/ it/ es/), styles.css,
-# favicon.*, robots.txt, sitemap.xml, llms.txt, .well-known/ and brand/.
+# favicon.*, og.png, robots.txt, sitemap.xml, llms.txt, .well-known/ and brand/.
 
 # Build / test / tooling
+assets/
 node_modules/
 scripts/
 test/

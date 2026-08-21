@@ -21,6 +21,8 @@ Static landing page for [zkcoins.com](https://zkcoins.com). Whitepaper-centric e
 ├── de/ fr/ it/ es/       — Localised homes
 ├── styles.css            — Shared stylesheet
 ├── favicon.svg / .png    — zkCoins mark
+├── og.png                — Open Graph preview card (1200×630), rendered from assets/
+├── assets/               — card source + the font cuts it needs (not deployed)
 ├── robots.txt            — crawler policy (AI answer engines welcome)
 ├── sitemap.xml           — all locales + xhtml:link alternates
 ├── llms.txt              — LLM-oriented site summary
