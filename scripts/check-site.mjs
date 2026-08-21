@@ -225,7 +225,9 @@ for (const lang of LANGS) {
   }
 
   const ogImage = extractOgImage(html);
-  if (ogImage !== null) {
+  if (ogImage === null) {
+    fail(`${rel}: missing <meta property="og:image">`);
+  } else {
     checkSameOriginHttps(`${rel}: og:image`, ogImage);
     const ref = classifyReference(ogImage, ORIGIN);
     if (ref.kind === 'internal' && !resolvesToFile(ref.pathname)) {

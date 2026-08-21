@@ -28,6 +28,31 @@ export async function blockExternalNoise(page) {
 export async function installVisualDeterminism(page) {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await blockExternalNoise(page);
+  // Scrollbar width in fullPage mode depends on viewport height and shifts
+  // text wrapping unless it is neutralised. addInitScript runs after the
+  // document is created but before <html>/<head> exist; appending then throws
+  // and the rule never lands. Wait for a parent, then inject — the script
+  // re-runs on every navigation of this page.
+  await page.addInitScript(() => {
+    const css = '::-webkit-scrollbar { width: 0; height: 0; } * { scrollbar-width: none; }';
+
+    const inject = () => {
+      const parent = document.head || document.documentElement;
+      if (!parent) return false;
+      if (document.getElementById('pw-scrollbar-neutral')) return true;
+      const style = document.createElement('style');
+      style.id = 'pw-scrollbar-neutral';
+      style.textContent = css;
+      parent.appendChild(style);
+      return true;
+    };
+
+    const observer = new MutationObserver(() => {
+      if (inject()) observer.disconnect();
+    });
+    observer.observe(document, { childList: true });
+    if (inject()) observer.disconnect();
+  });
 }
 
 // Interactive-state setup: expand every FAQ <details> so the shot captures each
